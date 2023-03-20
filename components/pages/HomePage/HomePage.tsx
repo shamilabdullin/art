@@ -1,11 +1,15 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '@/styles/Home.module.sass'
+import styles from './Home.module.sass'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { Collage } from '@/components/Collage'
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
-import { PaintingModel } from '@/types/Paintings'
+import { FormControl, InputLabel, MenuItem, Select, TextField, } from '@mui/material'
+import { Button } from '@mui/material'
+import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
+import { paintingsApi } from '@/api/paintings/paintings'
+import loading from '../../../public/loading.json'
+import Lottie from "lottie-react"
 
 const painting: PaintingModel = {
 	id: 0,
@@ -21,20 +25,68 @@ const painting: PaintingModel = {
 	exhibition_history: '',
 	place_of_origin: '',
 	provenance_text: '',
-	publication_history: ''
+	publication_history: '',
+	medium_display: ''
+}
+
+const queryPainting: PaintingQueryModel = {
+	api_link: '',
+	api_model: '',
+	id: 444,
+	is_boosted: false,
+	thumbnail: null,
+	timestamp: '',
+	title: '',
+	_score: 0
 }
 
 export default function HomePage() {  // { paintings }: any
 
 	const [paintings1, setPaintings] = useState([painting]);  //paintings.data
 	const [page, setPage] = useState('1')
+	const [isLoading, setIsLoading] = useState(false)
+	const [query, setQuery] = useState('')
+	const [queryPaintings, setQueryPaintings] = useState([queryPainting])
 
 	useEffect(() => {
-		fetch(`https://api.artic.edu/api/v1/artworks?page=${page}`)
-			.then(response => response.json())
-			.then(response => setPaintings(response.data))
+		setIsLoading(true)
+		paintingsApi.getPaintings(page)
+			.then(paintings => {
+				setPaintings(paintings.data)
+				setIsLoading(false)
+			})
 			
 	}, [page])
+
+	useEffect(() => {
+		if (queryPaintings.length > 1) {
+			setIsLoading(true)
+			const bufferPaintings: PaintingModel[] = []
+			for (const element of queryPaintings) {
+				paintingsApi.getPainting(element.id.toString())
+					.then(painting => {
+						bufferPaintings.push(painting.data)
+					})
+			}
+			console.log(bufferPaintings)
+			setPaintings(bufferPaintings)
+			setIsLoading(false)
+		}
+	}, [queryPaintings])
+
+	const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setQuery(event.target.value)
+	}
+
+	const handleQueryClick = (e: any) => {
+		setIsLoading(true)
+		console.log('click')
+		paintingsApi.getPaintingsQuery(query)
+			.then(paintings => {
+				setQueryPaintings(paintings.data)
+			})
+		setIsLoading(false)
+	}
 
 	return (
 		<>
@@ -45,29 +97,57 @@ export default function HomePage() {  // { paintings }: any
 			<link rel="icon" href="/favicon.ico" />
 		  </Head>
 		  <main className={styles.home_page}>
-			<div className={styles.container}>
-				<div className={styles.title}>
-					<h1 className={styles.title1}>Here you can see real Art</h1>
-					<h2 className={styles.title2}>We use artworks from Art Institute of Chicago</h2>
-				</div>
-				<div>
-				<FormControl className={styles.formControl}>
-					<InputLabel id="demo-simple-select-label">Page</InputLabel>
-					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						value={page}
-						label="Page"
-						onChange={e => setPage(e.target.value)}
-					>
-						<MenuItem value={'1'}>1</MenuItem>
-						<MenuItem value={'2'}>2</MenuItem>
-						<MenuItem value={'3'}>3</MenuItem>
-						<MenuItem value={'666'}>666</MenuItem>
-					</Select>
-					</FormControl>
-				</div>
-				{paintings1 ? <Collage paintings={paintings1} /> : <></>}
+			<div>
+				{isLoading ? 
+					<div className={styles.loadingContainer}>
+						<div className={styles.loading}>
+							<Lottie animationData={loading}></Lottie>
+						</div>
+					</div> :
+					<div className={styles.container}>
+						<div className={styles.title}>
+							<h1 className={styles.title1}>Here you can see real Art</h1>
+							<h2 className={styles.title2}>We use artworks from Art Institute of Chicago</h2>
+						</div>
+						<div>
+						<FormControl className={styles.formControl}>
+							<InputLabel id="demo-simple-select-label">Page</InputLabel>
+							<Select
+								labelId="demo-simple-select-label"
+								id="demo-simple-select"
+								value={page}
+								label="Page"
+								onChange={e => setPage(e.target.value)}
+							>
+								<MenuItem value={'1'}>1</MenuItem>
+								<MenuItem value={'2'}>2</MenuItem>
+								<MenuItem value={'3'}>3</MenuItem>
+								<MenuItem value={'4'}>4</MenuItem>
+								<MenuItem value={'5'}>5</MenuItem>
+								<MenuItem value={'6'}>6</MenuItem>
+								<MenuItem value={'666'}>666</MenuItem>
+							</Select>
+							</FormControl>
+						</div>
+						<div>
+							<FormControl>
+								<TextField 
+									size='small'
+									variant='outlined'
+									onChange={handleQueryChange}
+								/>
+							</FormControl>
+							<Button 
+								size='large' 
+								onClick={handleQueryClick}
+								type='button'
+							>
+								Search
+							</Button>
+						</div>
+						{paintings1 ? <Collage paintings={paintings1} /> : <></>}						
+					</div>
+				}
 			</div>
 		  </main>
 		</>

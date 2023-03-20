@@ -1,7 +1,55 @@
 @import "Styles/variables"
-	
+
+.container
+	max-width: 1170px
+	margin: auto
+
 .painting
-	margin-top: 150px
+	margin-top: 100px
 	text-align: center
 .title
 	margin-bottom: $spacing * 4
+
+.main
+	background-color: #f3f3f3
+	padding: 50px 0
+
+.paintingImg
+	margin-bottom: 10px
+
+.description
+	padding: 30px 0
+
+.description_table
+	padding: 40px 0
+	width: 600px
+	margin: 0 auto
+
+.cell
+	padding: 10px
+
+.description_table dt::before
+	content: ""
+	position: absolute
+	z-index: 1
+	left: 0
+	right: 0
+	// top: 0
+	height: 1px
+	background-color: #e6e6e6
+	width: 600px
+	margin: 0 auto
+
+.description_table dd 
+	margin-bottom: 10px
+
+.loadingContainer
+	display: flex
+	justify-content: center
+	align-items: center
+	width: 100vw
+	height: 100vh
+
+.loading
+	width: 100px
+	height: 100px

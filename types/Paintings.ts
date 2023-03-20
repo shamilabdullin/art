@@ -13,4 +13,16 @@ export type PaintingModel = {
 	place_of_origin: string;
 	provenance_text: string;
 	publication_history: string;
+	medium_display: string;
+}
+
+export type PaintingQueryModel = {
+	api_link: string;
+	api_model: string;
+	id: number;
+	is_boosted: boolean;
+	thumbnail: any;
+	timestamp: string;
+	title: string;
+	_score: number;
 }
