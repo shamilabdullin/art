@@ -3,14 +3,14 @@ import styles from './Painting.module.sass'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from "react"
 import { PaintingModel } from '@/types/Paintings'
-import { paintingsApi } from "@/api/paintings/paintings"
+import { paintingsApi } from "@/api/paintings"
 import loading from '../../../public/loading1.json'
 import Lottie from "lottie-react"
 
 const emptyPainting: PaintingModel = {
 	id: 0,
 	title: '',
-	image_id: 0,
+	image_id: '',
 	artist_title: '',
 	category_titles: [''],
 	classification_title: '',

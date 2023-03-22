@@ -13,6 +13,9 @@ export const Navbar = () => {
 		<Link href={'/paintings'} className={styles.link} >Paintings</Link>
 		</Button>
 		<Button bgcolor='black'>
+			<Link href={'/artists'} className={styles.link} >Artists</Link>
+		</Button>
+		<Button bgcolor='black'>
 			<Link href={'/aboutUs'} className={styles.link} >About us</Link>
 		</Button>
 	</nav>

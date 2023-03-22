@@ -7,7 +7,7 @@ import { Collage } from '@/components/Collage'
 import { FormControl, InputLabel, MenuItem, Select, TextField, } from '@mui/material'
 import { Button } from '@mui/material'
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
-import { paintingsApi } from '@/api/paintings/paintings'
+import { paintingsApi } from '@/api/paintings'
 import loading from '../../../public/loading.json'
 import Lottie from "lottie-react"
 
@@ -47,7 +47,6 @@ export default function HomePage() {  // { paintings }: any
 	const [isLoading, setIsLoading] = useState(false)
 	const [query, setQuery] = useState('')
 	const [queryPaintings, setQueryPaintings] = useState([queryPainting])
-	//const [bufferPaintings, setBufferPaintings] = useState <PaintingModel[]> ([])
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -71,12 +70,10 @@ export default function HomePage() {  // { paintings }: any
 					.then(res => {
 						if (i === 9) {
 							setPaintings(bufferPaintings)
+							setIsLoading(false)
 						}
-					})  // .then(res => setPaintings(bufferPaintings))
+					})
 			}
-			console.log(bufferPaintings)
-			// setPaintings(bufferPaintings)
-			setIsLoading(false)
 		}
 	}, [queryPaintings])
 
