@@ -1,7 +1,7 @@
 export type PaintingModel = {
 	id: number;
 	title: string;
-	image_id: number;
+	image_id: string;
 	artist_title: string;
 	category_titles: string[];
 	classification_title: string;

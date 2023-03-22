@@ -14,7 +14,7 @@ import Lottie from "lottie-react"
 const painting: PaintingModel = {
 	id: 0,
 	title: '',
-	image_id: 0,
+	image_id: '90bc0cec-0d4e-9af5-3912-52a082a428e5',
 	artist_title: '',
 	category_titles: [''],
 	classification_title: '',
@@ -42,11 +42,12 @@ const queryPainting: PaintingQueryModel = {
 
 export default function HomePage() {  // { paintings }: any
 
-	const [paintings1, setPaintings] = useState([painting]);  //paintings.data
+	const [paintings1, setPaintings] = useState <PaintingModel[]> ([]);  //paintings.data
 	const [page, setPage] = useState('1')
 	const [isLoading, setIsLoading] = useState(false)
 	const [query, setQuery] = useState('')
 	const [queryPaintings, setQueryPaintings] = useState([queryPainting])
+	//const [bufferPaintings, setBufferPaintings] = useState <PaintingModel[]> ([])
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -62,17 +63,26 @@ export default function HomePage() {  // { paintings }: any
 		if (queryPaintings.length > 1) {
 			setIsLoading(true)
 			const bufferPaintings: PaintingModel[] = []
-			for (const element of queryPaintings) {
-				paintingsApi.getPainting(element.id.toString())
+			for (let i = 0; i < queryPaintings.length; i++) {
+				paintingsApi.getPainting(queryPaintings[i].id.toString())
 					.then(painting => {
 						bufferPaintings.push(painting.data)
 					})
+					.then(res => {
+						if (i === 9) {
+							setPaintings(bufferPaintings)
+						}
+					})  // .then(res => setPaintings(bufferPaintings))
 			}
 			console.log(bufferPaintings)
-			setPaintings(bufferPaintings)
+			// setPaintings(bufferPaintings)
 			setIsLoading(false)
 		}
 	}, [queryPaintings])
+
+	useEffect(() => {
+
+	}, [])
 
 	const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setQuery(event.target.value)
@@ -145,7 +155,7 @@ export default function HomePage() {  // { paintings }: any
 								Search
 							</Button>
 						</div>
-						{paintings1 ? <Collage paintings={paintings1} /> : <></>}						
+						{paintings1[0] ? <Collage paintings={paintings1} /> : <></>}						
 					</div>
 				}
 			</div>
