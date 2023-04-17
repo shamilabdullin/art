@@ -19,7 +19,7 @@ export type PaintingModel = {
 export type PaintingQueryModel = {
 	api_link: string;
 	api_model: string;
-	id: number;
+	id: string;
 	is_boosted: boolean;
 	thumbnail: any;
 	timestamp: string;

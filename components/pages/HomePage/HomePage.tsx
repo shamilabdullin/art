@@ -10,6 +10,7 @@ import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
 import { paintingsApi } from '@/api/paintings'
 import loading from '../../../public/loading.json'
 import Lottie from "lottie-react"
+import { SearchBar } from './SearchBar'
 
 const painting: PaintingModel = {
 	id: 0,
@@ -32,7 +33,7 @@ const painting: PaintingModel = {
 const queryPainting: PaintingQueryModel = {
 	api_link: '',
 	api_model: '',
-	id: 444,
+	id: '444',
 	is_boosted: false,
 	thumbnail: null,
 	timestamp: '',
@@ -63,7 +64,7 @@ export default function HomePage() {  // { paintings }: any
 			setIsLoading(true)
 			const bufferPaintings: PaintingModel[] = []
 			for (let i = 0; i < queryPaintings.length; i++) {
-				paintingsApi.getPainting(queryPaintings[i].id.toString())
+				paintingsApi.getPainting(queryPaintings[i].id)  // .id.toString()
 					.then(painting => {
 						bufferPaintings.push(painting.data)
 					})
@@ -136,21 +137,8 @@ export default function HomePage() {  // { paintings }: any
 							</Select>
 							</FormControl>
 						</div>
-						<div>
-							<FormControl>
-								<TextField 
-									size='small'
-									variant='outlined'
-									onChange={handleQueryChange}
-								/>
-							</FormControl>
-							<Button 
-								size='large' 
-								onClick={handleQueryClick}
-								type='button'
-							>
-								Search
-							</Button>
+						<div className='search_bar'>
+							<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>
 						</div>
 						{paintings1[0] ? <Collage paintings={paintings1} /> : <></>}						
 					</div>
