@@ -18,29 +18,31 @@ export const ArtistsPage = () => {
 			.then(res => setIsLoading(false))
 	}, [])
 
-  return (
-	<div className={styles.artsts_page}>
-		<div className={styles.container}>
+  	return (
+  		<>
 			{isLoading ? 
 				<div className={styles.loading_container}>
 					<div className={styles.loading}>
 						<Lottie animationData={loading} />
 					</div>
 				</div>	:
-				<div className={styles.artists}>
-					<div className={styles.artists_title}>
-						<h1>Artists</h1>
-					</div>
-					<div className={styles.artists_list}>
-						{artists.map((artist) => (
-							<div key={artist.id}>
-								<Link href={`/artists/${artist.id}`}>{artist.title}</Link>
+				<div className={styles.artsts_page}>
+					<div className={styles.container}>
+						<div className={styles.artists}>
+							<div className={styles.artists_title}>
+								<h1>Artists</h1>
 							</div>
-						))}
+							<div className={styles.artists_list}>
+								{artists.map((artist) => (
+									<div key={artist.id}>
+										<Link href={`/artists/${artist.id}`} className={styles.artist}>{artist.title}</Link>
+									</div>
+								))}
+							</div>
+						</div>
 					</div>
 				</div>
 			}
-		</div>
-	</div>
-  )
+		</>
+  	)
 }

@@ -36,7 +36,7 @@ const Paintings = ({ paintings }:any) => {
 		<ul>
 			{data.map((painting: any) => 
 				<li key={painting.id}>
-					<Link href={`/paintings/${painting.id}`}>
+					<Link href={`/paintings/${painting.id}`} className={styles.painting}>
 						{painting.title}
 					</Link>
 				</li>

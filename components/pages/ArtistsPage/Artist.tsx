@@ -3,6 +3,8 @@ import styles from './ArtistPage.module.sass'
 import { paintingsApi } from '@/api/paintings'
 import { Collage } from '@/components/Collage'
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
+import loading from '../../../public/loading.json'
+import Lottie from "lottie-react"
 
 const queryPainting: PaintingQueryModel = {
 	api_link: '',
@@ -41,7 +43,8 @@ const Artist = () => {
 
 	useEffect(() => {
 		setIsLoading(true)
-		paintingsApi.getArtistsPaintings('Monet', '35809')  //'Monet', '35809'
+		const currentUrl = window.location.href.split('/')[4]
+		paintingsApi.getArtistsPaintings('', currentUrl)  //'Monet', '35809'
 			.then(artistPaintings => setArtistPaintings(artistPaintings.data))
 			// .then(res => setIsLoading(false))
 	}, [])
@@ -53,8 +56,8 @@ const Artist = () => {
 			paintingsApi.getPainting(id)
 				.then(painting => paintingsBuffer.push(painting.data))
 				.then(res => {
-					if (i === 5) {
-						console.log(paintingsBuffer.length)
+					if (i === 0) {
+						console.log(paintingsBuffer)
 						setPaintings(paintingsBuffer)
 						setIsLoading(false)
 					}
@@ -63,8 +66,17 @@ const Artist = () => {
 	}, [artistPaintings])
 
   return (
-	<div className={styles.container}>
-		<Collage paintings={paintings}/>
+	<div>
+		{isLoading ? 
+			<div className={styles.loadingContainer}>
+				<div className={styles.loading}>
+					<Lottie animationData={loading}></Lottie>
+				</div>
+			</div>	:
+			<div className={styles.container}>
+				<Collage paintings={paintings}/>
+			</div>
+		}
 	</div>
   )
 }

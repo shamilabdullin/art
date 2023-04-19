@@ -11,6 +11,7 @@ import { paintingsApi } from '@/api/paintings'
 import loading from '../../../public/loading.json'
 import Lottie from "lottie-react"
 import { SearchBar } from './SearchBar'
+import { PageController } from './PageController'
 
 const painting: PaintingModel = {
 	id: 0,
@@ -117,28 +118,13 @@ export default function HomePage() {  // { paintings }: any
 							<h1 className={styles.title1}>Here you can see real Art</h1>
 							<h2 className={styles.title2}>We use artworks from Art Institute of Chicago</h2>
 						</div>
-						<div>
-						<FormControl className={styles.formControl}>
-							<InputLabel id="demo-simple-select-label">Page</InputLabel>
-							<Select
-								labelId="demo-simple-select-label"
-								id="demo-simple-select"
-								value={page}
-								label="Page"
-								onChange={e => setPage(e.target.value)}
-							>
-								<MenuItem value={'1'}>1</MenuItem>
-								<MenuItem value={'2'}>2</MenuItem>
-								<MenuItem value={'3'}>3</MenuItem>
-								<MenuItem value={'4'}>4</MenuItem>
-								<MenuItem value={'5'}>5</MenuItem>
-								<MenuItem value={'6'}>6</MenuItem>
-								<MenuItem value={'666'}>666</MenuItem>
-							</Select>
-							</FormControl>
-						</div>
-						<div className='search_bar'>
-							<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>
+						<div className={styles.tools}>
+							<div>
+								{/* <PageController page={page} setPage={setPage}/> */}
+							</div>
+							<div className={styles.search_bar}>
+								<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>
+							</div>
 						</div>
 						{paintings1[0] ? <Collage paintings={paintings1} /> : <></>}						
 					</div>
