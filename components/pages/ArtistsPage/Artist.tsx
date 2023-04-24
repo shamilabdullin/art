@@ -73,8 +73,13 @@ const Artist = () => {
 					<Lottie animationData={loading}></Lottie>
 				</div>
 			</div>	:
-			<div className={styles.container}>
-				<Collage paintings={paintings}/>
+			<div className={styles.artist_page}>
+				<div className={styles.container}>
+					<div className={styles.artist_name}>
+						<h2>Artist name</h2>
+					</div>
+					<Collage paintings={paintings}/>
+				</div>
 			</div>
 		}
 	</div>

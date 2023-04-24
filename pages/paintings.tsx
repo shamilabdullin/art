@@ -2,48 +2,30 @@ import Link from 'next/link';
 import React, { useState } from 'react'
 import styles from '../styles/Paintings.module.sass'
 import Head from 'next/head';
+import PaintingsPage from '@/components/pages/Paintings/PaintingsPage';
 
-export async function getStaticProps() {
-	const response = await fetch('https://api.artic.edu/api/v1/artworks')
-	const paintings = await response.json()
-
-	if (!paintings) {
-		return {
-			notFound: true
-		}
-	}
-
-	return {
-		props: {
-			paintings
-		},
-	}
-}
-
-const Paintings = ({ paintings }:any) => {
-
-	const data = paintings.data
-	// console.log(data)
+const Paintings = () => {
 
   return (
-	<div className={styles.paintings_page}>
-		<Head>
-			<title>Paintings</title>
-		</Head>
-		<div className={styles.paintings_title}>
-			<h1>Paintings</h1>
-		</div>
-		<ul>
-			{data.map((painting: any) => 
-				<li key={painting.id}>
-					<Link href={`/paintings/${painting.id}`} className={styles.painting}>
-						{painting.title}
-					</Link>
-				</li>
-			)}
-		</ul>
-	</div>
+	<PaintingsPage />
   )
 }
 
 export default Paintings;
+
+// export async function getStaticProps() {
+// 	const response = await fetch('https://api.artic.edu/api/v1/artworks')
+// 	const paintings = await response.json()
+
+// 	if (!paintings) {
+// 		return {
+// 			notFound: true
+// 		}
+// 	}
+
+// 	return {
+// 		props: {
+// 			paintings
+// 		},
+// 	}
+// }

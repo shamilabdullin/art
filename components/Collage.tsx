@@ -23,7 +23,7 @@ export const Collage = ({ paintings, queryPaintings }:CollageProps ) => {
 				{collagePaintings.map((painting) => (
 					<div key={painting.id} className={styles.painting}>
 						<Link href={`/paintings/${painting.id}`}>
-							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} width={250} className={styles.contain}/>
+							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} width={250} height={300} className={styles.contain}/>
 							<p><strong>{painting.title} {painting.date_end}</strong></p>
 							<p>{painting.artist_title}</p>
 						</Link>

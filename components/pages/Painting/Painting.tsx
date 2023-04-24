@@ -57,8 +57,8 @@ export default function Painting() {
 						<h1>{painting.title}</h1>
 					</div>
 					<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} height={"500"} className={styles.paintingImg}></img>
-					<p>{painting.date_start} - {painting.date_end}</p>
-					<p>{painting.artist_title}</p>
+					<p className={styles.dates}>{painting.date_start} - {painting.date_end}</p>
+					<p className={styles.author}>{painting.artist_title}</p>
 				</div>
 				<div className={styles.description}>
 					<dl className={styles.description_table}>
