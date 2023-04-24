@@ -11,7 +11,7 @@ import { paintingsApi } from '@/api/paintings'
 import loading from '../../../public/loading.json'
 import Lottie from "lottie-react"
 import { SearchBar } from './SearchBar'
-import { PageController } from './PageController'
+import { PageController } from '../../PageController'
 
 const painting: PaintingModel = {
 	id: 0,
@@ -49,12 +49,16 @@ export default function HomePage() {  // { paintings }: any
 	const [isLoading, setIsLoading] = useState(false)
 	const [query, setQuery] = useState('')
 	const [queryPaintings, setQueryPaintings] = useState([queryPainting])
+	const [pages, setPages] = useState('1')
 
 	useEffect(() => {
 		setIsLoading(true)
 		paintingsApi.getPaintings(page)
 			.then(paintings => {
 				setPaintings(paintings.data)
+				if (paintings.pagination) {
+					setPages(paintings.pagination.total_pages)
+				}
 				setIsLoading(false)
 			})
 			
@@ -78,10 +82,6 @@ export default function HomePage() {  // { paintings }: any
 			}
 		}
 	}, [queryPaintings])
-
-	useEffect(() => {
-
-	}, [])
 
 	const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setQuery(event.target.value)
@@ -120,7 +120,7 @@ export default function HomePage() {  // { paintings }: any
 						</div>
 						<div className={styles.tools}>
 							<div>
-								{/* <PageController page={page} setPage={setPage}/> */}
+								<PageController page={page} setPage={setPage} totalPages={pages}/>
 							</div>
 							<div className={styles.search_bar}>
 								<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>

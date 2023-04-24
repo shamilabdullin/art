@@ -5,18 +5,26 @@ import styles from './ArtistsPage.module.sass'
 import loading from '../../../public/loading1.json'
 import Lottie from "lottie-react"
 import Link from 'next/link'
+import { PageController } from '@/components/PageController'
 
 export const ArtistsPage = () => {
 
 	const [artists, setArtists] = useState <ArtistModel[]> ([])
 	const [isLoading, setIsLoading] = useState(false)
+	const [pages, setPages] = useState('1')
+	const [page, setPage] = useState('1')
 
 	useEffect(() => {
 		setIsLoading(true)
-		artistsApi.getArtists('1')
-			.then(artists => setArtists(artists.data))
+		artistsApi.getArtists(page)
+			.then(artists => {
+				setArtists(artists.data)
+				if (artists.pagination) {
+					setPages(artists.pagination.total_pages)
+				}
+			})
 			.then(res => setIsLoading(false))
-	}, [])
+	}, [page])
 
   	return (
   		<>
@@ -38,6 +46,9 @@ export const ArtistsPage = () => {
 										<Link href={`/artists/${artist.id}`} className={styles.artist}>{artist.title}</Link>
 									</div>
 								))}
+							</div>
+							<div className={styles.page_controller}>
+								<PageController page={page} totalPages={pages} setPage={setPage}/>
 							</div>
 						</div>
 					</div>
