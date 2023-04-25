@@ -14,6 +14,8 @@ export type PaintingModel = {
 	provenance_text: string;
 	publication_history: string;
 	medium_display: string;
+	artist_id?: string;
+	credit_line?: string;
 }
 
 export type PaintingQueryModel = {

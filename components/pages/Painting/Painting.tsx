@@ -8,6 +8,7 @@ import loading from '../../../public/loading1.json'
 import Lottie from "lottie-react"
 import noImg from 'public/no_img.svg'
 import Image from 'next/image'
+import Link from "next/link"
 
 // CSS
 import styles from './Painting.module.sass'
@@ -66,21 +67,25 @@ export default function Painting() {
 						:
 						<Image src={noImg} height={"500"} className={styles.paintingImg} alt={painting.title} /> 
 					}
-					<p className={styles.dates}>{painting.date_start} - {painting.date_end}</p>
-					<p className={styles.author}>{painting.artist_title}</p>
+					<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? painting.date_start + ' - ' + painting.date_end : 'No date' }</h3>
+					<h3 className={styles.author}><Link href={`/artists/${painting.artist_id}`}>{painting.artist_title}</Link></h3>
 				</div>
 				<div className={styles.description}>
 					<dl className={styles.description_table}>
 						<dt><h4>Artist</h4></dt>
-						<dd><span>{painting.artist_title}</span></dd>
+						<dd><span>{painting.artist_title ? <Link href={`/artists/${painting.artist_id}`}>{painting.artist_title}</Link> : '-'}</span></dd>
 						<dt><h4>Title</h4></dt>
-						<dd><span>{painting.title}</span></dd>
+						<dd><span>{painting.title ? painting.title : '-'}</span></dd>
 						<dt><h4>Place</h4></dt>
-						<dd><span>{painting.place_of_origin}</span></dd>
+						<dd><span>{painting.place_of_origin ? painting.place_of_origin : '-'}</span></dd>
 						<dt><h4>Date</h4></dt>
-						<dd><span>{painting.date_end}</span></dd>
+						<dd><span>{painting.date_end ?? '-'}</span></dd>
 						<dt><h4>Medium</h4></dt>
-						<dd><span>{painting.medium_display}</span></dd>
+						<dd><span>{painting.medium_display ?? '-'}</span></dd>
+						<dt><h4>Dimensions</h4></dt>
+						<dd><span>{painting.dimensions ?? '-'}</span></dd>
+						<dt><h4>Credit line</h4></dt>
+						<dd><span>{painting.credit_line ?? '-'}</span></dd>
 					</dl>
 				</div>
 			</div>
