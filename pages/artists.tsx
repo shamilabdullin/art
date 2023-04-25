@@ -1,5 +1,7 @@
-import { ArtistsPage } from '@/components/pages/ArtistsPage'
 import React from 'react'
+
+// Components
+import { ArtistsPage } from '@/components/pages/ArtistsPage'
 
 const Artists = () => {
   return (

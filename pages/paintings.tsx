@@ -1,7 +1,6 @@
-import Link from 'next/link';
 import React, { useState } from 'react'
-import styles from '../styles/Paintings.module.sass'
-import Head from 'next/head';
+
+// Components
 import PaintingsPage from '@/components/pages/Paintings/PaintingsPage';
 
 const Paintings = () => {

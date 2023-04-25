@@ -1,7 +1,11 @@
 import React, { SetStateAction } from 'react'
-import { FormControl, InputLabel, MenuItem, Select, TextField, } from '@mui/material'
-import styles from './styles/PageController.module.sass'
+
+// Stores, utils, libs
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
+
+// CSS
+import styles from './styles/PageController.module.sass'
 
 type PageControllerProps = {
 	page: string;

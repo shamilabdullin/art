@@ -1,11 +1,16 @@
+import { useEffect, useState } from "react"
+
+// Stores, utils, libs
 import { useRouter } from "next/router"
-import styles from './Painting.module.sass'
-import Image from 'next/image'
-import { useEffect, useMemo, useState } from "react"
 import { PaintingModel } from '@/types/Paintings'
 import { paintingsApi } from "@/api/paintings"
 import loading from '../../../public/loading1.json'
 import Lottie from "lottie-react"
+import noImg from 'public/no_img.svg'
+import Image from 'next/image'
+
+// CSS
+import styles from './Painting.module.sass'
 
 const emptyPainting: PaintingModel = {
 	id: 0,
@@ -56,7 +61,11 @@ export default function Painting() {
 					<div className={styles.title}>
 						<h1>{painting.title}</h1>
 					</div>
-					<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} height={"500"} className={styles.paintingImg}></img>
+					{painting.image_id ? 
+						<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} height={"500"} className={styles.paintingImg}></img>
+						:
+						<Image src={noImg} height={"500"} className={styles.paintingImg} alt={painting.title} /> 
+					}
 					<p className={styles.dates}>{painting.date_start} - {painting.date_end}</p>
 					<p className={styles.author}>{painting.artist_title}</p>
 				</div>

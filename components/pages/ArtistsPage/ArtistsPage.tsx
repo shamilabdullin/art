@@ -1,11 +1,17 @@
+import React, { useEffect, useState } from 'react'
+
+// Components
+import { PageController } from '@/components/PageController'
+
+// Stores, utils, libs
 import { artistsApi } from '@/api/artists'
 import { ArtistModel } from '@/types/Artists'
-import React, { useEffect, useState } from 'react'
-import styles from './ArtistsPage.module.sass'
 import loading from '../../../public/loading1.json'
 import Lottie from "lottie-react"
 import Link from 'next/link'
-import { PageController } from '@/components/PageController'
+
+// CSS
+import styles from './ArtistsPage.module.sass'
 
 export const ArtistsPage = () => {
 

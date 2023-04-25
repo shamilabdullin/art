@@ -1,17 +1,18 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from './Home.module.sass'
-import Link from 'next/link'
-import { ChangeEvent, useEffect, useState } from 'react'
+// Components
 import { Collage } from '@/components/Collage'
-import { FormControl, InputLabel, MenuItem, Select, TextField, } from '@mui/material'
-import { Button } from '@mui/material'
+import { PageController } from '../../PageController'
+import { SearchBar } from './SearchBar'
+
+// Stores, utils, libs
+import Head from 'next/head'
+import { useEffect, useState } from 'react'
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
 import { paintingsApi } from '@/api/paintings'
 import loading from '../../../public/loading.json'
 import Lottie from "lottie-react"
-import { SearchBar } from './SearchBar'
-import { PageController } from '../../PageController'
+
+// CSS
+import styles from './Home.module.sass'
 
 const painting: PaintingModel = {
 	id: 0,

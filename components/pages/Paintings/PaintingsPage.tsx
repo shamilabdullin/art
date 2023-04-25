@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import styles from './PaintingsPage.module.sass'
+
+// Components
+import { PageController } from '@/components/PageController';
+
+// Stores, utils, libs
 import Head from 'next/head';
 import Link from 'next/link';
 import { paintingsApi } from '@/api/paintings';
 import loading from '../../../public/loading.json'
 import Lottie from "lottie-react"
-import { PageController } from '@/components/PageController';
+
+// CSS
+import styles from './PaintingsPage.module.sass'
 
 const PaintingsPage: React.FC = () => {
 

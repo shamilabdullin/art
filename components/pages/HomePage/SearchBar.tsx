@@ -1,5 +1,7 @@
 import React from 'react'
-import { FormControl, InputLabel, MenuItem, Select, TextField, } from '@mui/material'
+
+// Stores, utils, libs
+import { FormControl, TextField, } from '@mui/material'
 import { Button } from '@mui/material'
 
 type SearchBarProps = {

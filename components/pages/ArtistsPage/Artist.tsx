@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import styles from './ArtistPage.module.sass'
-import { paintingsApi } from '@/api/paintings'
+
+// Components
 import { Collage } from '@/components/Collage'
+
+// Stores, utils, libs
+import { paintingsApi } from '@/api/paintings'
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
 import loading from '../../../public/loading.json'
 import Lottie from "lottie-react"
+
+// CSS
+import styles from './ArtistPage.module.sass'
 
 const queryPainting: PaintingQueryModel = {
 	api_link: '',
@@ -45,18 +51,23 @@ const Artist = () => {
 		setIsLoading(true)
 		const currentUrl = window.location.href.split('/')[4]
 		paintingsApi.getArtistsPaintings('', currentUrl)  //'Monet', '35809'
-			.then(artistPaintings => setArtistPaintings(artistPaintings.data))
-			// .then(res => setIsLoading(false))
+			.then(res => {
+				setArtistPaintings(res.data)
+			})
+			.then(() => setIsLoading(false))
 	}, [])
 
 	useEffect(() => {
-		let paintingsBuffer: [PaintingModel] | any[] = new Array(artistPaintings.length)
-		for (let i = 0; i < paintingsBuffer.length; i++) {
+		let paintingsBuffer: PaintingModel[] | any[] = []
+		for (let i = 0; i < artistPaintings.length; i++) {
 			const id = artistPaintings[i].id
 			paintingsApi.getPainting(id)
-				.then(painting => paintingsBuffer.push(painting.data))
-				.then(res => {
-					if (i === 0) {
+				.then(painting => {
+					paintingsBuffer.push(painting.data)
+					console.log(paintingsBuffer, 'i = ' + i)
+				})
+				.then(() => {
+					if (i === artistPaintings.length - 1) {
 						console.log(paintingsBuffer)
 						setPaintings(paintingsBuffer)
 						setIsLoading(false)

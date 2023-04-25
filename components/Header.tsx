@@ -1,8 +1,12 @@
 import React from 'react'
-import styles from './styles/Header.module.sass'
+
+// Stores, utils, libs
 import { Navbar } from './Navbar'
 import Image from 'next/image'
 import Link from 'next/link'
+
+// CSS
+import styles from './styles/Header.module.sass'
 
 export const Header = () => {
   return (

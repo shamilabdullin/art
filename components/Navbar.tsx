@@ -1,7 +1,11 @@
 import React from 'react';
+
+// Stores, utils, libs
 import Link from 'next/link';
-import styles from './styles/Navbar.module.sass';
 import Button from './artUI/Button';
+
+// CSS
+import styles from './styles/Navbar.module.sass';
 
 export const Navbar = () => {
   return (
