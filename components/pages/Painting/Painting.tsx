@@ -9,6 +9,7 @@ import Lottie from "lottie-react"
 import noImg from 'public/no_img.svg'
 import Image from 'next/image'
 import Link from "next/link"
+import { useArtistStore } from "@/stateManagement/artistsStore"
 
 // CSS
 import styles from './Painting.module.sass'
@@ -36,6 +37,7 @@ export default function Painting() {
 	const [painting, setPainting] = useState(emptyPainting)
 	const [isLoading, setIsLoading] = useState(false)
 	const router = useRouter()
+	const addCurrentArtist = useArtistStore(state => state.addCurrentArtist)
 
 	useEffect(() => {
 		if (router.asPath !== router.route) {
@@ -68,12 +70,16 @@ export default function Painting() {
 						<Image src={noImg} height={"500"} className={styles.paintingImg} alt={painting.title} /> 
 					}
 					<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? painting.date_start + ' - ' + painting.date_end : 'No date' }</h3>
-					<h3 className={styles.author}><Link href={`/artists/${painting.artist_id}`}>{painting.artist_title}</Link></h3>
+					<h3 className={styles.author}>
+						<Link href={`/artists/${painting.artist_id}`} onClick={(e) => addCurrentArtist(e.currentTarget.text)}>{painting.artist_title}</Link>
+					</h3>
 				</div>
 				<div className={styles.description}>
 					<dl className={styles.description_table}>
 						<dt><h4>Artist</h4></dt>
-						<dd><span>{painting.artist_title ? <Link href={`/artists/${painting.artist_id}`}>{painting.artist_title}</Link> : '-'}</span></dd>
+						<dd><span>{painting.artist_title ? 
+							<Link href={`/artists/${painting.artist_id}`} onClick={(e) => addCurrentArtist(e.currentTarget.text)}>{painting.artist_title}</Link> : '-'}
+						</span></dd>
 						<dt><h4>Title</h4></dt>
 						<dd><span>{painting.title ? painting.title : '-'}</span></dd>
 						<dt><h4>Place</h4></dt>

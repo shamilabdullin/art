@@ -3,6 +3,11 @@ import React from 'react';
 // Stores, utils, libs
 import Link from 'next/link';
 import Button from './artUI/Button';
+import homeIcon from 'public/house-icon-light.svg'
+import Image from 'next/image';
+import brushIcon from 'public/brush-icon-light.svg'
+import artistIcon from 'public/artist-icon-light.svg'
+import questionIcon from 'public/question-icon-light.svg'
 
 // CSS
 import styles from './styles/Navbar.module.sass';
@@ -11,16 +16,28 @@ export const Navbar = () => {
   return (
 	<nav className={styles.navigation}>
 		<Button bgcolor='black'>
-			<Link href={'/'} className={styles.link} >Home</Link>
+			<Link href={'/'} className={styles.link} >
+				<Image src={homeIcon}  alt='homeIcon' height={20} className={styles.icon}/>
+				Home
+			</Link>
 		</Button>
 		<Button bgcolor='black'>
-		<Link href={'/paintings'} className={styles.link} >Paintings</Link>
+		<Link href={'/paintings'} className={styles.link} >
+			<Image src={brushIcon} alt='brushIcon' height={20} className={styles.icon} />
+			Paintings
+		</Link>
 		</Button>
 		<Button bgcolor='black'>
-			<Link href={'/artists'} className={styles.link} >Artists</Link>
+			<Link href={'/artists'} className={styles.link} >
+				<Image src={artistIcon} alt='artistIcon' height={20} className={styles.icon} />
+				Artists
+			</Link>
 		</Button>
 		<Button bgcolor='black'>
-			<Link href={'/aboutUs'} className={styles.link} >About us</Link>
+			<Link href={'/aboutUs'} className={styles.link} >
+				<Image src={questionIcon} alt='questionIcon' height={20} className={styles.icon} />
+				About us
+			</Link>
 		</Button>
 	</nav>
   )

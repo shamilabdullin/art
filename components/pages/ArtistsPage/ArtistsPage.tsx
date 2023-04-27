@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { MouseEventHandler, useEffect, useState } from 'react'
 
 // Components
 import { PageController } from '@/components/PageController'
@@ -12,6 +12,7 @@ import Link from 'next/link'
 
 // CSS
 import styles from './ArtistsPage.module.sass'
+import { useArtistStore } from '@/stateManagement/artistsStore'
 
 export const ArtistsPage = () => {
 
@@ -19,6 +20,7 @@ export const ArtistsPage = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [pages, setPages] = useState('1')
 	const [page, setPage] = useState('1')
+	const addCurrentArtist = useArtistStore(state => state.addCurrentArtist)
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -31,6 +33,10 @@ export const ArtistsPage = () => {
 			})
 			.then(res => setIsLoading(false))
 	}, [page])
+
+	const artistHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+		addCurrentArtist(e.currentTarget.text)
+	}
 
   	return (
   		<>
@@ -49,7 +55,7 @@ export const ArtistsPage = () => {
 							<div className={styles.artists_list}>
 								{artists.map((artist) => (
 									<div key={artist.id}>
-										<Link href={`/artists/${artist.id}`} className={styles.artist}>{artist.title}</Link>
+										<Link href={`/artists/${artist.id}`} className={styles.artist} onClick={artistHandler}>{artist.title}</Link>  {/*onClick={(e) => addCurrentArtist(e.currentTarget.text)*/}
 									</div>
 								))}
 							</div>

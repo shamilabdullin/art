@@ -11,6 +11,7 @@ import Lottie from "lottie-react"
 
 // CSS
 import styles from './ArtistPage.module.sass'
+import { useArtistStore } from '@/stateManagement/artistsStore'
 
 const queryPainting: PaintingQueryModel = {
 	api_link: '',
@@ -43,9 +44,10 @@ const painting: PaintingModel = {
 
 const Artist = () => {
 
-	const [artistPaintings, setArtistPaintings] = useState<PaintingQueryModel[]>([queryPainting])  // low model
+	const [artistPaintings, setArtistPaintings] = useState<PaintingQueryModel[]>([])  // queryPainting
 	const [isLoading, setIsLoading] = useState(false)
-	const [paintings, setPaintings] = useState<any[] | PaintingModel[]>([painting])
+	const [paintings, setPaintings] = useState<any[] | PaintingModel[]>([])  // painting
+	const currentArtist = useArtistStore(state => state.currentArtist)
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -54,7 +56,7 @@ const Artist = () => {
 			.then(res => {
 				setArtistPaintings(res.data)
 			})
-			.then(() => setIsLoading(false))
+			// .then(() => setIsLoading(false))
 	}, [])
 
 	useEffect(() => {
@@ -87,7 +89,8 @@ const Artist = () => {
 			<div className={styles.artist_page}>
 				<div className={styles.container}>
 					<div className={styles.artist_name}>
-						<h2>Artist name</h2>
+						{/* <h2>{paintings[0] ? paintings[0].artist_title : 'Artist title'}</h2> */}
+						<h2>{currentArtist === '' ? "Artist's title" : currentArtist}</h2>
 					</div>
 					<Collage paintings={paintings}/>
 				</div>
