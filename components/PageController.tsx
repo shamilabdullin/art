@@ -9,7 +9,7 @@ import styles from './styles/PageController.module.sass'
 
 type PageControllerProps = {
 	page: string;
-	setPage: (value: SetStateAction<string>) => void;
+	setPage: any;
 	totalPages: string;
 }
 

@@ -15,3 +15,12 @@ export type ArtistModel = {
 	ulan_id: any;
 	updated_at: string;
 }
+
+export type ArtistQueryModel = {
+	api_link: string;
+	api_model: string;
+	id: string;
+	timestamp: string;
+	title: string;
+	_score: string;
+}

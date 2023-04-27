@@ -66,11 +66,9 @@ const Artist = () => {
 			paintingsApi.getPainting(id)
 				.then(painting => {
 					paintingsBuffer.push(painting.data)
-					console.log(paintingsBuffer, 'i = ' + i)
 				})
 				.then(() => {
 					if (i === artistPaintings.length - 1) {
-						console.log(paintingsBuffer)
 						setPaintings(paintingsBuffer)
 						setIsLoading(false)
 					}

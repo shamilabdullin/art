@@ -1,7 +1,7 @@
 // Components
 import { Collage } from '@/components/Collage'
 import { PageController } from '../../PageController'
-import { SearchBar } from './SearchBar'
+import { SearchBar } from '../../SearchBar'
 
 // Stores, utils, libs
 import Head from 'next/head'
@@ -45,7 +45,7 @@ const queryPainting: PaintingQueryModel = {
 
 export default function HomePage() {  // { paintings }: any
 
-	const [paintings1, setPaintings] = useState <PaintingModel[]> ([]);  //paintings.data
+	const [paintings, setPaintings] = useState <PaintingModel[]> ([]);  //paintings.data
 	const [page, setPage] = useState('1')
 	const [isLoading, setIsLoading] = useState(false)
 	const [query, setQuery] = useState('')
@@ -74,7 +74,7 @@ export default function HomePage() {  // { paintings }: any
 					.then(painting => {
 						bufferPaintings.push(painting.data)
 					})
-					.then(res => {
+					.then(() => {
 						if (i === 9) {
 							setPaintings(bufferPaintings)
 							setIsLoading(false)
@@ -88,14 +88,13 @@ export default function HomePage() {  // { paintings }: any
 		setQuery(event.target.value)
 	}
 
-	const handleQueryClick = (e: any) => {
+	const handleQueryClick = () => {
 		setIsLoading(true)
-		console.log('click')
 		paintingsApi.getPaintingsQuery(query)
 			.then(paintings => {
 				setQueryPaintings(paintings.data)
 			})
-		setIsLoading(false)
+			.then(() => setIsLoading(false))
 	}
 
 	return (
@@ -127,7 +126,7 @@ export default function HomePage() {  // { paintings }: any
 								<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>
 							</div>
 						</div>
-						{paintings1[0] ? <Collage paintings={paintings1} /> : <></>}						
+						{paintings[0] ? <Collage paintings={paintings} /> : <></>}						
 					</div>
 				}
 			</div>

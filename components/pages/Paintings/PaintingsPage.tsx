@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // Components
 import { PageController } from '@/components/PageController';
+import { SearchBar } from '@/components/SearchBar';
 
 // Stores, utils, libs
 import Head from 'next/head';
@@ -9,16 +10,19 @@ import Link from 'next/link';
 import { paintingsApi } from '@/api/paintings';
 import loading from '../../../public/loading.json'
 import Lottie from "lottie-react"
+import { PaintingModel, PaintingQueryModel } from '@/types/Paintings';
 
 // CSS
 import styles from './PaintingsPage.module.sass'
 
 const PaintingsPage: React.FC = () => {
 
-	const [paintings, setPaintings] = useState([])
+	const [paintings, setPaintings] = useState<PaintingModel[]>([])
 	const [pages, setPages] = useState('1')
 	const [currentPage, setCurrentPage] = useState('1') 
 	const [isLoading, setIsLoading] = useState(false)
+	const [query, setQuery] = useState('')
+	const [queryPaintings, setQueryPaintings] = useState<PaintingQueryModel[]>([])
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -31,6 +35,38 @@ const PaintingsPage: React.FC = () => {
 			})
 			.then(() => setIsLoading(false))
 	}, [currentPage])
+
+	useEffect(() => {
+		if (queryPaintings.length > 1) {
+			setIsLoading(true)
+			const bufferPaintings: PaintingModel[] = []
+			for (let i = 0; i < queryPaintings.length; i++) {
+				paintingsApi.getPainting(queryPaintings[i].id)  // .id.toString()
+					.then(painting => {
+						bufferPaintings.push(painting.data)
+					})
+					.then(() => {
+						if (i === 9) {
+							setPaintings(bufferPaintings)
+							setIsLoading(false)
+						}
+					})
+			}
+		}
+	}, [queryPaintings])
+
+	const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setQuery(e.target.value)
+	}
+
+	const handleQueryClick = () => {
+		setIsLoading(true)
+		paintingsApi.getPaintingsQuery(query)
+		.then(paintings => {
+			setQueryPaintings(paintings.data)
+		})
+		.then(() => setIsLoading(false))
+	}
 
 	return (
 		<div>
@@ -57,6 +93,9 @@ const PaintingsPage: React.FC = () => {
 								</li>
 							)}
 						</ul>
+						<div className={styles.search_bar}>
+							<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>	
+						</div>
 						<div className={styles.page_controller}>
 							<PageController page={currentPage} totalPages={pages} setPage={setCurrentPage}/>
 						</div>

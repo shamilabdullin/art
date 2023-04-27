@@ -2,40 +2,80 @@ import React, { MouseEventHandler, useEffect, useState } from 'react'
 
 // Components
 import { PageController } from '@/components/PageController'
+import { SearchBar } from '@/components/SearchBar'
 
 // Stores, utils, libs
 import { artistsApi } from '@/api/artists'
-import { ArtistModel } from '@/types/Artists'
+import { ArtistModel, ArtistQueryModel } from '@/types/Artists'
 import loading from '../../../public/loading1.json'
 import Lottie from "lottie-react"
 import Link from 'next/link'
+import { useArtistStore, useArtistsStore } from '@/stateManagement/artistsStore'
+
 
 // CSS
 import styles from './ArtistsPage.module.sass'
-import { useArtistStore } from '@/stateManagement/artistsStore'
 
 export const ArtistsPage = () => {
 
-	const [artists, setArtists] = useState <ArtistModel[]> ([])
+	// const [artists, setArtists] = useState <ArtistModel[]> ([])
 	const [isLoading, setIsLoading] = useState(false)
 	const [pages, setPages] = useState('1')
-	const [page, setPage] = useState('1')
+	//const [currentPage, setCurrentPage] = useState('1')
 	const addCurrentArtist = useArtistStore(state => state.addCurrentArtist)
+	const [query, setQuery] = useState('')
+	const [queryArtists, setQueryArtists] = useState<ArtistQueryModel[]>([])
+	const artists = useArtistsStore(state => state.currentArtists)
+	const setArtists = useArtistsStore(state => state.changeCurrentArtists)
+	const currentPage = useArtistsStore(state => state.currentPage)
+	const setCurrentPage = useArtistsStore(state => state.setCurrentPage)
 
 	useEffect(() => {
 		setIsLoading(true)
-		artistsApi.getArtists(page)
+		artistsApi.getArtists(currentPage)
 			.then(artists => {
 				setArtists(artists.data)
 				if (artists.pagination) {
 					setPages(artists.pagination.total_pages)
 				}
 			})
-			.then(res => setIsLoading(false))
-	}, [page])
+			.then(() => setIsLoading(false))
+	}, [currentPage])
+
+	useEffect(() => {
+		if (queryArtists.length > 1) {
+			setIsLoading(true)
+			const bufferPaintings: ArtistModel[] = []
+			for (let i = 0; i < queryArtists.length; i++) {
+				artistsApi.getArtist(queryArtists[i].id)  // .id.toString()
+					.then(res => {
+						bufferPaintings.push(res.data)
+					})
+					.then(() => {
+						if (i === 9) {
+							setArtists(bufferPaintings)
+							setIsLoading(false)
+						}
+					})
+			}
+		}
+	}, [queryArtists])
 
 	const artistHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
 		addCurrentArtist(e.currentTarget.text)
+	}
+
+	const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setQuery(e.target.value)
+	}
+
+	const handleQueryClick = () => {
+		setIsLoading(true)
+		artistsApi.getArtistsQuery(query)
+			.then(res => {
+				setQueryArtists(res.data)
+			})
+			.then(() => setIsLoading(false))
 	}
 
   	return (
@@ -59,8 +99,11 @@ export const ArtistsPage = () => {
 									</div>
 								))}
 							</div>
+							<div className={styles.search_bar}>
+								<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>	
+							</div>
 							<div className={styles.page_controller}>
-								<PageController page={page} totalPages={pages} setPage={setPage}/>
+								<PageController page={currentPage} totalPages={pages} setPage={setCurrentPage}/>
 							</div>
 						</div>
 					</div>

@@ -23,6 +23,15 @@ export const SearchBar = ({handleQueryChange, handleQueryClick}: SearchBarProps)
 			size='large' 
 			onClick={handleQueryClick}
 			type='button'
+			variant='contained'
+			sx={{
+				backgroundColor: 'black',
+				marginLeft: '5px',
+				"&:hover" : {
+					backgroundColor: 'grey',
+					color: 'black'
+				}
+			}}
 		>
 			Search
 		</Button>

@@ -14,6 +14,11 @@ class ArtistsApi {
 			.then(response => response.json())
 	}
 
+	getArtistsQuery(query: string): Promise <ResponsiveData> {
+		return fetch(this.url + `search?q=${query}`)
+			.then(response => response.json())
+	}
+
 }
 
 export const artistsApi = new ArtistsApi()
