@@ -39,19 +39,14 @@ const PaintingsPage: React.FC = () => {
 	useEffect(() => {
 		if (queryPaintings.length > 1) {
 			setIsLoading(true)
-			const bufferPaintings: PaintingModel[] = []
-			for (let i = 0; i < queryPaintings.length; i++) {
-				paintingsApi.getPainting(queryPaintings[i].id)  // .id.toString()
-					.then(painting => {
-						bufferPaintings.push(painting.data)
-					})
-					.then(() => {
-						if (i === 9) {
-							setPaintings(bufferPaintings)
-							setIsLoading(false)
-						}
-					})
-			}
+			let ids = queryPaintings.map(queryPainting => queryPainting.id)
+			let requests = ids.map(id => paintingsApi.getPainting(id))
+			Promise.all(requests)
+				.then(res => {
+					const paintings = res.map(responsiveData => responsiveData.data)
+					setPaintings(paintings)
+					setIsLoading(false)
+				})
 		}
 	}, [queryPaintings])
 

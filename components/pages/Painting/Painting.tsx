@@ -65,9 +65,9 @@ export default function Painting() {
 						<h1>{painting.title}</h1>
 					</div>
 					{painting.image_id ? 
-						<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} height={"500"} className={styles.paintingImg}></img>
+						<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} height={"600"} className={styles.paintingImg}></img>
 						:
-						<Image src={noImg} height={"500"} className={styles.paintingImg} alt={painting.title} /> 
+						<Image src={noImg} height={"600"} className={styles.paintingImg} alt={painting.title} /> 
 					}
 					<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? painting.date_start + ' - ' + painting.date_end : 'No date' }</h3>
 					<h3 className={styles.author}>

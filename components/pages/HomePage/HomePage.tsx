@@ -68,19 +68,27 @@ export default function HomePage() {  // { paintings }: any
 	useEffect(() => {
 		if (queryPaintings.length > 1) {
 			setIsLoading(true)
-			const bufferPaintings: PaintingModel[] = []
-			for (let i = 0; i < queryPaintings.length; i++) {
-				paintingsApi.getPainting(queryPaintings[i].id)  // .id.toString()
-					.then(painting => {
-						bufferPaintings.push(painting.data)
-					})
-					.then(() => {
-						if (i === 9) {
-							setPaintings(bufferPaintings)
-							setIsLoading(false)
-						}
-					})
-			}
+			// const bufferPaintings: PaintingModel[] = []
+			// for (let i = 0; i < queryPaintings.length; i++) {
+			// 	paintingsApi.getPainting(queryPaintings[i].id)  // .id.toString()
+			// 		.then(painting => {
+			// 			bufferPaintings.push(painting.data)
+			// 		})
+			// 		.then(() => {
+			// 			if (i === 9) {
+			// 				setPaintings(bufferPaintings)
+			// 				setIsLoading(false)
+			// 			}
+			// 		})
+			// }
+			const ids = queryPaintings.map(queryPainting => queryPainting.id)
+			const request = ids.map(id => paintingsApi.getPainting(id))
+			Promise.all(request)
+				.then(res => {
+					const paintings = res.map(responsiveData => responsiveData.data)
+					setPaintings(paintings)
+					setIsLoading(false)
+				})
 		}
 	}, [queryPaintings])
 

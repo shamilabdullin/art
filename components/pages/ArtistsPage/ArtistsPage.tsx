@@ -45,19 +45,14 @@ export const ArtistsPage = () => {
 	useEffect(() => {
 		if (queryArtists.length > 1) {
 			setIsLoading(true)
-			const bufferPaintings: ArtistModel[] = []
-			for (let i = 0; i < queryArtists.length; i++) {
-				artistsApi.getArtist(queryArtists[i].id)  // .id.toString()
-					.then(res => {
-						bufferPaintings.push(res.data)
-					})
-					.then(() => {
-						if (i === 9) {
-							setArtists(bufferPaintings)
-							setIsLoading(false)
-						}
-					})
-			}
+			let ids = queryArtists.map(queryArtist => queryArtist.id)
+			let request = ids.map(id => artistsApi.getArtist(id))
+			Promise.all(request)
+				.then(res => {
+					const artists = res.map(responsiveData => responsiveData.data)
+					setArtists(artists)
+					setIsLoading(false)
+				})
 		}
 	}, [queryArtists])
 

@@ -12,6 +12,7 @@ import Lottie from "lottie-react"
 // CSS
 import styles from './ArtistPage.module.sass'
 import { useArtistStore } from '@/stateManagement/artistsStore'
+import { PageController } from '@/components/PageController'
 
 const queryPainting: PaintingQueryModel = {
 	api_link: '',
@@ -44,36 +45,31 @@ const painting: PaintingModel = {
 
 const Artist = () => {
 
-	const [artistPaintings, setArtistPaintings] = useState<PaintingQueryModel[]>([])  // queryPainting
+	const [artistPaintings, setArtistPaintings] = useState<PaintingQueryModel[]>([]) 
 	const [isLoading, setIsLoading] = useState(false)
-	const [paintings, setPaintings] = useState<any[] | PaintingModel[]>([])  // painting
+	const [paintings, setPaintings] = useState<any[] | PaintingModel[]>([])
 	const currentArtist = useArtistStore(state => state.currentArtist)
 
 	useEffect(() => {
 		setIsLoading(true)
 		const currentUrl = window.location.href.split('/')[4]
-		paintingsApi.getArtistsPaintings('', currentUrl)  //'Monet', '35809'
+		paintingsApi.getArtistsPaintings('', currentUrl)
 			.then(res => {
 				setArtistPaintings(res.data)
 			})
-			// .then(() => setIsLoading(false))
+			.then(() => setIsLoading(false))
 	}, [])
 
 	useEffect(() => {
-		let paintingsBuffer: PaintingModel[] | any[] = []
-		for (let i = 0; i < artistPaintings.length; i++) {
-			const id = artistPaintings[i].id
-			paintingsApi.getPainting(id)
-				.then(painting => {
-					paintingsBuffer.push(painting.data)
-				})
-				.then(() => {
-					if (i === artistPaintings.length - 1) {
-						setPaintings(paintingsBuffer)
-						setIsLoading(false)
-					}
-				})
-		}
+		setIsLoading(true)
+		let ids = artistPaintings.map(artistPainting => artistPainting.id)
+		let request = ids.map(id => paintingsApi.getPainting(id))
+		Promise.all(request)
+			.then(res => {
+				const paintings = res.map(responsiveData => responsiveData.data)
+				setPaintings(paintings)
+				setIsLoading(false)
+			})
 	}, [artistPaintings])
 
   return (
@@ -88,9 +84,10 @@ const Artist = () => {
 				<div className={styles.container}>
 					<div className={styles.artist_name}>
 						{/* <h2>{paintings[0] ? paintings[0].artist_title : 'Artist title'}</h2> */}
-						<h2>{currentArtist === '' ? "Artist's title" : currentArtist}</h2>
+						<h1>{currentArtist === '' ? "Artist's title" : currentArtist}</h1>
 					</div>
 					<Collage paintings={paintings}/>
+					{/* <PageController /> */}
 				</div>
 			</div>
 		}
