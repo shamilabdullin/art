@@ -119,7 +119,7 @@ export default function HomePage() {  // { paintings }: any
 							<h2 className={styles.title2}>We use artworks from Art Institute of Chicago</h2>
 						</div>
 						<div className={styles.tools}>
-							<div>
+							<div className={styles.page_controller}>
 								<PageController page={page} setPage={setPage} totalPages={pages}/>
 							</div>
 							<div className={styles.search_bar}>

@@ -14,7 +14,7 @@ export const Header = () => {
 		<Navbar />
 		<div className={styles.logo}>
 			<Link href='/'>
-				<Image src='/art-light.png' width={50} height={50} alt='Art' />
+				<Image src='/mona-liza.svg' width={50} height={50} alt='Art' />
 			</Link>
 		</div>
 	</header>

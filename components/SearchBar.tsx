@@ -15,8 +15,12 @@ export const SearchBar = ({handleQueryChange, handleQueryClick}: SearchBarProps)
 		<FormControl>
 			<TextField 
 				size='small'
-				variant='outlined'
 				onChange={handleQueryChange}
+				sx={{
+					"&:focus" : {
+						color: 'red'
+					}
+				}}
 			/>
 		</FormControl>
 		<Button 
