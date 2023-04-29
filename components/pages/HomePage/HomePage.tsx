@@ -2,6 +2,7 @@
 import { Collage } from '@/components/Collage'
 import { PageController } from '../../PageController'
 import { SearchBar } from '../../SearchBar'
+import { Loading } from '@/components/Loading'
 
 // Stores, utils, libs
 import Head from 'next/head'
@@ -45,7 +46,7 @@ const queryPainting: PaintingQueryModel = {
 
 export default function HomePage() {  // { paintings }: any
 
-	const [paintings, setPaintings] = useState <PaintingModel[]> ([]);  //paintings.data
+	const [paintings, setPaintings] = useState <PaintingModel[]> ([]);
 	const [page, setPage] = useState('1')
 	const [isLoading, setIsLoading] = useState(false)
 	const [query, setQuery] = useState('')
@@ -54,6 +55,7 @@ export default function HomePage() {  // { paintings }: any
 
 	useEffect(() => {
 		setIsLoading(true)
+		console.log('1 use')
 		paintingsApi.getPaintings(page)
 			.then(paintings => {
 				setPaintings(paintings.data)
@@ -68,25 +70,13 @@ export default function HomePage() {  // { paintings }: any
 	useEffect(() => {
 		if (queryPaintings.length > 1) {
 			setIsLoading(true)
-			// const bufferPaintings: PaintingModel[] = []
-			// for (let i = 0; i < queryPaintings.length; i++) {
-			// 	paintingsApi.getPainting(queryPaintings[i].id)  // .id.toString()
-			// 		.then(painting => {
-			// 			bufferPaintings.push(painting.data)
-			// 		})
-			// 		.then(() => {
-			// 			if (i === 9) {
-			// 				setPaintings(bufferPaintings)
-			// 				setIsLoading(false)
-			// 			}
-			// 		})
-			// }
 			const ids = queryPaintings.map(queryPainting => queryPainting.id)
 			const request = ids.map(id => paintingsApi.getPainting(id))
 			Promise.all(request)
 				.then(res => {
 					const paintings = res.map(responsiveData => responsiveData.data)
 					setPaintings(paintings)
+					console.log(123)
 					setIsLoading(false)
 				})
 		}
@@ -102,7 +92,6 @@ export default function HomePage() {  // { paintings }: any
 			.then(paintings => {
 				setQueryPaintings(paintings.data)
 			})
-			.then(() => setIsLoading(false))
 	}
 
 	return (
@@ -116,25 +105,21 @@ export default function HomePage() {  // { paintings }: any
 		  <main className={styles.home_page}>
 			<div>
 				{isLoading ? 
-					<div className={styles.loadingContainer}>
-						<div className={styles.loading}>
-							<Lottie animationData={loading}></Lottie>
-						</div>
-					</div> :
+					<Loading /> :
 					<div className={styles.container}>
 						<div className={styles.title}>
 							<h1 className={styles.title1}>Here you can see real Art</h1>
 							<h2 className={styles.title2}>We use artworks from Art Institute of Chicago</h2>
 						</div>
 						<div className={styles.tools}>
-							<div className={styles.page_controller}>
-								<PageController page={page} setPage={setPage} totalPages={pages}/>
-							</div>
 							<div className={styles.search_bar}>
 								<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>
 							</div>
 						</div>
-						{paintings[0] ? <Collage paintings={paintings} /> : <></>}						
+						{paintings[0] ? <Collage paintings={paintings} /> : <></>}		
+						<div className={styles.page_controller}>
+								<PageController page={page} setPage={setPage} totalPages={pages}/>
+						</div>				
 					</div>
 				}
 			</div>

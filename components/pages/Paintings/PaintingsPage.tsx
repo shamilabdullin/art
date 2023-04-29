@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 // Components
 import { PageController } from '@/components/PageController';
 import { SearchBar } from '@/components/SearchBar';
+import { Loading } from '@/components/Loading';
 
 // Stores, utils, libs
 import Head from 'next/head';
@@ -66,11 +67,7 @@ const PaintingsPage: React.FC = () => {
 	return (
 		<div>
 			{isLoading ? 
-				<div className={styles.loadingContainer}>
-					<div className={styles.loading}>
-						<Lottie animationData={loading}></Lottie>
-					</div>
-				</div> :
+				<Loading /> :
 				<div className={styles.paintings_page}>
 					<div className={styles.content}>
 						<Head>

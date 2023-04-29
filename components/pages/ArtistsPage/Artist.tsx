@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // Components
 import { Collage } from '@/components/Collage'
+import { Loading } from '@/components/Loading'
 
 // Stores, utils, libs
 import { paintingsApi } from '@/api/paintings'
@@ -48,38 +49,40 @@ const Artist = () => {
 	const [artistPaintings, setArtistPaintings] = useState<PaintingQueryModel[]>([]) 
 	const [isLoading, setIsLoading] = useState(false)
 	const [paintings, setPaintings] = useState<any[] | PaintingModel[]>([])
+	const [currentPage, setCurrentPage] = useState('1')
+	const [totalPages, setTotalPages] = useState('1')
 	const currentArtist = useArtistStore(state => state.currentArtist)
 
 	useEffect(() => {
 		setIsLoading(true)
 		const currentUrl = window.location.href.split('/')[4]
-		paintingsApi.getArtistsPaintings('', currentUrl)
+		paintingsApi.getArtistsPaintings('', currentUrl, currentPage)
 			.then(res => {
 				setArtistPaintings(res.data)
+				if (res.pagination) {
+					setTotalPages(res.pagination?.total_pages)
+				}
 			})
-			.then(() => setIsLoading(false))
-	}, [])
+	}, [currentPage])
 
 	useEffect(() => {
-		setIsLoading(true)
-		let ids = artistPaintings.map(artistPainting => artistPainting.id)
-		let request = ids.map(id => paintingsApi.getPainting(id))
-		Promise.all(request)
-			.then(res => {
-				const paintings = res.map(responsiveData => responsiveData.data)
-				setPaintings(paintings)
-				setIsLoading(false)
-			})
+		if (artistPaintings.length > 0) {
+			setIsLoading(true)
+			let ids = artistPaintings.map(artistPainting => artistPainting.id)
+			let request = ids.map(id => paintingsApi.getPainting(id))
+			Promise.all(request)
+				.then(res => {
+					const paintings = res.map(responsiveData => responsiveData.data)
+					setPaintings(paintings)
+					setIsLoading(false)
+				})
+		}
 	}, [artistPaintings])
 
   return (
 	<div>
 		{isLoading ? 
-			<div className={styles.loadingContainer}>
-				<div className={styles.loading}>
-					<Lottie animationData={loading}></Lottie>
-				</div>
-			</div>	:
+			<Loading />	:
 			<div className={styles.artist_page}>
 				<div className={styles.container}>
 					<div className={styles.artist_name}>
@@ -87,7 +90,7 @@ const Artist = () => {
 						<h1>{currentArtist === '' ? "Artist's title" : currentArtist}</h1>
 					</div>
 					<Collage paintings={paintings}/>
-					{/* <PageController /> */}
+					<PageController page={currentPage} setPage={setCurrentPage} totalPages={totalPages}/>
 				</div>
 			</div>
 		}

@@ -20,8 +20,8 @@ class PaintingsApi {
 			.then(response => response.json())
 	}
 
-	getArtistsPaintings(query: string, artist_id: string): Promise <ResponsiveData> {
-		return fetch(this.url + `search?query[term][artist_id]=${artist_id}`)  // search?q=${query}&query[term][artist_id]=${artist_id}
+	getArtistsPaintings(query: string, artist_id: string, page: string): Promise <ResponsiveData> {
+		return fetch(this.url + `search?query[term][artist_id]=${artist_id}&page=${page}`)  // search?q=${query}&query[term][artist_id]=${artist_id}
 			.then(responsive => responsive.json())
 	}
 

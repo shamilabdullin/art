@@ -3,6 +3,7 @@ import React, { MouseEventHandler, useEffect, useState } from 'react'
 // Components
 import { PageController } from '@/components/PageController'
 import { SearchBar } from '@/components/SearchBar'
+import { Loading } from '@/components/Loading'
 
 // Stores, utils, libs
 import { artistsApi } from '@/api/artists'
@@ -70,17 +71,12 @@ export const ArtistsPage = () => {
 			.then(res => {
 				setQueryArtists(res.data)
 			})
-			.then(() => setIsLoading(false))
 	}
 
   	return (
   		<>
 			{isLoading ? 
-				<div className={styles.loading_container}>
-					<div className={styles.loading}>
-						<Lottie animationData={loading} />
-					</div>
-				</div>	:
+				<Loading />	:
 				<div className={styles.artsts_page}>
 					<div className={styles.container}>
 						<div className={styles.artists}>

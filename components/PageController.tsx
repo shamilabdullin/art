@@ -21,7 +21,7 @@ export const PageController = ({page, setPage, totalPages}: PageControllerProps)
 	}
 	const array = []
 	for (let i = 0; i < pages; i++) {
-		array.push(i)
+		array.push(i + 1)
 	}
 
 	const ITEM_HEIGHT = 48;
