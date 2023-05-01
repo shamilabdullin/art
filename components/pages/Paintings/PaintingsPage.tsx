@@ -16,16 +16,17 @@ import styles from './PaintingsPage.module.sass'
 
 const PaintingsPage: React.FC = () => {
 
-	const [paintings, setPaintings] = useState<PaintingModel[]>([])
+	const [paintings, setPaintings] = useState<PaintingQueryModel[]>([])
 	const [pages, setPages] = useState('1')
 	const [currentPage, setCurrentPage] = useState('1') 
 	const [isLoading, setIsLoading] = useState(false)
 	const [query, setQuery] = useState('')
-	const [queryPaintings, setQueryPaintings] = useState<PaintingQueryModel[]>([])
+	const [isQuerySend, setIsQuerySend] = useState(false)
+	// const [queryPaintings, setQueryPaintings] = useState<PaintingQueryModel[]>([])
 
 	useEffect(() => {
 		setIsLoading(true)
-		paintingsApi.getPaintings(currentPage)
+		paintingsApi.getPaintingsQuery(query, currentPage)
 			.then(res => {
 				setPaintings(res.data)
 				if (res.pagination) {
@@ -33,32 +34,14 @@ const PaintingsPage: React.FC = () => {
 				}
 			})
 			.then(() => setIsLoading(false))
-	}, [currentPage])
-
-	useEffect(() => {
-		if (queryPaintings.length > 1) {
-			setIsLoading(true)
-			let ids = queryPaintings.map(queryPainting => queryPainting.id)
-			let requests = ids.map(id => paintingsApi.getPainting(id))
-			Promise.all(requests)
-				.then(res => {
-					const paintings = res.map(responsiveData => responsiveData.data)
-					setPaintings(paintings)
-					setIsLoading(false)
-				})
-		}
-	}, [queryPaintings])
+	}, [currentPage, isQuerySend])
 
 	const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setQuery(e.target.value)
 	}
 
 	const handleQueryClick = () => {
-		setIsLoading(true)
-		paintingsApi.getPaintingsQuery(query)
-		.then(paintings => {
-			setQueryPaintings(paintings.data)
-		})
+		setIsQuerySend(!isQuerySend)
 	}
 
 	return (
@@ -96,3 +79,18 @@ const PaintingsPage: React.FC = () => {
 }
 
 export default PaintingsPage
+
+
+// useEffect(() => {
+// 	if (queryPaintings.length > 1) {
+// 		setIsLoading(true)
+// 		let ids = queryPaintings.map(queryPainting => queryPainting.id)
+// 		let requests = ids.map(id => paintingsApi.getPainting(id))
+// 		Promise.all(requests)
+// 			.then(res => {
+// 				const paintings = res.map(responsiveData => responsiveData.data)
+// 				setPaintings(paintings)
+// 				setIsLoading(false)
+// 			})
+// 	}
+// }, [queryPaintings])

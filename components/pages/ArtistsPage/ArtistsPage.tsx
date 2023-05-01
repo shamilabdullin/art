@@ -8,8 +8,6 @@ import { Loading } from '@/components/Loading'
 // Stores, utils, libs
 import { artistsApi } from '@/api/artists'
 import { ArtistModel, ArtistQueryModel } from '@/types/Artists'
-import loading from '../../../public/loading1.json'
-import Lottie from "lottie-react"
 import Link from 'next/link'
 import { useArtistStore, useArtistsStore } from '@/stateManagement/artistsStore'
 
@@ -19,13 +17,12 @@ import styles from './ArtistsPage.module.sass'
 
 export const ArtistsPage = () => {
 
-	// const [artists, setArtists] = useState <ArtistModel[]> ([])
 	const [isLoading, setIsLoading] = useState(false)
 	const [pages, setPages] = useState('1')
-	//const [currentPage, setCurrentPage] = useState('1')
 	const addCurrentArtist = useArtistStore(state => state.addCurrentArtist)
 	const [query, setQuery] = useState('')
-	const [queryArtists, setQueryArtists] = useState<ArtistQueryModel[]>([])
+	// const [queryArtists, setQueryArtists] = useState<ArtistQueryModel[]>([])
+	const [isQuerySend, setIsQuerySend] = useState(false)
 	const artists = useArtistsStore(state => state.currentArtists)
 	const setArtists = useArtistsStore(state => state.changeCurrentArtists)
 	const currentPage = useArtistsStore(state => state.currentPage)
@@ -33,29 +30,15 @@ export const ArtistsPage = () => {
 
 	useEffect(() => {
 		setIsLoading(true)
-		artistsApi.getArtists(currentPage)
-			.then(artists => {
-				setArtists(artists.data)
-				if (artists.pagination) {
-					setPages(artists.pagination.total_pages)
+		artistsApi.getArtistsQuery(query, currentPage)
+			.then(res => {
+				setArtists(res.data)
+				if (res.pagination) {
+					setPages(res.pagination.total_pages)
 				}
 			})
 			.then(() => setIsLoading(false))
-	}, [currentPage])
-
-	useEffect(() => {
-		if (queryArtists.length > 1) {
-			setIsLoading(true)
-			let ids = queryArtists.map(queryArtist => queryArtist.id)
-			let request = ids.map(id => artistsApi.getArtist(id))
-			Promise.all(request)
-				.then(res => {
-					const artists = res.map(responsiveData => responsiveData.data)
-					setArtists(artists)
-					setIsLoading(false)
-				})
-		}
-	}, [queryArtists])
+	}, [currentPage, isQuerySend])
 
 	const artistHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
 		addCurrentArtist(e.currentTarget.text)
@@ -66,11 +49,7 @@ export const ArtistsPage = () => {
 	}
 
 	const handleQueryClick = () => {
-		setIsLoading(true)
-		artistsApi.getArtistsQuery(query)
-			.then(res => {
-				setQueryArtists(res.data)
-			})
+		setIsQuerySend(!isQuerySend)
 	}
 
   	return (
@@ -103,3 +82,17 @@ export const ArtistsPage = () => {
 		</>
   	)
 }
+
+// useEffect(() => {
+// 	if (queryArtists.length > 1) {
+// 		setIsLoading(true)
+// 		let ids = queryArtists.map(queryArtist => queryArtist.id)
+// 		let request = ids.map(id => artistsApi.getArtist(id))
+// 		Promise.all(request)
+// 			.then(res => {
+// 				const artists = res.map(responsiveData => responsiveData.data)
+// 				setArtists(artists)
+// 				setIsLoading(false)
+// 			})
+// 	}
+// }, [queryArtists])

@@ -47,7 +47,7 @@ const queryPainting: PaintingQueryModel = {
 export default function HomePage() {  // { paintings }: any
 
 	const [paintings, setPaintings] = useState <PaintingModel[]> ([]);
-	const [page, setPage] = useState('1')
+	const [currentPage, setCurrentage] = useState('1')
 	const [isLoading, setIsLoading] = useState(false)
 	const [query, setQuery] = useState('')
 	const [queryPaintings, setQueryPaintings] = useState([queryPainting])
@@ -55,26 +55,14 @@ export default function HomePage() {  // { paintings }: any
 
 	useEffect(() => {
 		setIsLoading(true)
-		if (JSON.stringify(queryPaintings[0]) === JSON.stringify(queryPainting)){
-			paintingsApi.getPaintings(page)
-			.then(res => {
-				setPaintings(res.data)
-				if (res.pagination) {
-					setPages(res.pagination.total_pages)
-				}
-				setIsLoading(false)
-			})
-		}
-		else {
-			paintingsApi.getPaintingsQuery(query, page)
+			paintingsApi.getPaintingsQuery(query, currentPage)
 			.then(res => {
 				setQueryPaintings(res.data)
 				if (res.pagination) {
 					setPages(res.pagination.total_pages)
 				}
 			})
-		}
-	}, [page])
+	}, [currentPage])
 
 	useEffect(() => {
 		if (queryPaintings.length > 1) {
@@ -128,7 +116,7 @@ export default function HomePage() {  // { paintings }: any
 						</div>
 						{paintings[0] ? <Collage paintings={paintings} /> : <></>}		
 						<div className={styles.page_controller}>
-								<PageController page={page} setPage={setPage} totalPages={pages}/>
+								<PageController page={currentPage} setPage={setCurrentage} totalPages={pages}/>
 						</div>				
 					</div>
 				}

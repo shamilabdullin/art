@@ -11,12 +11,14 @@ class PaintingsApi {
 	}
 
 	getPaintings(page: string): Promise <ResponsiveData> {
-		return fetch(this.url + `?page=${page}`)
+		return fetch(this.url + `search?query[term][is_public_domain]=true&page=${page}`)
 			.then(response => response.json())
 	}
 
 	getPaintingsQuery(query: string = '', page: string = '1'): Promise <ResponsiveData> {
-		return fetch(this.url + `search?q=${query}&page=${page}`)
+		let queryString = ''
+		query !== '' ? queryString = `q=${query}&` : queryString = ''
+		return fetch(this.url + `search?${queryString}query[term][is_public_domain]=true&page=${page}`)
 			.then(response => response.json())
 	}
 
