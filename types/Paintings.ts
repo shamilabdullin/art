@@ -16,6 +16,7 @@ export type PaintingModel = {
 	medium_display: string;
 	artist_id?: string;
 	credit_line?: string;
+	is_public_domain?: boolean;
 }
 
 export type PaintingQueryModel = {

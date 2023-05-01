@@ -81,12 +81,12 @@ export const ArtistsPage = () => {
 					<div className={styles.container}>
 						<div className={styles.artists}>
 							<div className={styles.artists_title}>
-								<h1>Artists</h1>
+								<h1>Find your artist</h1>
 							</div>
 							<div className={styles.artists_list}>
 								{artists.map((artist) => (
-									<div key={artist.id}>
-										<Link href={`/artists/${artist.id}`} className={styles.artist} onClick={artistHandler}>{artist.title}</Link>  {/*onClick={(e) => addCurrentArtist(e.currentTarget.text)*/}
+									<div key={artist.id} className={styles.artist}>
+										<Link href={`/artists/${artist.id}`} className={styles.artist_link} onClick={artistHandler}>{artist.title}</Link>  {/*onClick={(e) => addCurrentArtist(e.currentTarget.text)*/}
 									</div>
 								))}
 							</div>

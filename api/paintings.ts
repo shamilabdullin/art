@@ -15,8 +15,8 @@ class PaintingsApi {
 			.then(response => response.json())
 	}
 
-	getPaintingsQuery(query: string): Promise <ResponsiveData> {
-		return fetch(this.url + `search?q=${query}`)
+	getPaintingsQuery(query: string = '', page: string = '1'): Promise <ResponsiveData> {
+		return fetch(this.url + `search?q=${query}&page=${page}`)
 			.then(response => response.json())
 	}
 

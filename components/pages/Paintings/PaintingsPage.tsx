@@ -9,8 +9,6 @@ import { Loading } from '@/components/Loading';
 import Head from 'next/head';
 import Link from 'next/link';
 import { paintingsApi } from '@/api/paintings';
-import loading from '../../../public/loading.json'
-import Lottie from "lottie-react"
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings';
 
 // CSS
@@ -61,7 +59,6 @@ const PaintingsPage: React.FC = () => {
 		.then(paintings => {
 			setQueryPaintings(paintings.data)
 		})
-		.then(() => setIsLoading(false))
 	}
 
 	return (
@@ -74,12 +71,12 @@ const PaintingsPage: React.FC = () => {
 							<title>Paintings</title>
 						</Head>
 						<div className={styles.paintings_title}>
-							<h1>Paintings</h1>
+							<h1>Find your painting</h1>
 						</div>
 						<ul>
 							{paintings.map((painting: any) => 
-								<li key={painting.id}>
-									<Link href={`/paintings/${painting.id}`} className={styles.painting}>
+								<li key={painting.id} className={styles.painting}>
+									<Link href={`/paintings/${painting.id}`} className={styles.painting_link}>
 										{painting.title}
 									</Link>
 								</li>

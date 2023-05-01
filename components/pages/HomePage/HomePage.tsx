@@ -55,16 +55,25 @@ export default function HomePage() {  // { paintings }: any
 
 	useEffect(() => {
 		setIsLoading(true)
-		console.log('1 use')
-		paintingsApi.getPaintings(page)
-			.then(paintings => {
-				setPaintings(paintings.data)
-				if (paintings.pagination) {
-					setPages(paintings.pagination.total_pages)
+		if (JSON.stringify(queryPaintings[0]) === JSON.stringify(queryPainting)){
+			paintingsApi.getPaintings(page)
+			.then(res => {
+				setPaintings(res.data)
+				if (res.pagination) {
+					setPages(res.pagination.total_pages)
 				}
 				setIsLoading(false)
 			})
-			
+		}
+		else {
+			paintingsApi.getPaintingsQuery(query, page)
+			.then(res => {
+				setQueryPaintings(res.data)
+				if (res.pagination) {
+					setPages(res.pagination.total_pages)
+				}
+			})
+		}
 	}, [page])
 
 	useEffect(() => {
@@ -76,7 +85,6 @@ export default function HomePage() {  // { paintings }: any
 				.then(res => {
 					const paintings = res.map(responsiveData => responsiveData.data)
 					setPaintings(paintings)
-					console.log(123)
 					setIsLoading(false)
 				})
 		}
@@ -89,8 +97,10 @@ export default function HomePage() {  // { paintings }: any
 	const handleQueryClick = () => {
 		setIsLoading(true)
 		paintingsApi.getPaintingsQuery(query)
-			.then(paintings => {
-				setQueryPaintings(paintings.data)
+			.then(res => {
+				setQueryPaintings(res.data)
+				if (res.pagination)
+					setPages(res.pagination?.total_pages)
 			})
 	}
 
@@ -108,8 +118,8 @@ export default function HomePage() {  // { paintings }: any
 					<Loading /> :
 					<div className={styles.container}>
 						<div className={styles.title}>
-							<h1 className={styles.title1}>Here you can see real Art</h1>
-							<h2 className={styles.title2}>We use artworks from Art Institute of Chicago</h2>
+							<h1 className={styles.title1}>Find your favourite paintings here</h1>
+							{/* <h2 className={styles.title2}>We use artworks from Art Institute of Chicago</h2> */}
 						</div>
 						<div className={styles.tools}>
 							<div className={styles.search_bar}>
@@ -127,20 +137,3 @@ export default function HomePage() {  // { paintings }: any
 		</>
 	)
 }
-
-// export async function getStaticProps() {
-// 	const response = await fetch('https://api.artic.edu/api/v1/artworks?page=2')
-// 	const paintings = await response.json()
-
-// 	if (!paintings) {
-// 		return {
-// 			notFound: true
-// 		}
-// 	}
-
-// 	return {
-// 		props: {
-// 			paintings
-// 		},
-// 	}
-// }

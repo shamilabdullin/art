@@ -30,13 +30,13 @@ export const PageController = ({page, setPage, totalPages}: PageControllerProps)
 		PaperProps: {
 		  style: {
 			maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-			width: 250
+			width: 80
 		  }
 		}
 	};
 
   return (
-	<FormControl className={styles.formControl}>
+	<FormControl className={styles.formControl} sx={{width: 80}}>
 		<InputLabel id="demo-simple-select-label">Page</InputLabel>
 		<Select
 			labelId="demo-simple-select-label"
@@ -46,7 +46,6 @@ export const PageController = ({page, setPage, totalPages}: PageControllerProps)
 			onChange={e => setPage(e.target.value)}
 			MenuProps={MenuProps}
 			maxRows={1000}
-			multiline={true}
 		>
 			{/* <MenuItem value={'1'}>1</MenuItem> */}
 			{array.map(menuItem => (

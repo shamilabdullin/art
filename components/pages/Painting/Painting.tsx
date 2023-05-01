@@ -65,12 +65,15 @@ export default function Painting() {
 						<div className={styles.title}>
 							<h1>{painting.title}</h1>
 						</div>
-						{painting.image_id ? 
-							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} height={"600"} className={styles.paintingImg}></img>
+						{(painting.image_id)  ? 
+							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} height={"600"} className={styles.paintingImg} alt='No image'></img>
 							:
 							<Image src={noImg} height={"600"} className={styles.paintingImg} alt={painting.title} /> 
 						}
-						<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? painting.date_start + ' - ' + painting.date_end : 'No date' }</h3>
+						{painting.date_end > 0?
+							<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? painting.date_start + ' - ' + painting.date_end : 'No date' }</h3> :
+							<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? `${painting.date_start + (-painting.date_start * 2)} B.C.` + ' - ' + `${painting.date_end + (-painting.date_end * 2)} B.C.` : 'No date' }</h3>
+						}
 						<h3 className={styles.author}>
 							<Link href={`/artists/${painting.artist_id}`} onClick={(e) => addCurrentArtist(e.currentTarget.text)}>{painting.artist_title}</Link>
 						</h3>
@@ -101,24 +104,3 @@ export default function Painting() {
 		</div>
 	)
 };
-
-/* <Image src={`https://www.artic.edu/iiif/2/${painting.data.image_id}/full/843,/0/default.jpg`} width={600} height={800} alt='painting'/> */
-
-// export const getServerSideProps = async (context: any) => {
-// 	const { id } = context.params
-// 	// const response = await fetch(`https://api.artic.edu/api/v1/artworks/${id}`)
-// 	const response = await fetch(`https://api.artic.edu/api/v1/artworks/${id}?fields=id,title,image_id`)
-// 	const painting = await response.json()
-
-// 	if (!painting) {
-// 		return {
-// 			notFound: true
-// 		}
-// 	}
-
-// 	return {
-// 		props: {
-// 			painting
-// 		},
-// 	}
-// }
