@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Stores, utils, libs
-import { FormControl, TextField, } from '@mui/material'
+import { TextField } from '@mui/material'
 import { Button } from '@mui/material'
 
 type SearchBarProps = {
@@ -12,7 +12,7 @@ type SearchBarProps = {
 export const SearchBar = ({handleQueryChange, handleQueryClick}: SearchBarProps) => {
   return (
 	<div>
-		<FormControl>
+		<form onSubmit={handleQueryClick}>
 			<TextField 
 				size='small'
 				onChange={handleQueryChange}
@@ -22,23 +22,23 @@ export const SearchBar = ({handleQueryChange, handleQueryClick}: SearchBarProps)
 					}
 				}}
 			/>
-		</FormControl>
-		<Button 
-			size='large' 
-			onClick={handleQueryClick}
-			type='button'
-			variant='contained'
-			sx={{
-				backgroundColor: 'black',
-				marginLeft: '5px',
-				"&:hover" : {
-					backgroundColor: 'grey',
-					color: 'black'
-				}
-			}}
-		>
-			Search
-		</Button>
+			<Button 
+				size='large' 
+				onClick={handleQueryClick}
+				type='button'
+				variant='contained'
+				sx={{
+					backgroundColor: 'black',
+					marginLeft: '5px',
+					"&:hover" : {
+						backgroundColor: 'grey',
+						color: 'black'
+					}
+				}}
+			>
+				Search
+			</Button>
+		</form>
 	</div>
   )
 }

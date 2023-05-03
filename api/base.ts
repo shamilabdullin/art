@@ -1,6 +1,15 @@
+import { PaintingModel } from "@/types/Paintings";
+
 export type ResponsiveData = {
 	config: {};
-	data: any;
+	data: [];
+	info: {};
+	pagination?: PaginationData;
+}
+
+export type ResponsivePaintingData = {
+	config: {};
+	data: PaintingModel;
 	info: {};
 	pagination?: PaginationData;
 }

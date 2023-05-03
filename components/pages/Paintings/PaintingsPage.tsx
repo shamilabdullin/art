@@ -9,7 +9,7 @@ import { Loading } from '@/components/Loading';
 import Head from 'next/head';
 import Link from 'next/link';
 import { paintingsApi } from '@/api/paintings';
-import { PaintingModel, PaintingQueryModel } from '@/types/Paintings';
+import { PaintingQueryModel } from '@/types/Paintings';
 
 // CSS
 import styles from './PaintingsPage.module.sass'
@@ -40,7 +40,8 @@ const PaintingsPage: React.FC = () => {
 		setQuery(e.target.value)
 	}
 
-	const handleQueryClick = () => {
+	const handleQueryClick = (e: React.SyntheticEvent) => { // React.FormEvent<HTMLFormElement>
+		e.preventDefault()
 		setIsQuerySend(!isQuerySend)
 	}
 

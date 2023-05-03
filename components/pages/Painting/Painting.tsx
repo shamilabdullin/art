@@ -7,8 +7,6 @@ import { Loading } from "@/components/Loading"
 import { useRouter } from "next/router"
 import { PaintingModel } from '@/types/Paintings'
 import { paintingsApi } from "@/api/paintings"
-import loading from '../../../public/loading1.json'
-import Lottie from "lottie-react"
 import noImg from 'public/no_img.svg'
 import Image from 'next/image'
 import Link from "next/link"
@@ -35,7 +33,7 @@ const emptyPainting: PaintingModel = {
 	medium_display: ''
 }
 
-export default function Painting() {
+export default function Painting():JSX.Element {
 
 	const [painting, setPainting] = useState(emptyPainting)
 	const [isLoading, setIsLoading] = useState(false)

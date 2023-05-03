@@ -9,29 +9,9 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
 import { paintingsApi } from '@/api/paintings'
-import loading from '../../../public/loading.json'
-import Lottie from "lottie-react"
 
 // CSS
 import styles from './Home.module.sass'
-
-const painting: PaintingModel = {
-	id: 0,
-	title: '',
-	image_id: '90bc0cec-0d4e-9af5-3912-52a082a428e5',
-	artist_title: '',
-	category_titles: [''],
-	classification_title: '',
-	date_end: 0,
-	date_start: 0,
-	department_title: '',
-	dimensions: '',
-	exhibition_history: '',
-	place_of_origin: '',
-	provenance_text: '',
-	publication_history: '',
-	medium_display: ''
-}
 
 const queryPainting: PaintingQueryModel = {
 	api_link: '',
@@ -44,7 +24,7 @@ const queryPainting: PaintingQueryModel = {
 	_score: 0
 }
 
-export default function HomePage() {  // { paintings }: any
+export default function HomePage():JSX.Element { 
 
 	const [paintings, setPaintings] = useState <PaintingModel[]> ([]);
 	const [currentPage, setCurrentage] = useState('1')
@@ -52,6 +32,7 @@ export default function HomePage() {  // { paintings }: any
 	const [query, setQuery] = useState('')
 	const [queryPaintings, setQueryPaintings] = useState([queryPainting])
 	const [pages, setPages] = useState('1')
+	const [isQuerySend, setIsQuerySend] = useState(false)
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -61,8 +42,9 @@ export default function HomePage() {  // { paintings }: any
 				if (res.pagination) {
 					setPages(res.pagination.total_pages)
 				}
+				if (res.data.length === 0) setIsLoading(false)
 			})
-	}, [currentPage])
+	}, [currentPage, isQuerySend])
 
 	useEffect(() => {
 		if (queryPaintings.length > 1) {
@@ -82,14 +64,9 @@ export default function HomePage() {  // { paintings }: any
 		setQuery(event.target.value)
 	}
 
-	const handleQueryClick = () => {
-		setIsLoading(true)
-		paintingsApi.getPaintingsQuery(query)
-			.then(res => {
-				setQueryPaintings(res.data)
-				if (res.pagination)
-					setPages(res.pagination?.total_pages)
-			})
+	const handleQueryClick = (e: React.SyntheticEvent) => {
+		e.preventDefault()
+		setIsQuerySend(!isQuerySend)
 	}
 
 	return (
@@ -125,3 +102,21 @@ export default function HomePage() {  // { paintings }: any
 		</>
 	)
 }
+
+// const painting: PaintingModel = {
+// 	id: 0,
+// 	title: '',
+// 	image_id: '90bc0cec-0d4e-9af5-3912-52a082a428e5',
+// 	artist_title: '',
+// 	category_titles: [''],
+// 	classification_title: '',
+// 	date_end: 0,
+// 	date_start: 0,
+// 	department_title: '',
+// 	dimensions: '',
+// 	exhibition_history: '',
+// 	place_of_origin: '',
+// 	provenance_text: '',
+// 	publication_history: '',
+// 	medium_display: ''
+// }

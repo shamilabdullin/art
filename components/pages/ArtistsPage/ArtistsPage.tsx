@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // Components
 import { PageController } from '@/components/PageController'
@@ -7,7 +7,6 @@ import { Loading } from '@/components/Loading'
 
 // Stores, utils, libs
 import { artistsApi } from '@/api/artists'
-import { ArtistModel, ArtistQueryModel } from '@/types/Artists'
 import Link from 'next/link'
 import { useArtistStore, useArtistsStore } from '@/stateManagement/artistsStore'
 
@@ -15,18 +14,19 @@ import { useArtistStore, useArtistsStore } from '@/stateManagement/artistsStore'
 // CSS
 import styles from './ArtistsPage.module.sass'
 
-export const ArtistsPage = () => {
+export const ArtistsPage: React.FC = () => {
 
 	const [isLoading, setIsLoading] = useState(false)
 	const [pages, setPages] = useState('1')
-	const addCurrentArtist = useArtistStore(state => state.addCurrentArtist)
 	const [query, setQuery] = useState('')
 	// const [queryArtists, setQueryArtists] = useState<ArtistQueryModel[]>([])
 	const [isQuerySend, setIsQuerySend] = useState(false)
+	const [currentPage, setCurrentPage] = useState('1')
 	const artists = useArtistsStore(state => state.currentArtists)
+	const addCurrentArtist = useArtistStore(state => state.addCurrentArtist)
 	const setArtists = useArtistsStore(state => state.changeCurrentArtists)
-	const currentPage = useArtistsStore(state => state.currentPage)
-	const setCurrentPage = useArtistsStore(state => state.setCurrentPage)
+	// const currentPage = useArtistsStore(state => state.currentPage)
+	// const setCurrentPage = useArtistsStore(state => state.setCurrentPage)
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -48,7 +48,8 @@ export const ArtistsPage = () => {
 		setQuery(e.target.value)
 	}
 
-	const handleQueryClick = () => {
+	const handleQueryClick = (e: React.SyntheticEvent) => {  // React.FormEvent<HTMLFormElement>
+		e.preventDefault()
 		setIsQuerySend(!isQuerySend)
 	}
 

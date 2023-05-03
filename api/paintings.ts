@@ -1,11 +1,32 @@
-import { ResponsiveData } from "./base"
+import { ResponsiveData, ResponsivePaintingData } from "./base"
 import { url } from "./base"
 
 class PaintingsApi {
 
 	private url = `${url}artworks/`
 
-	getPainting(id: string): Promise <ResponsiveData> {
+	private postArtistPauntingsQuery(artistId: string) {
+		return {
+			"query": {
+				"bool": {
+					"must": [
+						{
+							"term": {
+								"is_public_domain": true
+							}
+						},
+						{
+							"term": {
+								"artist_id": artistId
+							}					
+						}
+					]
+				}
+			}
+		}
+	}
+
+	getPainting(id: string): Promise <ResponsivePaintingData> {
 		return fetch(this.url + id)
 			.then(response => response.json())
 	}
@@ -23,8 +44,19 @@ class PaintingsApi {
 	}
 
 	getArtistsPaintings(query: string, artist_id: string, page: string): Promise <ResponsiveData> {
-		return fetch(this.url + `search?query[term][artist_id]=${artist_id}&page=${page}`)  // search?q=${query}&query[term][artist_id]=${artist_id}
+		return fetch(this.url + `search?q=${query}&query[term][artist_id]=${artist_id}&page=${page}`)
 			.then(responsive => responsive.json())
+	}
+
+	postArtistsPaintings(query: string, artist_id: string, page: string): Promise <ResponsiveData> {
+		return fetch(this.url + `search?q=${query}&page=${page}`, {
+			method:'POST',
+			headers:{
+				'Content-Type': 'application/json;charset=utf-8'
+			},
+			body: JSON.stringify(this.postArtistPauntingsQuery(artist_id))
+		})
+			.then(response => response.json())
 	}
 
 }

@@ -1,4 +1,4 @@
-import React, { SetStateAction } from 'react'
+import React from 'react'
 
 // Stores, utils, libs
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
