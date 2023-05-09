@@ -9,6 +9,7 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
 import { paintingsApi } from '@/api/paintings'
+import { useQueryStore } from '@/stateManagement/queryStore'
 
 // CSS
 import styles from './Home.module.sass'
@@ -29,10 +30,14 @@ export default function HomePage():JSX.Element {
 	const [paintings, setPaintings] = useState <PaintingModel[]> ([]);
 	const [currentPage, setCurrentage] = useState('1')
 	const [isLoading, setIsLoading] = useState(false)
-	const [query, setQuery] = useState('')
 	const [queryPaintings, setQueryPaintings] = useState([queryPainting])
 	const [pages, setPages] = useState('1')
-	const [isQuerySend, setIsQuerySend] = useState(false)
+	// const [query, setQuery] = useState('')
+	// const [isQuerySend, setIsQuerySend] = useState(false)
+	const query = useQueryStore(state => state.query)
+	const setQuery = useQueryStore(state => state.setQuery)
+	const isQuerySend = useQueryStore(state => state.isSend)
+	const setIsQuerySend = useQueryStore(state => state.setIsSend)
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -44,6 +49,7 @@ export default function HomePage():JSX.Element {
 				}
 				if (res.data.length === 0) setIsLoading(false)
 			})
+		return () => setIsQuerySend(false)
 	}, [currentPage, isQuerySend])
 
 	useEffect(() => {
@@ -60,14 +66,14 @@ export default function HomePage():JSX.Element {
 		}
 	}, [queryPaintings])
 
-	const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setQuery(event.target.value)
-	}
+	// const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	// 	setQuery(event.target.value)
+	// }
 
-	const handleQueryClick = (e: React.SyntheticEvent) => {
-		e.preventDefault()
-		setIsQuerySend(!isQuerySend)
-	}
+	// const handleQueryClick = (e: React.SyntheticEvent) => {
+	// 	e.preventDefault()
+	// 	setIsQuerySend(!isQuerySend)
+	// }
 
 	return (
 		<>
@@ -87,9 +93,9 @@ export default function HomePage():JSX.Element {
 							{/* <h2 className={styles.title2}>We use artworks from Art Institute of Chicago</h2> */}
 						</div>
 						<div className={styles.tools}>
-							<div className={styles.search_bar}>
+							{/* <div className={styles.search_bar}>
 								<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>
-							</div>
+							</div> */}
 						</div>
 						{paintings[0] ? <Collage paintings={paintings} /> : <></>}		
 						<div className={styles.page_controller}>

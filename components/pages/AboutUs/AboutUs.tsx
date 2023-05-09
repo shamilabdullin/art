@@ -12,7 +12,7 @@ export default function AboutUs():JSX.Element {
 	<div className={styles.aboutUs_page}>
 		<div className={styles.content}>
 			<div className={styles.container}>
-				<Image src={shamil} alt='Shamil' height={300} className={styles.image}/>
+				<Image src={shamil} alt='Shamil' height={350} className={styles.image}/>
 			</div>
 			<div className={styles.article}>
 				<p>
@@ -23,6 +23,11 @@ export default function AboutUs():JSX.Element {
 				</p>
 				<p>
 					I hope you will enjoy it.
+				</p>
+				<p style={{'marginTop' : '24px'}}>
+					<strong>
+						Github project link <a href="https://github.com/shamilabdullin/art">https://github.com/shamilabdullin/art</a>
+					</strong>
 				</p>
 			</div>
 		</div>

@@ -9,7 +9,8 @@ import { Loading } from '@/components/Loading'
 import { artistsApi } from '@/api/artists'
 import Link from 'next/link'
 import { useArtistStore, useArtistsStore } from '@/stateManagement/artistsStore'
-
+import { useQueryStore } from '@/stateManagement/queryStore'
+import { useRouter } from 'next/router'
 
 // CSS
 import styles from './ArtistsPage.module.sass'
@@ -22,9 +23,11 @@ export const ArtistsPage: React.FC = () => {
 	// const [queryArtists, setQueryArtists] = useState<ArtistQueryModel[]>([])
 	const [isQuerySend, setIsQuerySend] = useState(false)
 	const [currentPage, setCurrentPage] = useState('1')
-	const artists = useArtistsStore(state => state.currentArtists)
 	const addCurrentArtist = useArtistStore(state => state.addCurrentArtist)
+	const artists = useArtistsStore(state => state.currentArtists)
 	const setArtists = useArtistsStore(state => state.changeCurrentArtists)
+	// const isHeaderQuerySend = useQueryStore(state => state.isSend)
+	// const router = useRouter()
 	// const currentPage = useArtistsStore(state => state.currentPage)
 	// const setCurrentPage = useArtistsStore(state => state.setCurrentPage)
 
@@ -39,6 +42,10 @@ export const ArtistsPage: React.FC = () => {
 			})
 			.then(() => setIsLoading(false))
 	}, [currentPage, isQuerySend])
+
+	// useEffect(() => {
+	// 	if (isHeaderQuerySend) router.push('/')
+	// }, [isHeaderQuerySend])
 
 	const artistHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
 		addCurrentArtist(e.currentTarget.text)
@@ -71,7 +78,13 @@ export const ArtistsPage: React.FC = () => {
 								))}
 							</div>
 							<div className={styles.search_bar}>
-								<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>	
+								<SearchBar 
+									handleQueryChange={handleQueryChange} 
+									handleQueryClick={handleQueryClick}
+									buttonBackgroundColor='black'
+									searchBarLength='350'
+									addLink={false}
+								/>	
 							</div>
 							<div className={styles.page_controller}>
 								<PageController page={currentPage} totalPages={pages} setPage={setCurrentPage}/>

@@ -64,9 +64,9 @@ export default function Painting():JSX.Element {
 							<h1>{painting.title}</h1>
 						</div>
 						{(painting.image_id)  ? 
-							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} height={"600"} className={styles.paintingImg} alt='No image'></img>
+							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} height={"790"} className={styles.paintingImg} alt='No image'></img>
 							:
-							<Image src={noImg} height={"600"} className={styles.paintingImg} alt={painting.title} /> 
+							<Image src={noImg} height={"790"} className={styles.paintingImg} alt={painting.title} /> 
 						}
 						{painting.date_end > 0?
 							<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? painting.date_start + ' - ' + painting.date_end : 'No date' }</h3> :

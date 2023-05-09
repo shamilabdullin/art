@@ -10,6 +10,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { paintingsApi } from '@/api/paintings';
 import { PaintingQueryModel } from '@/types/Paintings';
+import { useQueryStore } from '@/stateManagement/queryStore';
+import { useRouter } from 'next/router';
 
 // CSS
 import styles from './PaintingsPage.module.sass'
@@ -22,7 +24,9 @@ const PaintingsPage: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [query, setQuery] = useState('')
 	const [isQuerySend, setIsQuerySend] = useState(false)
-	// const [queryPaintings, setQueryPaintings] = useState<PaintingQueryModel[]>([])
+	// const isHeaderQuerySend = useQueryStore(state => state.isSend)
+	// const router = useRouter()
+	// const [queryPaintings, setQueryPaintings] = useState<PaintingQueryModel[]>([]) 
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -35,6 +39,10 @@ const PaintingsPage: React.FC = () => {
 			})
 			.then(() => setIsLoading(false))
 	}, [currentPage, isQuerySend])
+
+	// useEffect(() => {
+	// 	if (isHeaderQuerySend) router.push('/')
+	// }, [isHeaderQuerySend])
 
 	const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setQuery(e.target.value)
@@ -67,7 +75,13 @@ const PaintingsPage: React.FC = () => {
 							)}
 						</ul>
 						<div className={styles.search_bar}>
-							<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>	
+							<SearchBar 
+								handleQueryChange={handleQueryChange} 
+								handleQueryClick={handleQueryClick}
+								buttonBackgroundColor='black'
+								searchBarLength='350'
+								addLink={false}
+							/>	
 						</div>
 						<div className={styles.page_controller}>
 							<PageController page={currentPage} totalPages={pages} setPage={setCurrentPage}/>
