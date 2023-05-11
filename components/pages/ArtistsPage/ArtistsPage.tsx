@@ -61,10 +61,10 @@ export const ArtistsPage: React.FC = () => {
 	}
 
   	return (
-  		<>
+  		<div>
 			{isLoading ? 
 				<Loading />	:
-				<div className={styles.artsts_page}>
+				<div className={styles.artists_page}>
 					<div className={styles.container}>
 						<div className={styles.artists}>
 							<div className={styles.artists_title}>
@@ -93,7 +93,7 @@ export const ArtistsPage: React.FC = () => {
 					</div>
 				</div>
 			}
-		</>
+		</div>
   	)
 }
 

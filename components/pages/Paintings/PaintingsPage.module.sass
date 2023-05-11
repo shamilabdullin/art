@@ -1,7 +1,7 @@
 @import "styles/variables"
 
 .paintings_page
-	max-width: 1600px
+	// max-width: 80%
 	margin: auto
 	text-align: center
 	background-color: $base-content-color
@@ -17,7 +17,7 @@
 	margin-bottom: $spacing * 4
 
 .painting
-	margin: 12px
+	margin: 12px 36px
 
 .painting_link
 	font-size: 1.4rem
@@ -45,3 +45,7 @@
 
 .page_controller
 	margin-top: 200px
+
+@media screen and (min-width: 1200px) 
+	.paintings_page
+		width: 80%

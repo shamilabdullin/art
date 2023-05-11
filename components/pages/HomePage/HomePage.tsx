@@ -97,7 +97,7 @@ export default function HomePage():JSX.Element {
 								<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>
 							</div> */}
 						</div>
-						{paintings[0] ? <Collage paintings={paintings} /> : <></>}		
+						{paintings[0] ? <div className={styles.collage}><Collage paintings={paintings} /></div> : <></>}		
 						<div className={styles.page_controller}>
 								<PageController page={currentPage} setPage={setCurrentage} totalPages={pages}/>
 						</div>				

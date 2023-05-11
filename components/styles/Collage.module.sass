@@ -14,9 +14,8 @@
 	// align-self: start
 	padding: 10px
 	text-align: center
-
+	// height: 100%
 	p
-		font-size: 1.2rem
 
 .painting:hover
 	background-color: grey
@@ -30,3 +29,19 @@
 .loading
 	margin-top: 150px
 	text-align: center
+
+@media screen and (min-width: 1200px) 
+	.painting
+		font-size: 1.1rem
+
+@media screen and (max-width: 1200px) 
+	.painting
+		font-size: 1rem
+
+@media (max-width: 850px) 
+	.painting
+		font-size: 0.9rem
+
+@media screen and (max-width: 599px) 
+	.painting
+		font-size: 0.8rem

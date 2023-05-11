@@ -9,7 +9,7 @@
 	button 
 		height: 70px
 		border-radius: 0px
-		font-size: 1.1rem
+		font-size: 1.05rem
 
 .navigation_logo
 	display: flex
@@ -21,3 +21,20 @@
 
 .icon
 	margin-right: 5px
+
+@media (max-width: 1400px) 
+	.navigation 
+		button
+			font-size: 1rem
+
+	.link
+		padding: $spacing 0
+
+@media (max-width: 992px) 
+	.icon
+		display: none
+
+@media (max-width: 599px) 
+	.navigation 
+		button
+			font-size: 0.8rem

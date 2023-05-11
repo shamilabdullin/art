@@ -1,7 +1,7 @@
 @import "styles/variables"
 
 .container
-	max-width: 1600px
+	// max-width: 80%
 	margin: auto
 	background-color: #f3f3f3
 
@@ -38,6 +38,7 @@
 	margin-bottom: 10px
 
 .description
+	text-align: center
 	padding: 10px 0
 
 	dt
@@ -86,3 +87,7 @@
 .loading
 	width: 100px
 	height: 100px
+
+@media screen and (min-width: 1200px) 
+	.container
+		width: 80%
