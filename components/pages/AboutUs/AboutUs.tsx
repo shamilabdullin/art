@@ -12,7 +12,7 @@ export default function AboutUs():JSX.Element {
 	<div className={styles.aboutUs_page}>
 		<div className={styles.content}>
 			<div className={styles.container}>
-				<Image src={shamil} alt='Shamil' height={350} className={styles.image}/>
+				<Image src={shamil} alt='Shamil' className={styles.image}/>
 			</div>
 			<div className={styles.article}>
 				<p>

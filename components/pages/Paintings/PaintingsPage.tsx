@@ -79,7 +79,7 @@ const PaintingsPage: React.FC = () => {
 								handleQueryChange={handleQueryChange} 
 								handleQueryClick={handleQueryClick}
 								buttonBackgroundColor='black'
-								searchBarLength='350'
+								searchBarLength='300'
 								addLink={false}
 							/>	
 						</div>

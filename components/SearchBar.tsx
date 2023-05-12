@@ -15,6 +15,7 @@ type SearchBarProps = {
 	buttonBackgroundColor?: 'white' | 'black',
 	searchBarLength?: string,
 	addLink?: boolean,
+	placeholder?: string,
 }
 
 export const SearchBar = ({
@@ -23,7 +24,8 @@ export const SearchBar = ({
 	textFieldBackgroundColor, 
 	buttonBackgroundColor, 
 	searchBarLength,
-	addLink
+	addLink,
+	placeholder
 }: SearchBarProps) => {
   return (
 	<div>{addLink ?
@@ -46,6 +48,7 @@ export const SearchBar = ({
 					// }}
 					// variant='standard'
 					// color='info'
+					placeholder={placeholder}
 				/>
 				<Button 
 					size='large' 
@@ -85,6 +88,7 @@ export const SearchBar = ({
 				// }}
 				// variant='standard'
 				// color='info'
+				placeholder={placeholder}
 			/>
 			<Button 
 				size='large' 

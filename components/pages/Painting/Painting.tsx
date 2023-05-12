@@ -64,7 +64,7 @@ export default function Painting():JSX.Element {
 							<h1>{painting.title}</h1>
 						</div>
 						{(painting.image_id)  ? 
-							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} height={"790"} className={styles.paintingImg} alt='No image'></img>
+							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} className={styles.paintingImg} alt='No image'></img>
 							:
 							<Image src={noImg} height={"790"} className={styles.paintingImg} alt={painting.title} /> 
 						}
