@@ -50,7 +50,7 @@ export const Header: React.FC = () => {
 						buttonBackgroundColor='black'
 						searchBarLength='230'
 						addLink={true}
-						placeholder='keyword'
+						placeholder='keywords'
 					/>
 				</div>
 			</header>

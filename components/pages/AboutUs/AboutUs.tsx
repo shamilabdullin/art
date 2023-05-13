@@ -19,6 +19,9 @@ export default function AboutUs():JSX.Element {
 					Hello, my name is Abdullin Shamil, and this site is my project.
 				</p>
 				<p>
+					I use collection from database of the Art Institite of Chicago.
+				</p>
+				<p>
 					I create it for artists and those, who interested in art.
 				</p>
 				<p>

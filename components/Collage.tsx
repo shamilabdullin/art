@@ -30,7 +30,7 @@ export const Collage = ({ paintings, queryPaintings }:CollageProps ) => {
 					(painting.image_id === null) ?
 					<div key={painting.id} className={styles.painting}>
 						<Link href={`/paintings/${painting.id}`}>
-							<img src={noImg} width={'90%'} height={'90%'} alt={painting.title} className={styles.contain}/>
+							<img src={noImg} alt={painting.title} className={styles.contain}/>
 							<div>
 								<p><strong>{painting.title} {painting.date_end > 0 ? painting.date_end : `${painting.date_end + painting.date_end * 2} B.C.`}</strong></p>
 								<p>{painting.artist_title}</p>
@@ -39,7 +39,7 @@ export const Collage = ({ paintings, queryPaintings }:CollageProps ) => {
 					</div> :
 					<div key={painting.id} className={styles.painting}>
 						<Link href={`/paintings/${painting.id}`}>
-							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} width={'90%'} height={'90%'} className={styles.contain} alt='No image'/>
+							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} className={styles.contain} alt='No image'/>
 							<div>
 								<p><strong>{painting.title} {painting.date_end > 0 ? painting.date_end : `${painting.date_end + (-painting.date_end * 2)} B.C.`}</strong></p>
 								<p>{painting.artist_title}</p>

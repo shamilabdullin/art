@@ -66,14 +66,14 @@ export default function HomePage():JSX.Element {
 		}
 	}, [queryPaintings])
 
-	// const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-	// 	setQuery(event.target.value)
-	// }
+	const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setQuery(event.target.value)
+	}
 
-	// const handleQueryClick = (e: React.SyntheticEvent) => {
-	// 	e.preventDefault()
-	// 	setIsQuerySend(!isQuerySend)
-	// }
+	const handleQueryClick = (e: React.SyntheticEvent) => {
+		e.preventDefault()
+		setIsQuerySend(!isQuerySend)
+	}
 
 	return (
 		<>
@@ -93,9 +93,16 @@ export default function HomePage():JSX.Element {
 							{/* <h2 className={styles.title2}>We use artworks from Art Institute of Chicago</h2> */}
 						</div>
 						<div className={styles.tools}>
-							{/* <div className={styles.search_bar}>
-								<SearchBar handleQueryChange={handleQueryChange} handleQueryClick={handleQueryClick}/>
-							</div> */}
+							<div className={styles.search_bar}>
+								<SearchBar 
+									handleQueryChange={handleQueryChange} 
+									handleQueryClick={handleQueryClick}
+									textFieldBackgroundColor='white'
+									buttonBackgroundColor='black'
+									searchBarLength='180'
+									placeholder='keywords'
+								/>
+							</div>
 						</div>
 						{paintings[0] ? <div className={styles.collage}><Collage paintings={paintings} /></div> : <></>}		
 						<div className={styles.page_controller}>
