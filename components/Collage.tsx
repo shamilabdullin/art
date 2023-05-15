@@ -30,7 +30,7 @@ export const Collage = ({ paintings, queryPaintings }:CollageProps ) => {
 					(painting.image_id === null) ?
 					<div key={painting.id} className={styles.painting}>
 						<Link href={`/paintings/${painting.id}`}>
-							<img src={noImg} alt={painting.title} className={styles.contain}/>
+							<Image src={noImg} alt={painting.title} className={styles.contain}/>
 							<div>
 								<p><strong>{painting.title} {painting.date_end > 0 ? painting.date_end : `${painting.date_end + painting.date_end * 2} B.C.`}</strong></p>
 								<p>{painting.artist_title}</p>
