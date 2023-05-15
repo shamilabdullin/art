@@ -19,7 +19,7 @@ export const Tag = ({style_id, style_title}: TagProps) => {
   return (
 	<Button 
 		onClick={handleClick} 
-		className={styles.button}
+		className={styles.button_style}
 		size='small'
 	>
 		<div className={styles.button_title}>
