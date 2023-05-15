@@ -10,16 +10,16 @@ class PaintingsApi {
 			"query": {
 				"bool": {
 					"must": [
-						{
-							"term": {
-								"is_public_domain": true
-							}
-						},
+						// {
+						// 	"term": {
+						// 		"is_public_domain": true
+						// 	}
+						// },
 						{
 							"term": {
 								"artist_id": artistId
 							}					
-						}
+						},
 					]
 				}
 			}
@@ -55,6 +55,34 @@ class PaintingsApi {
 				'Content-Type': 'application/json;charset=utf-8'
 			},
 			body: JSON.stringify(this.postArtistPauntingsQuery(artist_id))
+		})
+			.then(response => response.json())
+	}
+
+	postPaintingsStyle(style: string, page: string): Promise <ResponsiveData> {
+		return fetch(this.url + `search?q=&page=${page}`, {
+			method:'POST',
+			headers:{
+				'Content-Type': 'application/json;charset=utf-8'
+			},
+			body: JSON.stringify({
+				"query": {
+					"bool": {
+						"must": [
+							{
+								"term": {
+									"is_public_domain": true
+								}
+							},
+							{
+								"term": {
+									"style_id": style
+								}					
+							},
+						]
+					}
+				}
+			})
 		})
 			.then(response => response.json())
 	}

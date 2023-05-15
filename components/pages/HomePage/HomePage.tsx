@@ -13,6 +13,8 @@ import { useQueryStore } from '@/stateManagement/queryStore'
 
 // CSS
 import styles from './Home.module.sass'
+import { TagContainer } from '@/components/tags/TagContainer'
+import { useTagStore } from '@/stateManagement/tagStore'
 
 const queryPainting: PaintingQueryModel = {
 	api_link: '',
@@ -28,7 +30,7 @@ const queryPainting: PaintingQueryModel = {
 export default function HomePage():JSX.Element { 
 
 	const [paintings, setPaintings] = useState <PaintingModel[]> ([]);
-	const [currentPage, setCurrentage] = useState('1')
+	const [currentPage, setCurrentPage] = useState('1')
 	const [isLoading, setIsLoading] = useState(false)
 	const [queryPaintings, setQueryPaintings] = useState([queryPainting])
 	const [pages, setPages] = useState('1')
@@ -36,21 +38,54 @@ export default function HomePage():JSX.Element {
 	// const [isQuerySend, setIsQuerySend] = useState(false)
 	const query = useQueryStore(state => state.query)
 	const setQuery = useQueryStore(state => state.setQuery)
+
 	const isQuerySend = useQueryStore(state => state.isSend)
 	const setIsQuerySend = useQueryStore(state => state.setIsSend)
 
+	const tag = useTagStore(state => state.tag)
+	const setTag = useTagStore(state => state.setTag)
+
 	useEffect(() => {
-		setIsLoading(true)
+		if (tag === '') {
+			setIsLoading(true)
 			paintingsApi.getPaintingsQuery(query, currentPage)
 			.then(res => {
 				setQueryPaintings(res.data)
 				if (res.pagination) {
 					setPages(res.pagination.total_pages)
+					if (currentPage > res.pagination.total_pages) {
+						setCurrentPage('1')
+					}
 				}
 				if (res.data.length === 0) setIsLoading(false)
 			})
-		return () => setIsQuerySend(false)
+		}
+			return () => {
+				setIsQuerySend(false)
+			}
 	}, [currentPage, isQuerySend])
+
+	useEffect(() => {
+		if (tag !== '') {
+			setIsLoading(true)
+			paintingsApi.postPaintingsStyle(tag, currentPage)   // будут баги с currentPage
+			.then(res => {
+				setQueryPaintings(res.data)
+				if (res.pagination) {
+					setPages(res.pagination.total_pages)
+					if (currentPage > res.pagination.total_pages) {
+						setCurrentPage('1')
+					}
+				}
+				if (res.data.length === 0) setIsLoading(false)
+			})
+			return () => {
+				setIsQuerySend(false)
+				setTag('')
+			}
+		}
+	}, [tag, currentPage])
+		
 
 	useEffect(() => {
 		if (queryPaintings.length > 1) {
@@ -104,9 +139,12 @@ export default function HomePage():JSX.Element {
 								/>
 							</div>
 						</div>
+						<div className={styles.tags}>
+							<TagContainer />
+						</div>
 						{paintings[0] ? <div className={styles.collage}><Collage paintings={paintings} /></div> : <></>}		
 						<div className={styles.page_controller}>
-								<PageController page={currentPage} setPage={setCurrentage} totalPages={pages}/>
+								<PageController page={currentPage} setPage={setCurrentPage} totalPages={pages}/>
 						</div>				
 					</div>
 				}

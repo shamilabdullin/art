@@ -60,7 +60,7 @@ export const SearchBar = ({
 						border: '2px solid white',
 						marginLeft: '5px',
 						"&:hover" : {
-							backgroundColor: 'grey',
+							backgroundColor: '#9e8fa5',
 							color: 'black'
 						}
 					}}
@@ -100,7 +100,7 @@ export const SearchBar = ({
 					border: '2px solid white',
 					marginLeft: '5px',
 					"&:hover" : {
-						backgroundColor: 'grey',
+						backgroundColor: '#9e8fa5',
 						color: 'black'
 					}
 				}}
