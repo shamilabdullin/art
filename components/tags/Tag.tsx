@@ -19,8 +19,12 @@ export const Tag = ({style_id, style_title}: TagProps) => {
   return (
 	<Button 
 		onClick={handleClick} 
-		className={styles.button_style}
+		// className={styles.button_style}
 		size='small'
+		sx={{
+			"margin" : "4px",
+			"backgroundColor" : "#dac6e3"
+		}}
 	>
 		<div className={styles.button_title}>
 			{style_title.toUpperCase()}

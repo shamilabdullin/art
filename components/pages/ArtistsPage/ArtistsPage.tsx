@@ -84,6 +84,7 @@ export const ArtistsPage: React.FC = () => {
 									buttonBackgroundColor='black'
 									searchBarLength='300'
 									addLink={false}
+									placeholder={"artist's name"}
 								/>	
 							</div>
 							<div className={styles.page_controller}>
