@@ -23,9 +23,25 @@
 	margin-right: $spacing * 4
 	z-index: 100
 
+.search_bar_form
+	display: flex
+
+.search_bar_input
+	height: 40px
+
+.search_bar_button
+	height: 50px
+
 @media screen and (min-width: 1200px) 
 	.header_content
 		max-width: 80%
+
+@media (max-width: 1199px)
+	.search_bar_input
+		height: 35px
+
+	.search_bar_button
+		height: 45px
 
 @media (max-width: 850px) 
 	.search_bar

@@ -51,9 +51,14 @@
 .search_bar
 	display: none
 
+.search_bar_class
+	
+
 @media screen and (min-width: 1200px) 
 	.container
 		max-width: 80%
+
+@media screen and (max-width: 1199px) 
 
 @media (max-width: 850px) 
 	.collage
@@ -61,13 +66,27 @@
 	.title
 		h1
 			font-size: 24px
-
-@media (max-width: 850px) 
+	.tags
+		margin-bottom: 18px
 	.search_bar
 		margin: $spacing * 2 0
+		display: block
+		// align-items: center
+		// justify-content: center
+		// width: 60%
+	.search_bar_form
 		display: flex
 		align-items: center
 		justify-content: center
+
+	.search_bar_input
+		width: 200px
+		height: 30px
+
+	.search_bar_button
+		width: 80px
+		font-size: 12px
+		height: 40px
 
 @media (max-width: 599px) 
 	.container
@@ -77,4 +96,20 @@
 		margin: 0
 		
 		h1
-			font-size: 24px
+			font-size: 16px
+	.tags
+		margin-bottom: 3%
+
+	.search_bar
+		// width: 40%
+
+	.search_bar_input
+		height: 25px
+		width: 35%
+
+	.search_bar_button
+		height: 35px
+		font-size: 12px
+
+	.collage
+		margin-top: 3%

@@ -136,6 +136,9 @@ export default function HomePage():JSX.Element {
 									buttonBackgroundColor='black'
 									searchBarLength='180'
 									placeholder='keywords'
+									formClass={styles.search_bar_form}
+									inputClass={styles.search_bar_input}
+									buttonClass={styles.search_bar_button}
 								/>
 							</div>
 						</div>

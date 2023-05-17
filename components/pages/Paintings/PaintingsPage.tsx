@@ -82,6 +82,8 @@ const PaintingsPage: React.FC = () => {
 								searchBarLength='300'
 								addLink={false}
 								placeholder={'painting title'}
+								inputClass={styles.search_bar_input}
+								buttonClass={styles.search_bar_button}
 							/>	
 						</div>
 						<div className={styles.page_controller}>

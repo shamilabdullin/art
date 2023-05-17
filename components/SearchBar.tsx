@@ -3,10 +3,11 @@ import React from 'react'
 // Stores, utils, libs
 import { TextField } from '@mui/material'
 import { Button } from '@mui/material'
+import Link from 'next/link'
+import classNames from 'classnames'
 
 // CSS
 import styles from './styles/SearchBar.module.sass'
-import Link from 'next/link'
 
 type SearchBarProps = {
 	handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
@@ -16,6 +17,9 @@ type SearchBarProps = {
 	searchBarLength?: string,
 	addLink?: boolean,
 	placeholder?: string,
+	formClass?: string,
+	inputClass?: string,
+	buttonClass?: string,
 }
 
 export const SearchBar = ({
@@ -25,20 +29,26 @@ export const SearchBar = ({
 	buttonBackgroundColor, 
 	searchBarLength,
 	addLink,
-	placeholder
+	placeholder,
+	formClass,
+	inputClass,
+	buttonClass
 }: SearchBarProps) => {
   return (
 	<div>{addLink ?
 		<div>
-			<form onSubmit={handleQueryClick}>
+			<form 
+				onSubmit={handleQueryClick}
+				className={formClass}
+			>
 				<input
-					className={styles.text_field}
+					className={classNames(styles.text_field, inputClass)}
 					// size='small'
 					onChange={handleQueryChange}
-					style={{
-						'backgroundColor' : textFieldBackgroundColor,
-						'width' : `${searchBarLength}px`
-					}}
+					// style={{
+					// 	'backgroundColor' : textFieldBackgroundColor,
+					// 	'width' : `${searchBarLength}px`
+					// }}
 					// sx={{
 					// 	borderRadius: '0px',
 					// 	backgroundColor: textFieldBackgroundColor,
@@ -55,6 +65,7 @@ export const SearchBar = ({
 					onClick={handleQueryClick}
 					type='button'
 					variant='contained'
+					className={buttonClass}
 					sx={{
 						backgroundColor: buttonBackgroundColor,
 						border: '2px solid white',
@@ -70,15 +81,18 @@ export const SearchBar = ({
 			</form>
 		</div> :
 		<div>
-			<form onSubmit={handleQueryClick}>
+			<form 
+				onSubmit={handleQueryClick} 
+				className={formClass}
+			>
 			<input
-				className={styles.text_field}
+				className={classNames(styles.text_field, inputClass)}
 				// size='small'
 				onChange={handleQueryChange}
-				style={{
-					'backgroundColor' : textFieldBackgroundColor,
-					'width' : `${searchBarLength}px`
-				}}
+				// style={{
+				// 	'backgroundColor' : textFieldBackgroundColor,
+				// 	'width' : `${searchBarLength}px`
+				// }}
 				// sx={{
 				// 	borderRadius: '0px',
 				// 	backgroundColor: textFieldBackgroundColor,
@@ -95,6 +109,7 @@ export const SearchBar = ({
 				onClick={handleQueryClick}
 				type='button'
 				variant='contained'
+				className={buttonClass}
 				sx={{
 					backgroundColor: buttonBackgroundColor,
 					border: '2px solid white',

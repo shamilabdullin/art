@@ -51,6 +51,9 @@ export const Header: React.FC = () => {
 						searchBarLength='230'
 						addLink={true}
 						placeholder='keywords'
+						formClass={styles.search_bar_form}
+						inputClass={styles.search_bar_input}
+						buttonClass={styles.search_bar_button}
 					/>
 				</div>
 			</header>
