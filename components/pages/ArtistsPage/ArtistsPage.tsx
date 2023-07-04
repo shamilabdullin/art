@@ -84,7 +84,7 @@ export const ArtistsPage: React.FC = () => {
 									buttonBackgroundColor='black'
 									searchBarLength='300'
 									addLink={false}
-									placeholder={"artist's name"}
+									placeholder={"Artist's name"}
 									inputClass={styles.search_bar_input}
 									buttonClass={styles.search_bar_button}
 								/>	

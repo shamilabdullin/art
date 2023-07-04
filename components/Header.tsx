@@ -50,7 +50,7 @@ export const Header: React.FC = () => {
 						buttonBackgroundColor='black'
 						searchBarLength='230'
 						addLink={true}
-						placeholder='keywords'
+						placeholder='Keywords'
 						formClass={styles.search_bar_form}
 						inputClass={styles.search_bar_input}
 						buttonClass={styles.search_bar_button}

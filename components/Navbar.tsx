@@ -38,7 +38,7 @@ export const Navbar = () => {
 		<Button bgcolor='black'>
 			<Link href={'/aboutUs'} className={styles.link} >
 				<Image src={questionIcon} alt='questionIcon' height={20} className={styles.icon} />
-				About us
+				About me
 			</Link>
 		</Button>
 	</nav>

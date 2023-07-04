@@ -16,17 +16,17 @@ type CollageProps = {
 
 export const Collage = ({ paintings, queryPaintings }:CollageProps ) => {
 
-	const [collagePaintings, setCollagePaintings] = useState(paintings)
+	// const [collagePaintings, setCollagePaintings] = useState(paintings)
 
-	useEffect(() => {
-		setCollagePaintings(paintings)
-	}, [paintings])
+	// useEffect(() => {
+	// 	setCollagePaintings(paintings)
+	// }, [paintings])
 
   return (
 	<div>
-		{collagePaintings ? 
+		{paintings ? 
 			<div className={styles.collage}>
-				{collagePaintings.map((painting) => (
+				{paintings.map((painting) => (
 					(painting.image_id === null) ?
 					<div key={painting.id} className={styles.painting}>
 						<Link href={`/paintings/${painting.id}`}>
