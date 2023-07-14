@@ -5,10 +5,6 @@ import { SearchBar } from './SearchBar'
 
 // Stores, utils, libs
 import { Navbar } from './Navbar'
-import Image from 'next/image'
-import Link from 'next/link'
-import Button from './artUI/Button'
-import questionIcon from 'public/question-icon-light.svg'
 import { useQueryStore } from '../stateManagement/queryStore'
 import { useRouter } from 'next/router'
 
