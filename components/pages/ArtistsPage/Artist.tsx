@@ -64,9 +64,13 @@ const Artist: React.FC = () => {
 							<h1>{currentArtist === '' ? "Artist's title" : currentArtist}</h1>
 						</div>
 						<Collage paintings={paintings}/>
+						{paintings.length > 9 ?
 						<div className={styles.page_controller}>
 							<PageController page={currentPage} setPage={setCurrentPage} totalPages={totalPages}/>
 						</div>
+						:
+						<></>						
+						}
 					</> :
 					<div className={styles.no_public_domain}>
 						<div>
