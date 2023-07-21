@@ -73,7 +73,7 @@ export default function Painting():JSX.Element {
 							<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? `${painting.date_start + (-painting.date_start * 2)} B.C.` + ' - ' + `${painting.date_end + (-painting.date_end * 2)} B.C.` : 'No date' }</h3>
 						}
 						<h3 className={styles.author}>
-							<Link href={`/artists/${painting.artist_id}`} onClick={(e) => addCurrentArtist(e.currentTarget.text)} className={styles.link}>{painting.artist_title}</Link>
+							{painting.artist_title}
 						</h3>
 					</div>
 					<div className={styles.description}>

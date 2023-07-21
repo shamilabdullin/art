@@ -62,40 +62,43 @@ export const ArtistsPage: React.FC = () => {
 
   	return (
   		<div>
-			{isLoading ? 
-				<Loading />	:
-				<div className={styles.artists_page}>
-					<div className={styles.container}>
-						<div className={styles.artists}>
-							<div className={styles.artists_title}>
-								<h1>Find your artist</h1>
-							</div>
-							<div className={styles.artists_list}>
-								{artists.map((artist) => (
-									<div key={artist.id} className={styles.artist}>
-										<Link href={`/artists/${artist.id}`} className={styles.artist_link} onClick={artistHandler}>{artist.title}</Link>  {/*onClick={(e) => addCurrentArtist(e.currentTarget.text)*/}
-									</div>
-								))}
-							</div>
-							<div className={styles.search_bar}>
-								<SearchBar 
-									handleQueryChange={handleQueryChange} 
-									handleQueryClick={handleQueryClick}
-									buttonBackgroundColor='black'
-									searchBarLength='300'
-									addLink={false}
-									placeholder={"Artist's name"}
-									inputClass={styles.search_bar_input}
-									buttonClass={styles.search_bar_button}
-								/>	
-							</div>
-							<div className={styles.page_controller}>
-								<PageController page={currentPage} totalPages={pages} setPage={setCurrentPage}/>
-							</div>
+			<div className={styles.artists_page}>
+				<div className={styles.container}>
+					<div className={styles.artists}>
+						<div className={styles.artists_title}>
+							<h1>Find your artist</h1>
 						</div>
+						{isLoading ?
+							<Loading />
+							:
+							<>
+								<div className={styles.artists_list}>
+									{artists.map((artist) => (
+										<div key={artist.id} className={styles.artist}>
+											<Link href={`/artists/${artist.id}`} className={styles.artist_link} onClick={artistHandler}>{artist.title}</Link>  {/*onClick={(e) => addCurrentArtist(e.currentTarget.text)*/}
+										</div>
+									))}
+								</div>
+								<div className={styles.search_bar}>
+									<SearchBar 
+										handleQueryChange={handleQueryChange} 
+										handleQueryClick={handleQueryClick}
+										buttonBackgroundColor='black'
+										searchBarLength='300'
+										addLink={false}
+										placeholder={"Artist's name"}
+										inputClass={styles.search_bar_input}
+										buttonClass={styles.search_bar_button}
+									/>	
+								</div>
+								<div className={styles.page_controller}>
+									<PageController page={currentPage} totalPages={pages} setPage={setCurrentPage}/>
+								</div>
+							</>	
+						}
 					</div>
 				</div>
-			}
+			</div>
 		</div>
   	)
 }

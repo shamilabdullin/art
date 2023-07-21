@@ -55,43 +55,46 @@ const PaintingsPage: React.FC = () => {
 
 	return (
 		<div>
-			{isLoading ? 
-				<Loading /> :
-				<div className={styles.paintings_page}>
-					<div className={styles.content}>
-						<Head>
-							<title>Paintings</title>
-						</Head>
-						<div className={styles.paintings_title}>
-							<h1>Find your painting</h1>
-						</div>
-						<ul>
-							{paintings.map((painting: any) => 
-								<li key={painting.id} className={styles.painting}>
-									<Link href={`/paintings/${painting.id}`} className={styles.painting_link}>
-										{painting.title}
-									</Link>
-								</li>
-							)}
-						</ul>
-						<div className={styles.search_bar}>
-							<SearchBar 
-								handleQueryChange={handleQueryChange} 
-								handleQueryClick={handleQueryClick}
-								buttonBackgroundColor='black'
-								searchBarLength='300'
-								addLink={false}
-								placeholder={'Painting title'}
-								inputClass={styles.search_bar_input}
-								buttonClass={styles.search_bar_button}
-							/>	
-						</div>
-						<div className={styles.page_controller}>
-							<PageController page={currentPage} totalPages={pages} setPage={setCurrentPage}/>
-						</div>
+			<div className={styles.paintings_page}>
+				<div className={styles.content}>
+					<Head>
+						<title>Paintings</title>
+					</Head>
+					<div className={styles.paintings_title}>
+						<h1>Find your painting</h1>
 					</div>
+					{isLoading ?
+						<Loading />
+						:
+						<>
+							<ul>
+								{paintings.map((painting: any) => 
+									<li key={painting.id} className={styles.painting}>
+										<Link href={`/paintings/${painting.id}`} className={styles.painting_link}>
+											{painting.title}
+										</Link>
+									</li>
+								)}
+							</ul>
+							<div className={styles.search_bar}>
+								<SearchBar 
+									handleQueryChange={handleQueryChange} 
+									handleQueryClick={handleQueryClick}
+									buttonBackgroundColor='black'
+									searchBarLength='300'
+									addLink={false}
+									placeholder={'Painting title'}
+									inputClass={styles.search_bar_input}
+									buttonClass={styles.search_bar_button}
+								/>	
+							</div>
+							<div className={styles.page_controller}>
+								<PageController page={currentPage} totalPages={pages} setPage={setCurrentPage}/>
+							</div>
+						</>
+					}
 				</div>
-			}
+			</div>
 		</div>
 	)
 }

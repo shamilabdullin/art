@@ -53,37 +53,40 @@ const Artist: React.FC = () => {
 
   return (
 	<div>
-		{isLoading ? 
-			<Loading />	:
-			<div className={styles.artist_page}>
-				<div className={styles.container}>
-					{paintings[0] ? 
-					<>
-						<div className={styles.artist_name}>
-							{/* <h2>{paintings[0] ? paintings[0].artist_title : 'Artist title'}</h2> */}
-							<h1>{currentArtist === '' ? "Artist's title" : currentArtist}</h1>
-						</div>
-						<Collage paintings={paintings}/>
-						{paintings.length > 9 ?
-						<div className={styles.page_controller}>
-							<PageController page={currentPage} setPage={setCurrentPage} totalPages={totalPages}/>
-						</div>
-						:
-						<></>						
-						}
-					</> :
-					<div className={styles.no_public_domain}>
-						<div>
-							<div className={styles.no_public_title}>
-								<h1>Sorry, we haven&apos;t got paintings of this artist in public domain</h1>
-							</div>
-							<Image src={sadSmile} alt='sad smile' width={150} height={150}/>
-						</div>
-					</div>	
-				}
+		<div className={styles.artist_page}>
+			<div className={styles.container}>
+				<div className={styles.artist_name}>
+					{/* <h2>{paintings[0] ? paintings[0].artist_title : 'Artist title'}</h2> */}
+					<h1>{currentArtist === '' ? "Artist's title" : currentArtist}</h1>
 				</div>
+				{isLoading ?
+					<Loading />
+					:
+					<>
+						{paintings[0] ? 
+							<>
+								<Collage paintings={paintings}/>
+								{paintings.length > 9 ?
+								<div className={styles.page_controller}>
+									<PageController page={currentPage} setPage={setCurrentPage} totalPages={totalPages}/>
+								</div>
+								:
+								<></>						
+								}
+							</> :
+							<div className={styles.no_public_domain}>
+								<div>
+									<div className={styles.no_public_title}>
+										<h1>Sorry, we haven&apos;t got paintings of this artist in public domain</h1>
+									</div>
+									<Image src={sadSmile} alt='sad smile' width={150} height={150}/>
+								</div>
+							</div>	
+						}
+					</>
+				}
 			</div>
-		}
+		</div>
 	</div>
   )
 }
