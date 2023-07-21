@@ -7,6 +7,7 @@ import { SearchBar } from './SearchBar'
 import { Navbar } from './Navbar'
 import { useQueryStore } from '../stateManagement/queryStore'
 import { useRouter } from 'next/router'
+import { useTagStore } from '@/stateManagement/tagStore'
 
 // CSS
 import styles from './styles/Header.module.sass'
@@ -14,10 +15,13 @@ import styles from './styles/Header.module.sass'
 export const Header: React.FC = () => {
 
 	const [isLocalQuerySend, setIsLocalQuerySend] = useState(false)
+
 	const query = useQueryStore(state => state.query)
 	const setQuery = useQueryStore(state => state.setQuery)
 	const isQuerySend = useQueryStore(state => state.isSend)
 	const setIsQuerySend = useQueryStore(state => state.setIsSend)
+	const setTag = useTagStore(state => state.setTag)
+	
 	const router = useRouter()
 
 	useEffect(() => {
@@ -32,6 +36,8 @@ export const Header: React.FC = () => {
 		e.preventDefault()
 		setIsQuerySend(!isQuerySend)
 		setIsLocalQuerySend(true)
+		setTag('')
+		// может еще нужно setIsQuerySend = false
 	}
 
 	return (

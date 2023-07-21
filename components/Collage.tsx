@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 // Stores, utils, libs
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings';
 import Link from 'next/link'
-import noImg from 'public/no_img.svg'
+import noImg from './images/no_img.svg'
 import Image from 'next/image'
 
 // CSS
@@ -30,7 +30,7 @@ export const Collage = ({ paintings, queryPaintings }:CollageProps ) => {
 					(painting.image_id === null) ?
 					<div key={painting.id} className={styles.painting}>
 						<Link href={`/paintings/${painting.id}`}>
-							<Image src={noImg} alt={painting.title} className={styles.contain}/>
+							<img src={'./no_img.svg'} alt={painting.title} className={styles.contain}/>
 							<div>
 								<p><strong>{painting.title} {painting.date_end > 0 ? painting.date_end : `${painting.date_end + painting.date_end * 2} B.C.`}</strong></p>
 								<p>{painting.artist_title}</p>

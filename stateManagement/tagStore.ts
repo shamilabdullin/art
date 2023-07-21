@@ -4,6 +4,8 @@ import { persist, devtools } from "zustand/middleware"
 type useTagStoreState = {
 	tag: string;
 	setTag: (tag: string) => void;
+	isTagPressed: boolean;
+	setIsTagPressed: (isTagPressed: boolean) => void;
 }
 
 const useTagStore =  create <useTagStoreState> ()(
@@ -15,6 +17,12 @@ const useTagStore =  create <useTagStoreState> ()(
 					tag: tag
 				}
 			),
+			isTagPressed: false,
+			setIsTagPressed: (isTagPressed) => set(
+				{
+					isTagPressed: isTagPressed
+				}
+			)
 		})
 	)
 )

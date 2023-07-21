@@ -34,13 +34,58 @@ export const SearchBar = ({
 	inputClass,
 	buttonClass
 }: SearchBarProps) => {
-  return (
-	<div>{addLink ?
-		<div>
-			<form 
-				onSubmit={handleQueryClick}
-				className={formClass}
-			>
+
+	return (
+		<div>{addLink ?
+			<div>
+				<form 
+					onSubmit={handleQueryClick}
+					className={formClass}
+				>
+					<input
+						className={classNames(styles.text_field, inputClass)}
+						// size='small'
+						onChange={handleQueryChange}
+						// style={{
+						// 	'backgroundColor' : textFieldBackgroundColor,
+						// 	'width' : `${searchBarLength}px`
+						// }}
+						// sx={{
+						// 	borderRadius: '0px',
+						// 	backgroundColor: textFieldBackgroundColor,
+						// 	"&:focus" : {
+						// 		color: 'green'
+						// 	}
+						// }}
+						// variant='standard'
+						// color='info'
+						placeholder={placeholder}
+					/>
+					<Button 
+						size='large' 
+						onClick={handleQueryClick}
+						type='button'
+						variant='contained'
+						className={buttonClass}
+						sx={{
+							backgroundColor: buttonBackgroundColor,
+							border: '2px solid white',
+							marginLeft: '5px',
+							"&:hover" : {
+								backgroundColor: '#dac6e3',
+								color: 'black'
+							}
+						}}
+					>
+						Search
+					</Button>
+				</form>
+			</div> :
+			<div>
+				<form 
+					onSubmit={handleQueryClick} 
+					className={formClass}
+				>
 				<input
 					className={classNames(styles.text_field, inputClass)}
 					// size='small'
@@ -71,7 +116,7 @@ export const SearchBar = ({
 						border: '2px solid white',
 						marginLeft: '5px',
 						"&:hover" : {
-							backgroundColor: '#dac6e3',
+							backgroundColor: '#9e8fa5',
 							color: 'black'
 						}
 					}}
@@ -79,52 +124,8 @@ export const SearchBar = ({
 					Search
 				</Button>
 			</form>
-		</div> :
-		<div>
-			<form 
-				onSubmit={handleQueryClick} 
-				className={formClass}
-			>
-			<input
-				className={classNames(styles.text_field, inputClass)}
-				// size='small'
-				onChange={handleQueryChange}
-				// style={{
-				// 	'backgroundColor' : textFieldBackgroundColor,
-				// 	'width' : `${searchBarLength}px`
-				// }}
-				// sx={{
-				// 	borderRadius: '0px',
-				// 	backgroundColor: textFieldBackgroundColor,
-				// 	"&:focus" : {
-				// 		color: 'green'
-				// 	}
-				// }}
-				// variant='standard'
-				// color='info'
-				placeholder={placeholder}
-			/>
-			<Button 
-				size='large' 
-				onClick={handleQueryClick}
-				type='button'
-				variant='contained'
-				className={buttonClass}
-				sx={{
-					backgroundColor: buttonBackgroundColor,
-					border: '2px solid white',
-					marginLeft: '5px',
-					"&:hover" : {
-						backgroundColor: '#9e8fa5',
-						color: 'black'
-					}
-				}}
-			>
-				Search
-			</Button>
-		</form>
+			</div>
+		}
 		</div>
-	}
-	</div>
-  )
+	)
 }

@@ -29,13 +29,12 @@ const queryPainting: PaintingQueryModel = {
 
 export default function HomePage():JSX.Element { 
 
-	const [paintings, setPaintings] = useState <PaintingModel[]> ([]);
+	const [fullPaintings, setFullPaintings] = useState <PaintingModel[]> ([]);
 	const [currentPage, setCurrentPage] = useState('1')
 	const [isLoading, setIsLoading] = useState(false)
-	const [queryPaintings, setQueryPaintings] = useState([queryPainting])
+	const [shortPaintings, setShortPaintings] = useState([queryPainting])
 	const [pages, setPages] = useState('1')
-	// const [query, setQuery] = useState('')
-	// const [isQuerySend, setIsQuerySend] = useState(false)
+
 	const query = useQueryStore(state => state.query)
 	const setQuery = useQueryStore(state => state.setQuery)
 
@@ -43,14 +42,15 @@ export default function HomePage():JSX.Element {
 	const setIsQuerySend = useQueryStore(state => state.setIsSend)
 
 	const tag = useTagStore(state => state.tag)
-	const setTag = useTagStore(state => state.setTag)
+	const isTagPressed = useTagStore(state => state.isTagPressed)
 
 	useEffect(() => {
-		if (tag === '') {
+		if (isQuerySend === false && isTagPressed === false && query === '' && tag === '') {
+			// console.log('useEffect if 1')
 			setIsLoading(true)
 			paintingsApi.getPaintingsQuery(query, currentPage)
 			.then(res => {
-				setQueryPaintings(res.data)
+				setShortPaintings(res.data)
 				if (res.pagination) {
 					setPages(res.pagination.total_pages)
 					if (currentPage > res.pagination.total_pages) {
@@ -60,17 +60,56 @@ export default function HomePage():JSX.Element {
 				if (res.data.length === 0) setIsLoading(false)
 			})
 		}
+
+		if (query !== '' && tag === '') {
+			// console.log('useEffect if query')
+			setIsLoading(true)
+			paintingsApi.getPaintingsQuery(query, currentPage)   
+			.then(res => {
+				setShortPaintings(res.data)
+				if (res.pagination) {
+					setPages(res.pagination.total_pages)
+					if (currentPage > res.pagination.total_pages) {
+						setCurrentPage('1')
+					}
+				}
+				if (res.data.length === 0) setIsLoading(false)
+				// setTag('')
+			})
+		}
+
+		// if (tag !== '' && isQuerySend === false) {
+		// 	console.log('useEffect if tag')
+		// 	setIsLoading(true)
+		// 	paintingsApi.postPaintingsStyle(tag, currentPage)
+		// 	.then(res => {
+		// 		setShortPaintings(res.data)
+		// 		if (res.pagination) {
+		// 			setPages(res.pagination.total_pages)
+		// 			if (currentPage > res.pagination.total_pages) {
+		// 				setCurrentPage('1')
+		// 			}
+		// 		}
+		// 		if (res.data.length === 0) setIsLoading(false)
+		// 		// setQuery('')
+		// 		// setIsTagPressed(true)
+		// 	})
+		// }
+
 			return () => {
-				setIsQuerySend(false)
+				//setQuery('')
+				//setTag('')
+				//console.log('will component unmount')
 			}
 	}, [currentPage, isQuerySend])
 
-	useEffect(() => {
+	useEffect(() => {         // для работы с тэгами
 		if (tag !== '') {
+			// console.log('useEffect 2')
 			setIsLoading(true)
 			paintingsApi.postPaintingsStyle(tag, currentPage)   // будут баги с currentPage
 			.then(res => {
-				setQueryPaintings(res.data)
+				setShortPaintings(res.data)
 				if (res.pagination) {
 					setPages(res.pagination.total_pages)
 					if (currentPage > res.pagination.total_pages) {
@@ -80,32 +119,31 @@ export default function HomePage():JSX.Element {
 				if (res.data.length === 0) setIsLoading(false)
 			})
 			return () => {
-				setIsQuerySend(false)
-				setTag('')
+				//setQuery('')
 			}
 		}
 	}, [tag, currentPage])
 		
 
-	useEffect(() => {
-		if (queryPaintings.length > 1) {
+	useEffect(() => {                         // для запросов конкретным картинам
+		if (shortPaintings.length > 1) {
 			setIsLoading(true)
-			const ids = queryPaintings.map(queryPainting => queryPainting.id)
+			const ids = shortPaintings.map(queryPainting => queryPainting.id)
 			const request = ids.map(id => paintingsApi.getPainting(id))
 			Promise.all(request)
 				.then(res => {
 					const paintings = res.map(responsiveData => responsiveData.data)
-					setPaintings(paintings)
+					setFullPaintings(paintings)
 					setIsLoading(false)
 				})
 		}
-	}, [queryPaintings])
+	}, [shortPaintings])
 
 	const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setQuery(event.target.value)
 	}
 
-	const handleQueryClick = (e: React.SyntheticEvent) => {
+	const handleQueryClick = (e: React.SyntheticEvent) => {  // вынести логику в компонент
 		e.preventDefault()
 		setIsQuerySend(!isQuerySend)
 	}
@@ -145,7 +183,7 @@ export default function HomePage():JSX.Element {
 						<div className={styles.tags}>
 							<TagContainer />
 						</div>
-						{paintings[0] ? <div className={styles.collage}><Collage paintings={paintings} /></div> : <></>}		
+						{fullPaintings[0] ? <div className={styles.collage}><Collage paintings={fullPaintings} /></div> : <></>}		
 						<div className={styles.page_controller}>
 								<PageController page={currentPage} setPage={setCurrentPage} totalPages={pages}/>
 						</div>				
