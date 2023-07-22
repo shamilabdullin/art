@@ -87,6 +87,7 @@ export const ArtistsPage: React.FC = () => {
 										searchBarLength='300'
 										addLink={false}
 										placeholder={"Artist's name"}
+										formClass={styles.search_bar_form}
 										inputClass={styles.search_bar_input}
 										buttonClass={styles.search_bar_button}
 									/>	

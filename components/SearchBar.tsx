@@ -116,7 +116,7 @@ export const SearchBar = ({
 						border: '2px solid white',
 						marginLeft: '5px',
 						"&:hover" : {
-							backgroundColor: '#9e8fa5',
+							backgroundColor: '#dac6e3',
 							color: 'black'
 						}
 					}}

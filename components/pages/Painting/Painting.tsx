@@ -55,53 +55,56 @@ export default function Painting():JSX.Element {
 
 	return (
 		<div className={styles.paintingPage}>
-			{isLoading ? 
-				<Loading /> : 
-				<div className={styles.container}>
+			<div className={styles.container}>
 				<div className={styles.painting}>
-					<div className={styles.main}>
-						<div className={styles.title}>
-							<h1>{painting.title}</h1>
-						</div>
-						{(painting.image_id)  ? 
-							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} className={styles.paintingImg} alt='No image'></img>
-							:
-							<Image src={noImg} height={"790"} className={styles.paintingImg} alt={painting.title} /> 
-						}
-						{painting.date_end > 0?
-							<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? painting.date_start + ' - ' + painting.date_end : 'No date' }</h3> :
-							<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? `${painting.date_start + (-painting.date_start * 2)} B.C.` + ' - ' + `${painting.date_end + (-painting.date_end * 2)} B.C.` : 'No date' }</h3>
-						}
-						<h3 className={styles.author}>
-							{painting.artist_title}
-						</h3>
-					</div>
-					<div className={styles.description}>
-						<dl className={styles.description_table}>
-							<dt><h4>Artist</h4></dt>
-							<dd><span>{painting.artist_title ? 
-									<Link href={`/artists/${painting.artist_id}`} onClick={(e) => addCurrentArtist(e.currentTarget.text)} className={styles.link}>{painting.artist_title}</Link> 
-									: 
-									'-'
+					{isLoading ?
+						<Loading />
+						:
+						<>
+							<div className={styles.main}>
+								<div className={styles.title}>
+									<h1>{painting.title}</h1>
+								</div>
+								{(painting.image_id)  ? 
+									<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} className={styles.paintingImg} alt='No image'></img>
+									:
+									<Image src={noImg} height={"790"} className={styles.paintingImg} alt={painting.title} /> 
 								}
-							</span></dd>
-							<dt><h4>Title</h4></dt>
-							<dd><span>{painting.title ? painting.title : '-'}</span></dd>
-							<dt><h4>Place</h4></dt>
-							<dd><span>{painting.place_of_origin ? painting.place_of_origin : '-'}</span></dd>
-							<dt><h4>Date</h4></dt>
-							<dd><span>{painting.date_end ?? '-'}</span></dd>
-							<dt><h4>Medium</h4></dt>
-							<dd><span>{painting.medium_display ?? '-'}</span></dd>
-							<dt><h4>Dimensions</h4></dt>
-							<dd><span>{painting.dimensions ?? '-'}</span></dd>
-							<dt><h4>Credit line</h4></dt>
-							<dd><span>{painting.credit_line ?? '-'}</span></dd>
-						</dl>
-					</div>
+								{painting.date_end > 0?
+									<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? painting.date_start + ' - ' + painting.date_end : 'No date' }</h3> :
+									<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? `${painting.date_start + (-painting.date_start * 2)} B.C.` + ' - ' + `${painting.date_end + (-painting.date_end * 2)} B.C.` : 'No date' }</h3>
+								}
+								<h3 className={styles.author}>
+									{painting.artist_title}
+								</h3>
+							</div>
+							<div className={styles.description}>
+								<dl className={styles.description_table}>
+									<dt><h4>Artist</h4></dt>
+									<dd><span>{painting.artist_title ? 
+											<Link href={`/artists/${painting.artist_id}`} onClick={(e) => addCurrentArtist(e.currentTarget.text)} className={styles.link}>{painting.artist_title}</Link> 
+											: 
+											'-'
+										}
+									</span></dd>
+									<dt><h4>Title</h4></dt>
+									<dd><span>{painting.title ? painting.title : '-'}</span></dd>
+									<dt><h4>Place</h4></dt>
+									<dd><span>{painting.place_of_origin ? painting.place_of_origin : '-'}</span></dd>
+									<dt><h4>Date</h4></dt>
+									<dd><span>{painting.date_end ?? '-'}</span></dd>
+									<dt><h4>Medium</h4></dt>
+									<dd><span>{painting.medium_display ?? '-'}</span></dd>
+									<dt><h4>Dimensions</h4></dt>
+									<dd><span>{painting.dimensions ?? '-'}</span></dd>
+									<dt><h4>Credit line</h4></dt>
+									<dd><span>{painting.credit_line ?? '-'}</span></dd>
+								</dl>
+							</div>
+						</>
+					}
 				</div>
 			</div>	
-			}
 		</div>
 	)
 };

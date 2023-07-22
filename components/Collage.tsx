@@ -28,24 +28,20 @@ export const Collage = ({ paintings, queryPaintings }:CollageProps ) => {
 			<div className={styles.collage}>
 				{paintings.map((painting) => (
 					(painting.image_id === null) ?
-					<div key={painting.id} className={styles.painting}>
-						<Link href={`/paintings/${painting.id}`}>
-							<img src={'./no_img.svg'} alt={painting.title} className={styles.contain}/>
-							<div>
-								<p><strong>{painting.title} {painting.date_end > 0 ? painting.date_end : `${painting.date_end + painting.date_end * 2} B.C.`}</strong></p>
-								<p>{painting.artist_title}</p>
-							</div>
-						</Link>
-					</div> :
-					<div key={painting.id} className={styles.painting}>
-						<Link href={`/paintings/${painting.id}`}>
-							<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} className={styles.contain} alt='No image'/>
-							<div>
-								<p><strong>{painting.title} {painting.date_end > 0 ? painting.date_end : `${painting.date_end + (-painting.date_end * 2)} B.C.`}</strong></p>
-								<p>{painting.artist_title}</p>
-							</div>
-						</Link>
-					</div>
+					<Link href={`/paintings/${painting.id}`} key={painting.id} className={styles.painting}>
+						<img src={'./no_img.svg'} alt={painting.title} className={styles.contain}/>
+						<div>
+							<p><strong>{painting.title}</strong></p> {/* {painting.date_end > 0 ? painting.date_end : `${painting.date_end + painting.date_end * 2} B.C.`} */}
+							<p>{painting.artist_title}</p>
+						</div>
+					</Link> :
+					<Link href={`/paintings/${painting.id}`} key={painting.id} className={styles.painting}>
+						<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} className={styles.contain} alt='No image'/>
+						<div>
+							<p><strong>{painting.title}</strong></p> {/* {painting.date_end > 0 ? painting.date_end : `${painting.date_end + painting.date_end * 2} B.C.`} */}
+							<p>{painting.artist_title}</p>
+						</div>
+					</Link>
 				))}
 			</div>
 			:
