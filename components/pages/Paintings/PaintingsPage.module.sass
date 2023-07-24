@@ -12,12 +12,14 @@
 
 .paintings_page li
 	list-style-type: none
+	max-width: 80%
 
 .paintings_title
 	margin-bottom: $spacing * 4
 
 .painting
-	margin: 12px 36px
+	// margin: 12px 36px
+	margin: 12px auto
 
 .painting_link
 	font-size: 1.3rem
@@ -49,15 +51,17 @@
 	align-items: center
 
 .search_bar_input
-	height: 40px
-	width: 25%
+	height: 30px
+	width: 20%
 
 .search_bar_button
-	height: 50px
-	font-size: 18px
+	height: 40px
+	font-size: 16px
 
 .page_controller
-	margin-top: 100px
+	margin-top: 150px
+	display: flex
+	justify-content: center
 
 @media screen and (min-width: 1200px) 
 	.paintings_page

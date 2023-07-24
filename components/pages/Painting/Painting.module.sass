@@ -14,9 +14,10 @@
 	z-index: 1
 
 .container a:hover
-	background-color: $base-color-3
-	color: white
+	// background-color: $base-color-3
+	// color: white
 	transition: all 0.3s ease 
+	opacity: 0.8
 
 
 .painting
@@ -25,6 +26,8 @@
 .title
 	margin-top: $spacing * 3
 	margin-bottom: $spacing * 5
+	margin: 30px auto
+	max-width: 80%
 
 .main
 	background-color: #f3f3f3
@@ -54,11 +57,15 @@
 	dt
 		margin-bottom: $spacing / 2
 
+	dd
+		max-width: 80%
+		margin: 0 auto 12px
+
 	dd a
 		padding: $spacing / 2
 
 	h4
-		// font-size: 1.3rem
+
 	span
 		font-size: 1.2rem
 

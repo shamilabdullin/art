@@ -15,6 +15,7 @@ import { useQueryStore } from '@/stateManagement/queryStore'
 import styles from './Home.module.sass'
 import { TagContainer } from '@/components/tags/TagContainer'
 import { useTagStore } from '@/stateManagement/tagStore'
+import { Pagination } from '@mui/material'
 
 const queryPainting: PaintingQueryModel = {
 	api_link: '',
@@ -186,8 +187,8 @@ export default function HomePage():JSX.Element {
 						fullPaintings[0] ? <div className={styles.collage}><Collage paintings={fullPaintings} /></div> : <></>
 					}	
 					<div className={styles.page_controller}>
-							<PageController page={currentPage} setPage={setCurrentPage} totalPages={pages}/>
-					</div>				
+						<PageController page={currentPage} setPage={setCurrentPage} totalPages={pages}/>
+					</div>			
 				</div>
 			</main>
 		</>

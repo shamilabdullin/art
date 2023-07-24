@@ -36,6 +36,7 @@ export const Tag = ({ style_id, style_title }: TagProps) => {
 					"height" : "40px",
 					"&:hover" : {
 						backgroundColor: "#261f27",
+						transition: "all 0.3s ease"
 					},
 				}}
 			>
@@ -54,6 +55,7 @@ export const Tag = ({ style_id, style_title }: TagProps) => {
 					"height" : "40px",
 					"&:hover" : {
 						backgroundColor: "#261f27",
+						transition: "all 0.3s ease"
 					},
 				}}
 			>

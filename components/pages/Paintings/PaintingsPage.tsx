@@ -80,7 +80,7 @@ const PaintingsPage: React.FC = () => {
 								<SearchBar 
 									handleQueryChange={handleQueryChange} 
 									handleQueryClick={handleQueryClick}
-									buttonBackgroundColor='black'
+									buttonBackgroundColor='#261f27'
 									searchBarLength='300'
 									addLink={false}
 									placeholder={'Painting title'}

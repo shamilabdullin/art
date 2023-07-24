@@ -9,7 +9,9 @@ const Button: React.FC <ButtonProps> = ({ children, className, bgcolor, ...props
 
 	const buttonSx = {
 		"&:hover" : {
-			backgroundColor: "#a883b9"
+			backgroundColor: bgcolor,
+			transition: 'all 0.3s ease',
+			opacity: '0.8'
 		},
 		bgcolor: bgcolor,
 	}

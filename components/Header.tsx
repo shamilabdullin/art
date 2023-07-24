@@ -37,7 +37,6 @@ export const Header: React.FC = () => {
 		setIsQuerySend(!isQuerySend)
 		setIsLocalQuerySend(true)
 		setTag('')
-		// может еще нужно setIsQuerySend = false
 	}
 
 	return (
@@ -49,7 +48,7 @@ export const Header: React.FC = () => {
 						handleQueryChange={handleQueryChange} 
 						handleQueryClick={handleQueryClick} 
 						textFieldBackgroundColor='white'
-						buttonBackgroundColor='black'
+						buttonBackgroundColor='#261f27'
 						searchBarLength='230'
 						addLink={true}
 						placeholder='Keywords'

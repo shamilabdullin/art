@@ -7,7 +7,7 @@
 	align-items: center
 	// minmax(100px, 400px)
 	background-color: $base-content-color
-	padding: 0 20px 50px 20px
+	padding: 0 20px 0 20px
 	align-items: start
 	gap: 10px
 
@@ -21,19 +21,31 @@
 
 	p
 
+.painting_title
+	margin-bottom: 4px
+
 .painting:hover
-	background-color: $base-color-6
-	color: white
+	// background-color: $base-color-6
+	// color: white
 	transition: all 0.3s ease
+	opacity: 0.8
 
 .contain
 	object-fit: contain
 	margin-bottom: 10px
 	width: 90%
-	// height: 90%
+	max-height: 90%
 	max-width: 300px
 	max-height: 300px
 	margin-top: 10px
+
+.no_img
+	object-fit: contain
+	margin-bottom: 10px
+	width: 90%
+	height: 90%
+	max-width: 300px
+	max-height: 300px
 
 .loading
 	margin-top: 150px
