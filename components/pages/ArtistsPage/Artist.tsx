@@ -66,12 +66,12 @@ const Artist: React.FC = () => {
 						{paintings[0] ? 
 							<>
 								<Collage paintings={paintings}/>
-								{paintings.length > 9 ?
-								<div className={styles.page_controller}>
-									<PageController page={currentPage} setPage={setCurrentPage} totalPages={totalPages}/>
-								</div>
-								:
-								<></>						
+								{Number(totalPages) > 1 ?
+									<div className={styles.page_controller}>
+										<PageController page={currentPage} setPage={setCurrentPage} totalPages={totalPages}/>
+									</div>
+									:
+									<></>						
 								}
 							</> :
 							<div className={styles.no_public_domain}>

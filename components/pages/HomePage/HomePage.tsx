@@ -185,10 +185,15 @@ export default function HomePage():JSX.Element {
 						<Loading />
 						:
 						fullPaintings[0] ? <div className={styles.collage}><Collage paintings={fullPaintings} /></div> : <></>
-					}	
-					<div className={styles.page_controller}>
-						<PageController page={currentPage} setPage={setCurrentPage} totalPages={pages}/>
-					</div>			
+					}
+					{
+						Number(pages) > 1 ?
+						<div className={styles.page_controller}>
+							<PageController page={currentPage} setPage={setCurrentPage} totalPages={pages}/>
+						</div>
+						:
+						<></>
+					}			
 				</div>
 			</main>
 		</>

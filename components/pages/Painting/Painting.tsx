@@ -68,14 +68,14 @@ export default function Painting():JSX.Element {
 								{(painting.image_id)  ? 
 									<img src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`} className={styles.paintingImg} alt='No image'></img>
 									:
-									<Image src={noImg} height={"790"} className={styles.paintingImg} alt={painting.title} /> 
+									<Image src={noImg} height={"500"} className={styles.paintingImg} alt={painting.title} /> 
 								}
 								{painting.date_end > 0?
-									<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? painting.date_start + ' - ' + painting.date_end : 'No date' }</h3> :
-									<h3 className={styles.dates}>{(painting.date_start && painting.date_end) ? `${painting.date_start + (-painting.date_start * 2)} B.C.` + ' - ' + `${painting.date_end + (-painting.date_end * 2)} B.C.` : 'No date' }</h3>
+									<h3 className={styles.dates}>{painting.date_end ? painting.date_end : 'No date' }</h3> :
+									<h3 className={styles.dates}>{`${painting.date_end + (-painting.date_end * 2)} B.C.`}</h3>
 								}
 								<h3 className={styles.author}>
-									{painting.artist_title}
+									{painting.artist_title ? painting.artist_title : 'No artist'}
 								</h3>
 							</div>
 							<div className={styles.description}>
@@ -91,8 +91,11 @@ export default function Painting():JSX.Element {
 									<dd><span>{painting.title ? painting.title : '-'}</span></dd>
 									<dt><h4>Place</h4></dt>
 									<dd><span>{painting.place_of_origin ? painting.place_of_origin : '-'}</span></dd>
-									<dt><h4>Date</h4></dt>
-									<dd><span>{painting.date_end ?? '-'}</span></dd>
+									<dt><h4>Dates</h4></dt>
+									{painting.date_end > 0?
+										<dd><span>{(painting.date_start && painting.date_end) ? painting.date_start + ' - ' + painting.date_end : 'No date' }</span></dd> :
+										<dd><span>{(painting.date_start && painting.date_end) ? `${painting.date_start + (-painting.date_start * 2)} B.C.` + ' - ' + `${painting.date_end + (-painting.date_end * 2)} B.C.` : 'No date' }</span></dd>
+									}
 									<dt><h4>Medium</h4></dt>
 									<dd><span>{painting.medium_display ?? '-'}</span></dd>
 									<dt><h4>Dimensions</h4></dt>
