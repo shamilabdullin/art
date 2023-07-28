@@ -77,7 +77,7 @@ const Artist: React.FC = () => {
 							<div className={styles.no_public_domain}>
 								<div>
 									<div className={styles.no_public_title}>
-										<h1>Sorry, we haven&apos;t got paintings of this artist in public domain</h1>
+										<h6>Sorry, we haven&apos;t got paintings of this artist in public domain</h6>
 									</div>
 									<Image src={sadSmile} alt='sad smile' width={150} height={150}/>
 								</div>
