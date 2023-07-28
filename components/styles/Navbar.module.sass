@@ -23,6 +23,13 @@
 
 .icon
 	margin-right: 5px
+	width: 20px
+	max-height: 20px
+
+.logo_icon
+	margin-right: 5px
+	height: 40px
+	width: 40px
 
 @media (max-width: 1400px) 
 	.navigation 
@@ -33,10 +40,34 @@
 		padding: $spacing 0
 
 @media (max-width: 992px) 
+	// .icon
+	// 	display: none
+
+@media (max-width: 850px)
+	.navigation 
+		width: 100%
+		justify-content: center	
 	.icon
-		display: none
+		margin-right: 4px
+		max-width: 18px
+	.logo_icon
+		height: 35px
+		width: 35px
 
 @media (max-width: 599px) 
 	.navigation 
+		width: 100%
+		justify-content: center
+
+
 		button
-			font-size: 0.8rem
+			font-size: 0.7rem
+			padding: 5px
+
+	.icon
+		margin-right: 3px
+		max-width: 16px
+
+	.logo_icon
+		height: 30px
+		width: 30px

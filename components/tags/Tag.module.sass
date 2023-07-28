@@ -1,7 +1,7 @@
 @import "styles/variables"
 
 .button_style
-	// height: 30px
+	height: 40px
 	background-color: $base-color-4
 	margin: 4px
 
@@ -27,11 +27,15 @@
 		font-size: 14px
 
 @media (max-width: 850px) 
+	.button_style
+		height: 35px
 	.button_title
 		padding: 6px
 		font-size: 12px
 
-@media (max-width: 599px) 
+@media (max-width: 599px)
+	.button_style
+		height: 30px
 	.button_title
-		padding: 4px
-		font-size: 11px
+		padding: 0px
+		font-size: 10px

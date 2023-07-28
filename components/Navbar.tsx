@@ -24,25 +24,25 @@ export const Navbar = () => {
 		<nav className={styles.navigation} onClick={() => setQuery('')}>
 			<Button bgcolor={buttonColor}>
 				<Link href={'/'} className={classNames(styles.link, styles.navigation_logo)}>
-					<Image src={logo}  alt='homeIcon' width={42} height={42} className={styles.icon}/>
+					<Image src={logo}  alt='homeIcon' className={styles.logo_icon}/>
 					<span>Art</span>
 				</Link>
 			</Button>
 			<Button bgcolor={buttonColor} onClick={() => setQuery('')}>
 			<Link href={'/paintings'} className={styles.link} >
-				<Image src={brushIcon} alt='brushIcon' height={20} className={styles.icon} />
+				<Image src={brushIcon} alt='brushIcon' className={styles.icon} />
 				Paintings
 			</Link>
 			</Button>
 			<Button bgcolor={buttonColor} onClick={() => setQuery('')}>
 				<Link href={'/artists'} className={styles.link} >
-					<Image src={artistIcon} alt='artistIcon' height={20} className={styles.icon} />
+					<Image src={artistIcon} alt='artistIcon' className={styles.icon} />
 					Artists
 				</Link>
 			</Button>
 			<Button bgcolor={buttonColor} onClick={() => setQuery('')}>
 				<Link href={'/aboutUs'} className={styles.link} >
-					<Image src={questionIcon} alt='questionIcon' height={20} className={styles.icon} />
+					<Image src={questionIcon} alt='questionIcon' className={styles.icon} />
 					About me
 				</Link>
 			</Button>

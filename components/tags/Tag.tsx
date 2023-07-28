@@ -28,12 +28,12 @@ export const Tag = ({ style_id, style_title }: TagProps) => {
 		{tag ===  style_id ?
 			<Button 
 				onClick={handleClick} 
-				// className={styles.button_style}
+				className={styles.button_style}
 				size='small'
 				sx={{
 					"margin" : "4px",
 					"backgroundColor" : "#261f27",
-					"height" : "40px",
+					// "height" : "40px",
 					"&:hover" : {
 						backgroundColor: "#261f27",
 						transition: "all 0.3s ease"
@@ -47,12 +47,12 @@ export const Tag = ({ style_id, style_title }: TagProps) => {
 			:
 			<Button 
 				onClick={handleClick} 
-				// className={styles.button_style}
+				className={styles.button_style}
 				size='small'
 				sx={{
 					"margin" : "4px",
 					"backgroundColor" : "#dac6e3",
-					"height" : "40px",
+					// "height" : "40px",
 					"&:hover" : {
 						backgroundColor: "#261f27",
 						transition: "all 0.3s ease"

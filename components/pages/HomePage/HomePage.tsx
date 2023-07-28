@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
 import { paintingsApi } from '@/api/paintings'
 import { useQueryStore } from '@/stateManagement/queryStore'
+import { useBoolean } from '@/hooks/useBoolean'
 
 // CSS
 import styles from './Home.module.sass'
@@ -32,9 +33,11 @@ export default function HomePage():JSX.Element {
 
 	const [fullPaintings, setFullPaintings] = useState <PaintingModel[]> ([]);
 	const [currentPage, setCurrentPage] = useState('1')
-	const [isLoading, setIsLoading] = useState(false)
+	// const [isLoading, setIsLoading] = useState(false)
+	const {value: isLoading, setFalse: setFalseLoading, setTrue: setTrueLoading} = useBoolean(false)
+
 	const [shortPaintings, setShortPaintings] = useState([queryPainting])
-	const [pages, setPages] = useState('1')
+	const [totalPages, setTotalPages] = useState('1')
 
 	const query = useQueryStore(state => state.query)
 	const setQuery = useQueryStore(state => state.setQuery)
@@ -48,33 +51,33 @@ export default function HomePage():JSX.Element {
 	useEffect(() => {
 		if (isQuerySend === false && isTagPressed === false && query === '' && tag === '') {
 			// console.log('useEffect if 1')
-			setIsLoading(true)
+			setTrueLoading()
 			paintingsApi.getPaintingsQuery(query, currentPage)
 			.then(res => {
 				setShortPaintings(res.data)
 				if (res.pagination) {
-					setPages(res.pagination.total_pages)
+					setTotalPages(res.pagination.total_pages)
 					if (currentPage > res.pagination.total_pages) {
 						setCurrentPage('1')
 					}
 				}
-				if (res.data.length === 0) setIsLoading(false)
+				if (res.data.length === 0) setFalseLoading()
 			})
 		}
 
 		if (query !== '' && tag === '') {
 			// console.log('useEffect if query')
-			setIsLoading(true)
+			setTrueLoading()
 			paintingsApi.getPaintingsQuery(query, currentPage)   
 			.then(res => {
 				setShortPaintings(res.data)
 				if (res.pagination) {
-					setPages(res.pagination.total_pages)
+					setTotalPages(res.pagination.total_pages)
 					if (currentPage > res.pagination.total_pages) {
 						setCurrentPage('1')
 					}
 				}
-				if (res.data.length === 0) setIsLoading(false)
+				if (res.data.length === 0) setFalseLoading()
 				// setTag('')
 			})
 		}
@@ -107,17 +110,17 @@ export default function HomePage():JSX.Element {
 	useEffect(() => {         // для работы с тэгами
 		if (tag !== '') {
 			// console.log('useEffect 2')
-			setIsLoading(true)
+			setTrueLoading()
 			paintingsApi.postPaintingsStyle(tag, currentPage)   // будут баги с currentPage
 			.then(res => {
 				setShortPaintings(res.data)
 				if (res.pagination) {
-					setPages(res.pagination.total_pages)
+					setTotalPages(res.pagination.total_pages)
 					if (currentPage > res.pagination.total_pages) {
 						setCurrentPage('1')
 					}
 				}
-				if (res.data.length === 0) setIsLoading(false)
+				if (res.data.length === 0) setFalseLoading()
 			})
 			return () => {
 				//setQuery('')
@@ -128,14 +131,14 @@ export default function HomePage():JSX.Element {
 
 	useEffect(() => {                         // для запросов конкретным картинам
 		if (shortPaintings.length > 1) {
-			setIsLoading(true)
+			setTrueLoading()
 			const ids = shortPaintings.map(queryPainting => queryPainting.id)
 			const request = ids.map(id => paintingsApi.getPainting(id))
 			Promise.all(request)
 				.then(res => {
 					const paintings = res.map(responsiveData => responsiveData.data)
 					setFullPaintings(paintings)
-					setIsLoading(false)
+					setFalseLoading()
 				})
 		}
 	}, [shortPaintings])
@@ -187,9 +190,9 @@ export default function HomePage():JSX.Element {
 						fullPaintings[0] ? <div className={styles.collage}><Collage paintings={fullPaintings} /></div> : <></>
 					}
 					{
-						Number(pages) > 1 ?
+						Number(totalPages) > 1 ?
 						<div className={styles.page_controller}>
-							<PageController page={currentPage} setPage={setCurrentPage} totalPages={pages}/>
+							<PageController page={currentPage} setPage={setCurrentPage} totalPages={totalPages}/>
 						</div>
 						:
 						<></>
