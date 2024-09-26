@@ -27,6 +27,7 @@
     "zustand": "^4.3.7"
   },
   "devDependencies": {
+    "prettier": "3.3.3",
     "sass": "^1.58.3"
   }
 }
