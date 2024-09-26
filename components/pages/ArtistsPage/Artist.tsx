@@ -53,7 +53,6 @@ const Artist: React.FC = () => {
       <div className={styles.artist_page}>
         <div className={styles.container}>
           <div className={styles.artist_name}>
-            {/* <h2>{paintings[0] ? paintings[0].artist_title : 'Artist title'}</h2> */}
             <h1>{currentArtist === '' ? "Artist's title" : currentArtist}</h1>
           </div>
           {isLoading ? (
@@ -94,32 +93,3 @@ const Artist: React.FC = () => {
 }
 
 export default Artist
-
-// const queryPainting: PaintingQueryModel = {
-// 	api_link: '',
-// 	api_model: '',
-// 	id: '444',
-// 	is_boosted: false,
-// 	thumbnail: null,
-// 	timestamp: '',
-// 	title: '',
-// 	_score: 0
-// }
-
-// const painting: PaintingModel = {
-// 	id: 1,
-// 	title: '',
-// 	image_id: '90bc0cec-0d4e-9af5-3912-52a082a428e5',
-// 	artist_title: '',
-// 	category_titles: [''],
-// 	classification_title: '',
-// 	date_end: 0,
-// 	date_start: 0,
-// 	department_title: '',
-// 	dimensions: '',
-// 	exhibition_history: '',
-// 	place_of_origin: '',
-// 	provenance_text: '',
-// 	publication_history: '',
-// 	medium_display: ''
-// }

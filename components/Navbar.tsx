@@ -1,10 +1,11 @@
 import React from 'react'
 
-// Stores, utils, libs
+// Components
 import Link from 'next/link'
 import Button from './artUI/Button'
-import homeIcon from 'public/house-icon-light.svg'
 import Image from 'next/image'
+
+// Stores, utils, libs
 import brushIcon from 'public/brush-icon-light.svg'
 import artistIcon from 'public/artist-icon-light.svg'
 import questionIcon from 'public/question-icon-light.svg'

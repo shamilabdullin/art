@@ -1,14 +1,14 @@
 import React from 'react'
 
-// Stores, utils, libs
-import { TextField } from '@mui/material'
+// Components
 import { Button } from '@mui/material'
-import Link from 'next/link'
+
+// Stores, utils, libs
 import classNames from 'classnames'
+import { useQueryStore } from '@/stateManagement/queryStore'
 
 // CSS
 import styles from './styles/SearchBar.module.sass'
-import { useQueryStore } from '@/stateManagement/queryStore'
 
 type SearchBarProps = {
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -26,9 +26,7 @@ type SearchBarProps = {
 export const SearchBar = ({
   handleQueryChange,
   handleQueryClick,
-  textFieldBackgroundColor,
   buttonBackgroundColor,
-  searchBarLength,
   addLink,
   placeholder,
   formClass,
@@ -43,21 +41,7 @@ export const SearchBar = ({
         <form onSubmit={handleQueryClick} className={formClass}>
           <input
             className={classNames(styles.text_field, inputClass)}
-            // size='small'
             onChange={handleQueryChange}
-            // style={{
-            // 	'backgroundColor' : textFieldBackgroundColor,
-            // 	'width' : `${searchBarLength}px`
-            // }}
-            // sx={{
-            // 	borderRadius: '0px',
-            // 	backgroundColor: textFieldBackgroundColor,
-            // 	"&:focus" : {
-            // 		color: 'green'
-            // 	}
-            // }}
-            // variant='standard'
-            // color='info'
             placeholder={placeholder}
             value={query}
           />
@@ -72,8 +56,7 @@ export const SearchBar = ({
               border: '2px solid white',
               marginLeft: '5px',
               '&:hover': {
-                backgroundColor: '#261f27', // #dac6e3
-                // color: 'black',
+                backgroundColor: '#261f27',
                 transition: 'all 0.3s ease',
                 opacity: '0.8',
               },
@@ -87,21 +70,7 @@ export const SearchBar = ({
           <form onSubmit={handleQueryClick} className={formClass}>
             <input
               className={classNames(styles.text_field, inputClass)}
-              // size='small'
               onChange={handleQueryChange}
-              // style={{
-              // 	'backgroundColor' : textFieldBackgroundColor,
-              // 	'width' : `${searchBarLength}px`
-              // }}
-              // sx={{
-              // 	borderRadius: '0px',
-              // 	backgroundColor: textFieldBackgroundColor,
-              // 	"&:focus" : {
-              // 		color: 'green'
-              // 	}
-              // }}
-              // variant='standard'
-              // color='info'
               placeholder={placeholder}
             />
             <Button
@@ -116,7 +85,6 @@ export const SearchBar = ({
                 marginLeft: '5px',
                 '&:hover': {
                   backgroundColor: '#261f27',
-                  // color: 'black',
                   opacity: '0.8',
                   transition: 'all 0.3s ease',
                 },

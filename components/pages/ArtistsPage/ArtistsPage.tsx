@@ -9,8 +9,6 @@ import { Loading } from '@/components/Loading'
 import { artistsApi } from '@/api/artists'
 import Link from 'next/link'
 import { useArtistStore, useArtistsStore } from '@/stateManagement/artistsStore'
-import { useQueryStore } from '@/stateManagement/queryStore'
-import { useRouter } from 'next/router'
 
 // CSS
 import styles from './ArtistsPage.module.sass'
@@ -19,16 +17,11 @@ export const ArtistsPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [pages, setPages] = useState('1')
   const [query, setQuery] = useState('')
-  // const [queryArtists, setQueryArtists] = useState<ArtistQueryModel[]>([])
   const [isQuerySend, setIsQuerySend] = useState(false)
   const [currentPage, setCurrentPage] = useState('1')
   const addCurrentArtist = useArtistStore((state) => state.addCurrentArtist)
   const artists = useArtistsStore((state) => state.currentArtists)
   const setArtists = useArtistsStore((state) => state.changeCurrentArtists)
-  // const isHeaderQuerySend = useQueryStore(state => state.isSend)
-  // const router = useRouter()
-  // const currentPage = useArtistsStore(state => state.currentPage)
-  // const setCurrentPage = useArtistsStore(state => state.setCurrentPage)
 
   useEffect(() => {
     setIsLoading(true)
@@ -43,10 +36,6 @@ export const ArtistsPage: React.FC = () => {
       .then(() => setIsLoading(false))
   }, [currentPage, isQuerySend])
 
-  // useEffect(() => {
-  // 	if (isHeaderQuerySend) router.push('/')
-  // }, [isHeaderQuerySend])
-
   const artistHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     addCurrentArtist(e.currentTarget.text)
   }
@@ -56,7 +45,6 @@ export const ArtistsPage: React.FC = () => {
   }
 
   const handleQueryClick = (e: React.SyntheticEvent) => {
-    // React.FormEvent<HTMLFormElement>
     e.preventDefault()
     setIsQuerySend(!isQuerySend)
   }
@@ -83,7 +71,6 @@ export const ArtistsPage: React.FC = () => {
                       >
                         {artist.title}
                       </Link>{' '}
-                      {/*onClick={(e) => addCurrentArtist(e.currentTarget.text)*/}
                     </div>
                   ))}
                 </div>
@@ -111,17 +98,3 @@ export const ArtistsPage: React.FC = () => {
     </div>
   )
 }
-
-// useEffect(() => {
-// 	if (queryArtists.length > 1) {
-// 		setIsLoading(true)
-// 		let ids = queryArtists.map(queryArtist => queryArtist.id)
-// 		let request = ids.map(id => artistsApi.getArtist(id))
-// 		Promise.all(request)
-// 			.then(res => {
-// 				const artists = res.map(responsiveData => responsiveData.data)
-// 				setArtists(artists)
-// 				setIsLoading(false)
-// 			})
-// 	}
-// }, [queryArtists])

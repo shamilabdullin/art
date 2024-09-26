@@ -1,5 +1,5 @@
 // Stores, utils, libs
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
 import Link from 'next/link'
 import noImg from 'public/no_img.svg'
@@ -14,7 +14,7 @@ type CollageProps = {
   queryPaintings?: PaintingQueryModel[]
 }
 
-export const Collage = ({ paintings, queryPaintings }: CollageProps) => {
+export const Collage = ({ paintings }: CollageProps) => {
   const setQuery = useQueryStore((state) => state.setQuery)
 
   return (
@@ -34,7 +34,6 @@ export const Collage = ({ paintings, queryPaintings }: CollageProps) => {
                   <p className={styles.painting_title}>
                     <strong>{painting.title}</strong>
                   </p>{' '}
-                  {/* {painting.date_end > 0 ? painting.date_end : `${painting.date_end + painting.date_end * 2} B.C.`} */}
                   <p>{painting.artist_title}</p>
                 </div>
               </Link>
@@ -54,7 +53,6 @@ export const Collage = ({ paintings, queryPaintings }: CollageProps) => {
                   <p className={styles.painting_title}>
                     <strong>{painting.title}</strong>
                   </p>{' '}
-                  {/* {painting.date_end > 0 ? painting.date_end : `${painting.date_end + painting.date_end * 2} B.C.`} */}
                   <p>{painting.artist_title}</p>
                 </div>
               </Link>

@@ -10,8 +10,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { paintingsApi } from '@/api/paintings'
 import { PaintingQueryModel } from '@/types/Paintings'
-import { useQueryStore } from '@/stateManagement/queryStore'
-import { useRouter } from 'next/router'
 
 // CSS
 import styles from './PaintingsPage.module.sass'
@@ -23,9 +21,6 @@ const PaintingsPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [query, setQuery] = useState('')
   const [isQuerySend, setIsQuerySend] = useState(false)
-  // const isHeaderQuerySend = useQueryStore(state => state.isSend)
-  // const router = useRouter()
-  // const [queryPaintings, setQueryPaintings] = useState<PaintingQueryModel[]>([])
 
   useEffect(() => {
     setIsLoading(true)
@@ -40,16 +35,11 @@ const PaintingsPage: React.FC = () => {
       .then(() => setIsLoading(false))
   }, [currentPage, isQuerySend])
 
-  // useEffect(() => {
-  // 	if (isHeaderQuerySend) router.push('/')
-  // }, [isHeaderQuerySend])
-
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value)
   }
 
   const handleQueryClick = (e: React.SyntheticEvent) => {
-    // React.FormEvent<HTMLFormElement>
     e.preventDefault()
     setIsQuerySend(!isQuerySend)
   }
@@ -102,17 +92,3 @@ const PaintingsPage: React.FC = () => {
 }
 
 export default PaintingsPage
-
-// useEffect(() => {
-// 	if (queryPaintings.length > 1) {
-// 		setIsLoading(true)
-// 		let ids = queryPaintings.map(queryPainting => queryPainting.id)
-// 		let requests = ids.map(id => paintingsApi.getPainting(id))
-// 		Promise.all(requests)
-// 			.then(res => {
-// 				const paintings = res.map(responsiveData => responsiveData.data)
-// 				setPaintings(paintings)
-// 				setIsLoading(false)
-// 			})
-// 	}
-// }, [queryPaintings])

@@ -1,6 +1,6 @@
 import { ArtistModel } from '@/types/Artists'
 import { create } from 'zustand'
-import { persist, devtools } from 'zustand/middleware'
+import { devtools } from 'zustand/middleware'
 
 type useArtistStoreState = {
   currentArtist: string
@@ -16,19 +16,13 @@ type useArtistsStoreState = {
 
 const useArtistStore = create<useArtistStoreState>()(
   // need to use persist
-  devtools(
-    (set) => ({
-      // persist(
-      currentArtist: '',
-      addCurrentArtist: (artistName: string) =>
-        set({
-          currentArtist: artistName,
-        }),
-    }),
-    // {
-    // 	name: 'artist-storage'
-    // }
-  ),
+  devtools((set) => ({
+    currentArtist: '',
+    addCurrentArtist: (artistName: string) =>
+      set({
+        currentArtist: artistName,
+      }),
+  })),
 )
 
 const useArtistsStore = create<useArtistsStoreState>()(

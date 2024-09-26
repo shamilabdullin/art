@@ -1,12 +1,11 @@
 import React from 'react'
 
 // Stores, utils, libs
-import { FormControl, InputLabel, MenuItem, Pagination, Select } from '@mui/material'
+import { Pagination } from '@mui/material'
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 
 // CSS
 import styles from './styles/PageController.module.sass'
-import { count } from 'console'
 
 type PageControllerProps = {
   page: string

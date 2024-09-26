@@ -43,12 +43,10 @@ export default function Painting(): JSX.Element {
     if (router.asPath !== router.route) {
       if (typeof router.query.id === 'string') {
         setIsLoading(true)
-        paintingsApi
-          .getPainting(router.query.id) // ?fields=id,title,image_id,date_start,date_end
-          .then((painting) => {
-            setPainting(painting.data)
-            setIsLoading(false)
-          })
+        paintingsApi.getPainting(router.query.id).then((painting) => {
+          setPainting(painting.data)
+          setIsLoading(false)
+        })
       }
     }
   }, [router])

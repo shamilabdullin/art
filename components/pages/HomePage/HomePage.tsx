@@ -3,6 +3,7 @@ import { Collage } from '@/components/Collage'
 import { PageController } from '../../PageController'
 import { SearchBar } from '../../SearchBar'
 import { Loading } from '@/components/Loading'
+import { TagContainer } from '@/components/tags/TagContainer'
 
 // Stores, utils, libs
 import Head from 'next/head'
@@ -11,12 +12,10 @@ import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
 import { paintingsApi } from '@/api/paintings'
 import { useQueryStore } from '@/stateManagement/queryStore'
 import { useBoolean } from '@/hooks/useBoolean'
+import { useTagStore } from '@/stateManagement/tagStore'
 
 // CSS
 import styles from './Home.module.sass'
-import { TagContainer } from '@/components/tags/TagContainer'
-import { useTagStore } from '@/stateManagement/tagStore'
-import { Pagination } from '@mui/material'
 
 const queryPainting: PaintingQueryModel = {
   api_link: '',
@@ -32,7 +31,6 @@ const queryPainting: PaintingQueryModel = {
 export default function HomePage(): JSX.Element {
   const [fullPaintings, setFullPaintings] = useState<PaintingModel[]>([])
   const [currentPage, setCurrentPage] = useState('1')
-  // const [isLoading, setIsLoading] = useState(false)
   const { value: isLoading, setFalse: setFalseLoading, setTrue: setTrueLoading } = useBoolean(false)
 
   const [shortPaintings, setShortPaintings] = useState([queryPainting])
@@ -49,7 +47,6 @@ export default function HomePage(): JSX.Element {
 
   useEffect(() => {
     if (isQuerySend === false && isTagPressed === false && query === '' && tag === '') {
-      // console.log('useEffect if 1')
       setTrueLoading()
       paintingsApi.getPaintingsQuery(query, currentPage).then((res) => {
         setShortPaintings(res.data)
@@ -64,7 +61,6 @@ export default function HomePage(): JSX.Element {
     }
 
     if (query !== '' && tag === '') {
-      // console.log('useEffect if query')
       setTrueLoading()
       paintingsApi.getPaintingsQuery(query, currentPage).then((res) => {
         setShortPaintings(res.data)
@@ -75,55 +71,27 @@ export default function HomePage(): JSX.Element {
           }
         }
         if (res.data.length === 0) setFalseLoading()
-        // setTag('')
       })
     }
 
-    // if (tag !== '' && isQuerySend === false) {
-    // 	console.log('useEffect if tag')
-    // 	setIsLoading(true)
-    // 	paintingsApi.postPaintingsStyle(tag, currentPage)
-    // 	.then(res => {
-    // 		setShortPaintings(res.data)
-    // 		if (res.pagination) {
-    // 			setPages(res.pagination.total_pages)
-    // 			if (currentPage > res.pagination.total_pages) {
-    // 				setCurrentPage('1')
-    // 			}
-    // 		}
-    // 		if (res.data.length === 0) setIsLoading(false)
-    // 		// setQuery('')
-    // 		// setIsTagPressed(true)
-    // 	})
-    // }
-
-    return () => {
-      //setQuery('')
-      //setTag('')
-      //console.log('will component unmount')
-    }
+    return () => {}
   }, [currentPage, isQuerySend])
 
   useEffect(() => {
     // для работы с тэгами
     if (tag !== '') {
-      // console.log('useEffect 2')
       setTrueLoading()
-      paintingsApi
-        .postPaintingsStyle(tag, currentPage) // будут баги с currentPage
-        .then((res) => {
-          setShortPaintings(res.data)
-          if (res.pagination) {
-            setTotalPages(res.pagination.total_pages)
-            if (currentPage > res.pagination.total_pages) {
-              setCurrentPage('1')
-            }
+      paintingsApi.postPaintingsStyle(tag, currentPage).then((res) => {
+        setShortPaintings(res.data)
+        if (res.pagination) {
+          setTotalPages(res.pagination.total_pages)
+          if (currentPage > res.pagination.total_pages) {
+            setCurrentPage('1')
           }
-          if (res.data.length === 0) setFalseLoading()
-        })
-      return () => {
-        //setQuery('')
-      }
+        }
+        if (res.data.length === 0) setFalseLoading()
+      })
+      return () => {}
     }
   }, [tag, currentPage])
 
@@ -163,7 +131,6 @@ export default function HomePage(): JSX.Element {
         <div className={styles.container}>
           <div className={styles.title}>
             <h1 className={styles.title1}>Find your favourite paintings here</h1>
-            {/* <h2 className={styles.title2}>We use artworks from Art Institute of Chicago</h2> */}
           </div>
           <div className={styles.tools}>
             <div className={styles.search_bar}>
@@ -204,21 +171,3 @@ export default function HomePage(): JSX.Element {
     </>
   )
 }
-
-// const painting: PaintingModel = {
-// 	id: 0,
-// 	title: '',
-// 	image_id: '90bc0cec-0d4e-9af5-3912-52a082a428e5',
-// 	artist_title: '',
-// 	category_titles: [''],
-// 	classification_title: '',
-// 	date_end: 0,
-// 	date_start: 0,
-// 	department_title: '',
-// 	dimensions: '',
-// 	exhibition_history: '',
-// 	place_of_origin: '',
-// 	provenance_text: '',
-// 	publication_history: '',
-// 	medium_display: ''
-// }

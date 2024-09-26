@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 //Components
 import { SearchBar } from './SearchBar'
+import { Navbar } from './Navbar'
 
 // Stores, utils, libs
-import { Navbar } from './Navbar'
 import { useQueryStore } from '../stateManagement/queryStore'
 import { useRouter } from 'next/router'
 import { useTagStore } from '@/stateManagement/tagStore'

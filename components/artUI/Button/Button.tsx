@@ -22,6 +22,4 @@ const Button: React.FC<ButtonProps> = ({ children, className, bgcolor, ...props 
   )
 }
 
-//{bgcolor: 'black', color: 'white', }
-
 export default Button

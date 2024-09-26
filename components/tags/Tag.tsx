@@ -32,7 +32,6 @@ export const Tag = ({ style_id, style_title }: TagProps) => {
           sx={{
             margin: '4px',
             backgroundColor: '#261f27',
-            // "height" : "40px",
             '&:hover': {
               backgroundColor: '#261f27',
               transition: 'all 0.3s ease',
@@ -49,7 +48,6 @@ export const Tag = ({ style_id, style_title }: TagProps) => {
           sx={{
             margin: '4px',
             backgroundColor: '#dac6e3',
-            // "height" : "40px",
             '&:hover': {
               backgroundColor: '#261f27',
               transition: 'all 0.3s ease',
