@@ -4,9 +4,7 @@ import React from 'react'
 import { ArtistsPage } from '@/components/pages/ArtistsPage'
 
 const Artists = () => {
-  return (
-	<ArtistsPage />
-  )
+  return <ArtistsPage />
 }
 
 export default Artists

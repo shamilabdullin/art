@@ -1,9 +1,6 @@
 // Components
-import Painting from "@/components/pages/Painting";
+import Painting from '@/components/pages/Painting'
 
 export default function PaintingPage() {
-
-	return (
-		<Painting />
-	)
-};
+  return <Painting />
+}

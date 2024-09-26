@@ -16,92 +16,100 @@ import { useRouter } from 'next/router'
 import styles from './ArtistsPage.module.sass'
 
 export const ArtistsPage: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [pages, setPages] = useState('1')
+  const [query, setQuery] = useState('')
+  // const [queryArtists, setQueryArtists] = useState<ArtistQueryModel[]>([])
+  const [isQuerySend, setIsQuerySend] = useState(false)
+  const [currentPage, setCurrentPage] = useState('1')
+  const addCurrentArtist = useArtistStore((state) => state.addCurrentArtist)
+  const artists = useArtistsStore((state) => state.currentArtists)
+  const setArtists = useArtistsStore((state) => state.changeCurrentArtists)
+  // const isHeaderQuerySend = useQueryStore(state => state.isSend)
+  // const router = useRouter()
+  // const currentPage = useArtistsStore(state => state.currentPage)
+  // const setCurrentPage = useArtistsStore(state => state.setCurrentPage)
 
-	const [isLoading, setIsLoading] = useState(false)
-	const [pages, setPages] = useState('1')
-	const [query, setQuery] = useState('')
-	// const [queryArtists, setQueryArtists] = useState<ArtistQueryModel[]>([])
-	const [isQuerySend, setIsQuerySend] = useState(false)
-	const [currentPage, setCurrentPage] = useState('1')
-	const addCurrentArtist = useArtistStore(state => state.addCurrentArtist)
-	const artists = useArtistsStore(state => state.currentArtists)
-	const setArtists = useArtistsStore(state => state.changeCurrentArtists)
-	// const isHeaderQuerySend = useQueryStore(state => state.isSend)
-	// const router = useRouter()
-	// const currentPage = useArtistsStore(state => state.currentPage)
-	// const setCurrentPage = useArtistsStore(state => state.setCurrentPage)
+  useEffect(() => {
+    setIsLoading(true)
+    artistsApi
+      .getArtistsQuery(query, currentPage)
+      .then((res) => {
+        setArtists(res.data)
+        if (res.pagination) {
+          setPages(res.pagination.total_pages)
+        }
+      })
+      .then(() => setIsLoading(false))
+  }, [currentPage, isQuerySend])
 
-	useEffect(() => {
-		setIsLoading(true)
-		artistsApi.getArtistsQuery(query, currentPage)
-			.then(res => {
-				setArtists(res.data)
-				if (res.pagination) {
-					setPages(res.pagination.total_pages)
-				}
-			})
-			.then(() => setIsLoading(false))
-	}, [currentPage, isQuerySend])
+  // useEffect(() => {
+  // 	if (isHeaderQuerySend) router.push('/')
+  // }, [isHeaderQuerySend])
 
-	// useEffect(() => {
-	// 	if (isHeaderQuerySend) router.push('/')
-	// }, [isHeaderQuerySend])
+  const artistHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    addCurrentArtist(e.currentTarget.text)
+  }
 
-	const artistHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-		addCurrentArtist(e.currentTarget.text)
-	}
+  const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value)
+  }
 
-	const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setQuery(e.target.value)
-	}
+  const handleQueryClick = (e: React.SyntheticEvent) => {
+    // React.FormEvent<HTMLFormElement>
+    e.preventDefault()
+    setIsQuerySend(!isQuerySend)
+  }
 
-	const handleQueryClick = (e: React.SyntheticEvent) => {  // React.FormEvent<HTMLFormElement>
-		e.preventDefault()
-		setIsQuerySend(!isQuerySend)
-	}
-
-  	return (
-  		<div>
-			<div className={styles.artists_page}>
-				<div className={styles.container}>
-					<div className={styles.artists}>
-						<div className={styles.artists_title}>
-							<h1>Find your artist</h1>
-						</div>
-						{isLoading ?
-							<Loading />
-							:
-							<>
-								<div className={styles.artists_list}>
-									{artists.map((artist) => (
-										<div key={artist.id} className={styles.artist}>
-											<Link href={`/artists/${artist.id}`} className={styles.artist_link} onClick={artistHandler}>{artist.title}</Link>  {/*onClick={(e) => addCurrentArtist(e.currentTarget.text)*/}
-										</div>
-									))}
-								</div>
-								<div className={styles.search_bar}>
-									<SearchBar 
-										handleQueryChange={handleQueryChange} 
-										handleQueryClick={handleQueryClick}
-										buttonBackgroundColor='#261f27'
-										searchBarLength='300'
-										addLink={false}
-										placeholder={"Artist's name"}
-										formClass={styles.search_bar_form}
-										inputClass={styles.search_bar_input}
-										buttonClass={styles.search_bar_button}
-									/>	
-								</div>
-								<div className={styles.page_controller}>
-									<PageController page={currentPage} totalPages={pages} setPage={setCurrentPage}/>
-								</div>
-							</>	
-						}
-					</div>
-				</div>
-			</div>
-		</div>
-  	)
+  return (
+    <div>
+      <div className={styles.artists_page}>
+        <div className={styles.container}>
+          <div className={styles.artists}>
+            <div className={styles.artists_title}>
+              <h1>Find your artist</h1>
+            </div>
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <>
+                <div className={styles.artists_list}>
+                  {artists.map((artist) => (
+                    <div key={artist.id} className={styles.artist}>
+                      <Link
+                        href={`/artists/${artist.id}`}
+                        className={styles.artist_link}
+                        onClick={artistHandler}
+                      >
+                        {artist.title}
+                      </Link>{' '}
+                      {/*onClick={(e) => addCurrentArtist(e.currentTarget.text)*/}
+                    </div>
+                  ))}
+                </div>
+                <div className={styles.search_bar}>
+                  <SearchBar
+                    handleQueryChange={handleQueryChange}
+                    handleQueryClick={handleQueryClick}
+                    buttonBackgroundColor="#261f27"
+                    searchBarLength="300"
+                    addLink={false}
+                    placeholder={"Artist's name"}
+                    formClass={styles.search_bar_form}
+                    inputClass={styles.search_bar_input}
+                    buttonClass={styles.search_bar_button}
+                  />
+                </div>
+                <div className={styles.page_controller}>
+                  <PageController page={currentPage} totalPages={pages} setPage={setCurrentPage} />
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 // useEffect(() => {

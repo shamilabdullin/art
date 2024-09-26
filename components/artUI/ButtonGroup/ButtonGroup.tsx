@@ -1,5 +1,5 @@
-import { ButtonGroup as MButtonGroup } from "@mui/material";
+import { ButtonGroup as MButtonGroup } from '@mui/material'
 
 const ButtonGroup = MButtonGroup
 
-export default ButtonGroup;
+export default ButtonGroup
