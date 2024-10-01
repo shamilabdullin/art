@@ -1,13 +1,12 @@
 // Components
-import { Collage } from '@/components/Collage'
-import { PageController } from '../../PageController'
+import { MemoizedPageController } from '../../PageController'
 import { SearchBar } from '../../SearchBar'
 import { Loading } from '@/components/Loading'
 import { TagContainer } from '@/components/tags/TagContainer'
 
 // Stores, utils, libs
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { PaintingModel, PaintingQueryModel } from '@/types/Paintings'
 import { paintingsApi } from '@/api/paintings'
 import { useQueryStore } from '@/stateManagement/queryStore'
@@ -27,6 +26,8 @@ const queryPainting: PaintingQueryModel = {
   title: '',
   _score: 0,
 }
+
+const Collage = lazy(() => import('@/components/Collage'))
 
 export default function HomePage(): JSX.Element {
   const [fullPaintings, setFullPaintings] = useState<PaintingModel[]>([])
@@ -150,18 +151,18 @@ export default function HomePage(): JSX.Element {
           <div className={styles.tags}>
             <TagContainer />
           </div>
-          {isLoading ? (
-            <Loading />
-          ) : fullPaintings[0] ? (
+          <Suspense fallback={<Loading />}>
             <div className={styles.collage}>
               <Collage paintings={fullPaintings} />
             </div>
-          ) : (
-            <></>
-          )}
+          </Suspense>
           {Number(totalPages) > 1 ? (
             <div className={styles.page_controller}>
-              <PageController page={currentPage} setPage={setCurrentPage} totalPages={totalPages} />
+              <MemoizedPageController
+                page={currentPage}
+                setPage={setCurrentPage}
+                totalPages={totalPages}
+              />
             </div>
           ) : (
             <></>

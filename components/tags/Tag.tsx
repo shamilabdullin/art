@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import styles from './Tag.module.sass'
 import { useTagStore } from '@/stateManagement/tagStore'
 import { Button } from '@mui/material'
@@ -9,18 +9,17 @@ type TagProps = {
   style_title: string
 }
 
-export const Tag = ({ style_id, style_title }: TagProps) => {
+export const Tag = React.memo(({ style_id, style_title }: TagProps) => {
   const setTag = useTagStore((state) => state.setTag)
   const tag = useTagStore((state) => state.tag)
   const setQuery = useQueryStore((state) => state.setQuery)
-
   const setIsTagPressed = useTagStore((state) => state.setIsTagPressed)
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setTag(style_id)
     setIsTagPressed(!tag)
     setQuery('')
-  }
+  }, [style_id, tag, setTag, setIsTagPressed, setQuery])
 
   return (
     <>
@@ -59,4 +58,4 @@ export const Tag = ({ style_id, style_title }: TagProps) => {
       )}
     </>
   )
-}
+})

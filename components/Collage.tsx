@@ -60,8 +60,10 @@ export const Collage = ({ paintings }: CollageProps) => {
           )}
         </div>
       ) : (
-        <div className={styles.loading}>Загрузка</div>
+        <div className={styles.loading}>No data</div>
       )}
     </>
   )
 }
+
+export default React.memo(Collage)

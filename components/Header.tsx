@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 //Components
 import { SearchBar } from './SearchBar'
@@ -15,7 +15,6 @@ import styles from './styles/Header.module.sass'
 export const Header: React.FC = () => {
   const [isLocalQuerySend, setIsLocalQuerySend] = useState(false)
 
-  const query = useQueryStore((state) => state.query)
   const setQuery = useQueryStore((state) => state.setQuery)
   const isQuerySend = useQueryStore((state) => state.isSend)
   const setIsQuerySend = useQueryStore((state) => state.setIsSend)
@@ -31,12 +30,15 @@ export const Header: React.FC = () => {
     setQuery(event.target.value)
   }
 
-  const handleQueryClick = (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    setIsQuerySend(!isQuerySend)
-    setIsLocalQuerySend(true)
-    setTag('')
-  }
+  const handleQueryClick = useCallback(
+    (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      setIsQuerySend(!isQuerySend)
+      setIsLocalQuerySend(true)
+      setTag('')
+    },
+    [isQuerySend, setIsQuerySend, setIsLocalQuerySend, setTag],
+  )
 
   return (
     <div className={styles.header}>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // Components
-import { PageController } from '@/components/PageController'
+import { MemoizedPageController } from '@/components/PageController'
 import { SearchBar } from '@/components/SearchBar'
 import { Loading } from '@/components/Loading'
 
@@ -81,7 +81,11 @@ const PaintingsPage: React.FC = () => {
                 />
               </div>
               <div className={styles.page_controller}>
-                <PageController page={currentPage} totalPages={pages} setPage={setCurrentPage} />
+                <MemoizedPageController
+                  page={currentPage}
+                  totalPages={pages}
+                  setPage={setCurrentPage}
+                />
               </div>
             </>
           )}

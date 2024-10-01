@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
 
 // Stores, utils, libs
 import { Pagination } from '@mui/material'
@@ -13,20 +13,28 @@ type PageControllerProps = {
   totalPages: string
 }
 
-export const PageController = ({
-  page,
-  setPage,
-  totalPages,
-}: PageControllerProps): ReactJSXElement => {
+const PageController = ({ page, setPage, totalPages }: PageControllerProps): ReactJSXElement => {
   if (Number(totalPages) > 100) {
     totalPages = '100'
   }
 
-  return (
-    <Pagination
-      page={Number(page)}
-      count={Number(totalPages)}
-      onChange={(e, value) => setPage(value)}
-    />
+  const totalPagesMemoized = useMemo(() => {
+    if (Number(totalPages) > 100) return 100
+    return Number(totalPages)
+  }, [totalPages])
+
+  const pageMemoized = useMemo(() => {
+    return Number(page)
+  }, [page])
+
+  const onChange = useCallback(
+    (e: React.ChangeEvent<unknown>, value: number) => {
+      setPage(value)
+    },
+    [setPage],
   )
+
+  return <Pagination page={pageMemoized} count={totalPagesMemoized} onChange={onChange} />
 }
+
+export const MemoizedPageController = React.memo(PageController)

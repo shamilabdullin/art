@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 // Components
 import { Collage } from '@/components/Collage'
 import { Loading } from '@/components/Loading'
-import { PageController } from '@/components/PageController'
+import { MemoizedPageController } from '@/components/PageController'
 import Image from 'next/image'
 
 // Stores, utils, libs
@@ -64,7 +64,7 @@ const Artist: React.FC = () => {
                   <Collage paintings={paintings} />
                   {Number(totalPages) > 1 ? (
                     <div className={styles.page_controller}>
-                      <PageController
+                      <MemoizedPageController
                         page={currentPage}
                         setPage={setCurrentPage}
                         totalPages={totalPages}

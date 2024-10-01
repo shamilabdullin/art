@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // Components
-import { PageController } from '@/components/PageController'
+import { MemoizedPageController } from '@/components/PageController'
 import { SearchBar } from '@/components/SearchBar'
 import { Loading } from '@/components/Loading'
 
@@ -19,6 +19,7 @@ export const ArtistsPage: React.FC = () => {
   const [query, setQuery] = useState('')
   const [isQuerySend, setIsQuerySend] = useState(false)
   const [currentPage, setCurrentPage] = useState('1')
+
   const addCurrentArtist = useArtistStore((state) => state.addCurrentArtist)
   const artists = useArtistsStore((state) => state.currentArtists)
   const setArtists = useArtistsStore((state) => state.changeCurrentArtists)
@@ -88,7 +89,11 @@ export const ArtistsPage: React.FC = () => {
                   />
                 </div>
                 <div className={styles.page_controller}>
-                  <PageController page={currentPage} totalPages={pages} setPage={setCurrentPage} />
+                  <MemoizedPageController
+                    page={currentPage}
+                    totalPages={pages}
+                    setPage={setCurrentPage}
+                  />
                 </div>
               </>
             )}
