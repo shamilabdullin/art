@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // Components
 import { MemoizedPageController } from '@/components/PageController'
-import { SearchBar } from '@/components/SearchBar'
+import SearchBar from '@/components/SearchBar'
 import { Loading } from '@/components/Loading'
 
 // Stores, utils, libs

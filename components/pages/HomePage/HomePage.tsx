@@ -1,6 +1,6 @@
 // Components
 import { MemoizedPageController } from '../../PageController'
-import { SearchBar } from '../../SearchBar'
+import SearchBar from '../../SearchBar'
 import { Loading } from '@/components/Loading'
 import { TagContainer } from '@/components/tags/TagContainer'
 
@@ -33,7 +33,6 @@ export default function HomePage(): JSX.Element {
   const [fullPaintings, setFullPaintings] = useState<PaintingModel[]>([])
   const [currentPage, setCurrentPage] = useState('1')
   const { value: isLoading, setFalse: setFalseLoading, setTrue: setTrueLoading } = useBoolean(false)
-
   const [shortPaintings, setShortPaintings] = useState([queryPainting])
   const [totalPages, setTotalPages] = useState('1')
 
