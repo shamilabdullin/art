@@ -9,7 +9,7 @@ type TagProps = {
   style_title: string
 }
 
-export const Tag = React.memo(({ style_id, style_title }: TagProps) => {
+const Tag = ({ style_id, style_title }: TagProps) => {
   const setTag = useTagStore((state) => state.setTag)
   const tag = useTagStore((state) => state.tag)
   const setQuery = useQueryStore((state) => state.setQuery)
@@ -58,4 +58,6 @@ export const Tag = React.memo(({ style_id, style_title }: TagProps) => {
       )}
     </>
   )
-})
+}
+
+export default React.memo(Tag)

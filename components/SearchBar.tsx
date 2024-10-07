@@ -23,31 +23,58 @@ type SearchBarProps = {
   buttonClass?: string
 }
 
-export const SearchBar = React.memo(
-  ({
-    handleQueryChange,
-    handleQueryClick,
-    buttonBackgroundColor,
-    addLink,
-    placeholder,
-    formClass,
-    inputClass,
-    buttonClass,
-  }: SearchBarProps) => {
-    const query = useQueryStore((state) => state.query)
+const SearchBar = ({
+  handleQueryChange,
+  handleQueryClick,
+  buttonBackgroundColor,
+  addLink,
+  placeholder,
+  formClass,
+  inputClass,
+  buttonClass,
+}: SearchBarProps) => {
+  const query = useQueryStore((state) => state.query)
 
-    return (
-      <div>
-        {addLink ? (
+  return (
+    <div>
+      {addLink ? (
+        <form onSubmit={handleQueryClick} className={formClass}>
+          <input
+            className={classNames(styles.text_field, inputClass)}
+            onChange={handleQueryChange}
+            placeholder={placeholder}
+            value={query}
+          />
+          <Button
+            size="large"
+            onClick={handleQueryClick}
+            type="button"
+            variant="contained"
+            className={buttonClass}
+            sx={{
+              backgroundColor: buttonBackgroundColor,
+              border: '2px solid white',
+              marginLeft: '5px',
+              '&:hover': {
+                backgroundColor: '#261f27',
+                transition: 'all 0.3s ease',
+                opacity: '0.8',
+              },
+            }}
+          >
+            Search
+          </Button>
+        </form>
+      ) : (
+        <div>
           <form onSubmit={handleQueryClick} className={formClass}>
             <input
               className={classNames(styles.text_field, inputClass)}
               onChange={handleQueryChange}
               placeholder={placeholder}
-              value={query}
             />
             <Button
-              size="large"
+              size="medium"
               onClick={handleQueryClick}
               type="button"
               variant="contained"
@@ -58,45 +85,18 @@ export const SearchBar = React.memo(
                 marginLeft: '5px',
                 '&:hover': {
                   backgroundColor: '#261f27',
-                  transition: 'all 0.3s ease',
                   opacity: '0.8',
+                  transition: 'all 0.3s ease',
                 },
               }}
             >
               Search
             </Button>
           </form>
-        ) : (
-          <div>
-            <form onSubmit={handleQueryClick} className={formClass}>
-              <input
-                className={classNames(styles.text_field, inputClass)}
-                onChange={handleQueryChange}
-                placeholder={placeholder}
-              />
-              <Button
-                size="medium"
-                onClick={handleQueryClick}
-                type="button"
-                variant="contained"
-                className={buttonClass}
-                sx={{
-                  backgroundColor: buttonBackgroundColor,
-                  border: '2px solid white',
-                  marginLeft: '5px',
-                  '&:hover': {
-                    backgroundColor: '#261f27',
-                    opacity: '0.8',
-                    transition: 'all 0.3s ease',
-                  },
-                }}
-              >
-                Search
-              </Button>
-            </form>
-          </div>
-        )}
-      </div>
-    )
-  },
-)
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default React.memo(SearchBar)

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
 //Components
-import { SearchBar } from './SearchBar'
+import SearchBar from './SearchBar'
 import { Navbar } from './Navbar'
 
 // Stores, utils, libs
