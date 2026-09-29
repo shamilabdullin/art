@@ -27,7 +27,7 @@ const PaintingInfo = ({ painting }: PaintingInfoProps) => {
         </div>
         {painting?.image_id ? (
           <img
-            src={`https://www.artic.edu/iiif/2/${painting?.image_id}/full/843,/0/default.jpg`}
+            src={`/api/image/${painting.image_id}`}
             className={styles.paintingImg}
             alt="No image"
           ></img>

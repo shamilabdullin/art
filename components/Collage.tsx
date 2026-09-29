@@ -45,7 +45,7 @@ export const Collage = ({ paintings }: CollageProps) => {
                 onClick={() => setQuery('')}
               >
                 <img
-                  src={`https://www.artic.edu/iiif/2/${painting.image_id}/full/843,/0/default.jpg`}
+                  src={`/api/image/${painting.image_id}`}
                   className={styles.contain}
                   alt="No image"
                 />
